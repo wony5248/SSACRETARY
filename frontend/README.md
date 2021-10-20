@@ -1,5 +1,5 @@
 # Directory Structure
-
+```
 ├── public/
 │   
 ├── src/
@@ -17,7 +17,7 @@
 │       └── Userprofile           // 사용자 프로필
 │   ├── store               // redux용 디렉토리  
 └── └── utils               // axios 디렉토리
-
+```
 
 ## Available Scripts
 
