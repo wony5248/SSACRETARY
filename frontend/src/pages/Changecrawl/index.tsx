@@ -1,12 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import AAtag from "../../components/Atag"
-const Atag = styled.a`
-  color: black;
-  &:visited {
-    color: #a3cca3;
-  }
-`
+
 
 const ChangeCrawl =  () => {
     return(
