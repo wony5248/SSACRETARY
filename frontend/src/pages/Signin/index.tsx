@@ -8,8 +8,10 @@ const SignIn = () => {
     email: "",
     password: "",
   });
+
   const { email, password } = inputs;
-  const onChange = (event: any) => {
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
     setInputs({
       ...inputs,
