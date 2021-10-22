@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 
-const SignIn = () => {
+const SignIn: React.FunctionComponent = () => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
