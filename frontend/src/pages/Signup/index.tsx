@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "./index.css";
 
-const SignUp = () => {
+const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   const [inputs, setInputs] = useState({
     email: "",
     nickname: "",
@@ -14,7 +15,7 @@ const SignUp = () => {
 
   const { email, nickname, password, passwordCheck, phone } = inputs;
 
-  const onChange = (event: any) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
     setInputs({
       ...inputs,
@@ -24,7 +25,9 @@ const SignUp = () => {
   const onEmailCheck = () => {};
   const onNicknameCheck = () => {};
   const onPhoneCheck = () => {};
-  const onSingUp = () => {};
+  const onSingUp = ({ history }: RouteComponentProps) => {
+    history.push("/settingprofile");
+  };
   const onGoBack = () => {};
 
   return (
@@ -88,4 +91,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default withRouter(SignUp);
