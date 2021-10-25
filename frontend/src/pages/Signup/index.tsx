@@ -8,6 +8,7 @@ import {
   axiosOnEmailCheck,
   axiosOnNicknameCheck,
   axiosOnPhoneNumberCheck,
+  axiosOnSignUp,
 } from "../../utils/axios";
 
 const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
@@ -111,7 +112,6 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   };
 
   const onSignUp = () => {
-    console.log("signup");
     if (emailCheck !== "available") {
       setMessage("Email check failed");
       return;
@@ -129,7 +129,17 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
         return;
       }
     }
-    props.history.push("/settingprofile");
+    axiosOnSignUp(email, nickname, password, passwordCheck, phone)
+      .then((res: any) => {
+        if (res.status === 200) {
+          props.history.push("/");
+        } else {
+          setMessage(res.data.message);
+        }
+      })
+      .catch((error: any) => {
+        setMessage(error.response.data.error);
+      });
   };
 
   const onGoBack = () => {
@@ -166,13 +176,13 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
       {emailValidCheck === "waiting" ? (
         <div>
           <TextField
-            name="email"
-            label="Email"
+            name="emailInputNum"
+            label="Validation Number"
             style={{ marginRight: "10px", width: "200px" }}
             required={true}
             onChange={onChange}
           />
-          <Button></Button>
+          <Button style={{ marginLeft: "10px" }}>Valid</Button>
         </div>
       ) : null}
       <CommonDiv>
@@ -252,8 +262,9 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
         </div>
       </CommonDiv>
       <CommonDiv>
-        {" "}
-        {message !== "" ? <Alert severity="error">{message}</Alert> : null}{" "}
+        {message.trim() !== "" ? (
+          <Alert severity="error">{message}</Alert>
+        ) : null}
       </CommonDiv>
       <CommonDiv>
         <Button
