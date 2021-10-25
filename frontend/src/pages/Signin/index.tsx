@@ -42,6 +42,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
 
   return (
     <Container>
+      <img src={Logo} width="200px" height="200px"></img>
       <HeadlineH1>SIGN IN</HeadlineH1>
       <CommonDiv>
         <TextField
