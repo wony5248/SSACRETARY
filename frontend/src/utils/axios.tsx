@@ -2,7 +2,7 @@ import axios from "axios";
 import { BASE_URL } from "./statics";
 
 const axiosOnSignIn = function (email: String, password: String) {
-  axios({
+  return axios({
     method: "POST",
     url: BASE_URL + "/user/login",
     data: {

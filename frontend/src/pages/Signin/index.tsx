@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Alert, Button, TextField } from "@mui/material";
+import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+import { axiosOnSignIn } from "../../utils/axios";
 
-const SignIn: React.FunctionComponent = () => {
+const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
   });
 
   const { email, password } = inputs;
+
+  const [message, setMessage] = useState({
+    message: "",
+  });
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -20,10 +24,13 @@ const SignIn: React.FunctionComponent = () => {
   };
 
   const onSignIn = function () {
-    setInputs({
-      email: "",
-      password: "",
-    });
+    axiosOnSignIn(email, password)
+      .then((res) => {
+        if (res.status === 200) {
+          props.history.push("/settingprofile");
+        }
+      })
+      .catch(({ response }) => {});
   };
 
   return (
@@ -46,6 +53,9 @@ const SignIn: React.FunctionComponent = () => {
           value={password}
           required
         />
+      </div>
+      <div>
+        <Alert severity="error">This is an error alert — check it out!</Alert>
       </div>
       <div>
         <Button variant="contained" color="primary" onClick={onSignIn}>
