@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import { TextField, Button, Alert } from "@mui/material";
 import { HeadlineH1 } from "../../components/Headline/index";
 import { CommonDiv } from "../../components/CommonDiv/index";
 import { Container } from "../../components/Container/index";
@@ -30,6 +29,8 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
 
   const { emailCheck, nicknameCheck, phoneCheck } = checks;
 
+  const [message, setMessage] = useState("");
+
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
     setInputs({
@@ -41,16 +42,62 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   const onEmailCheck = () => {
     axiosOnEmailCheck(email)
       .then((res: any) => {
-        console.log(res);
+        if (res.status === 201) {
+          setChecks({
+            ...checks,
+            ["emailCheck"]: "available",
+          });
+        } else {
+          setChecks({
+            ...checks,
+            ["emailCheck"]: "not Available",
+          });
+        }
       })
       .catch((error: any) => {
         console.log(error);
       });
   };
 
-  const onNicknameCheck = () => {};
+  const onNicknameCheck = () => {
+    axiosOnNicknameCheck(nickname)
+      .then((res: any) => {
+        if (res.status === 201) {
+          setChecks({
+            ...checks,
+            ["nicknameCheck"]: "available",
+          });
+        } else {
+          setChecks({
+            ...checks,
+            ["nicknameCheck"]: "not Available",
+          });
+        }
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
 
-  const onPhoneCheck = () => {};
+  const onPhoneCheck = () => {
+    axiosOnPhoneNumberCheck(phone)
+      .then((res: any) => {
+        if (res.status === 201) {
+          setChecks({
+            ...checks,
+            ["phoneCheck"]: "available",
+          });
+        } else {
+          setChecks({
+            ...checks,
+            ["phoneCheck"]: "not Available",
+          });
+        }
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
 
   const onSingUp = () => {
     props.history.push("/settingprofile");
@@ -66,14 +113,18 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
       <CommonDiv>
         <div style={{ display: "flex" }}>
           <TextField
+            error={emailCheck === "not available" ? true : false}
             name="email"
             label="Email"
             style={{ marginRight: "10px", width: "200px" }}
             required={true}
             onChange={onChange}
+            helperText={
+              emailCheck === "not available" ? "Your email isn't available" : ""
+            }
           />
           <Button
-            style={{ marginLeft: "10px" }}
+            style={{ marginLeft: "10px", height: "55px" }}
             variant="contained"
             size="small"
             color={emailCheck === "available" ? "success" : "primary"}
@@ -86,16 +137,22 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
       <CommonDiv>
         <div style={{ display: "flex" }}>
           <TextField
+            error={emailCheck === "not available" ? true : false}
             name="nickname"
             label="Nickname"
             style={{ marginRight: "10px", width: "200px" }}
             required={true}
             onChange={onChange}
+            helperText={
+              emailCheck === "not available"
+                ? "Your nickname isn't available"
+                : ""
+            }
           />
           <Button
             name="nickname"
             variant="contained"
-            style={{ marginLeft: "10px" }}
+            style={{ marginLeft: "10px", height: "55px" }}
             size="small"
             color={nicknameCheck === "available" ? "success" : "primary"}
             onClick={onNicknameCheck}
@@ -131,15 +188,21 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
       <CommonDiv>
         <div style={{ display: "flex" }}>
           <TextField
+            error={emailCheck === "not available" ? true : false}
             name="phone"
             label="Phone"
             style={{ marginRight: "10px", width: "200px" }}
             onChange={onChange}
+            helperText={
+              emailCheck === "not available"
+                ? "Your phone number isn't available"
+                : ""
+            }
           />
           <Button
             variant="contained"
             size="small"
-            style={{ marginLeft: "10px" }}
+            style={{ marginLeft: "10px", height: "55px" }}
             color={phoneCheck === "available" ? "success" : "primary"}
             onClick={onPhoneCheck}
           >
@@ -147,6 +210,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           </Button>
         </div>
       </CommonDiv>
+      <CommonDiv></CommonDiv>
       <div style={{ marginTop: "40px" }}>
         <CommonDiv>
           <Button variant="contained" style={{ width: "200px" }}>
