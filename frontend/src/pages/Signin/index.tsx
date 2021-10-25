@@ -52,7 +52,7 @@ const SignIn: React.FunctionComponent = () => {
           SING IN
         </Button>
       </div>
-      <Link to="/signup">
+      <Link style={{ color: "inherit", textDecoration: "none" }} to="/signup">
         <Button variant="outlined" color="primary">
           CREATE ACCOUNT
         </Button>
