@@ -22,6 +22,7 @@ const StyledMenu = styled.nav`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items:flex-start;
   background: #e6f5ff;
   transform: ${(props: ITest) =>
     props.open ? "translateX(0)" : "translateX(-100%)"};
@@ -108,25 +109,25 @@ const Menu = (props: any) => {
         <span role="img" aria-label="about us">
           💁🏻‍♂️
         </span>
-        Changecrawl
+        Change Crawl
       </a>
       <a href="/makecrawl">
         <span role="img" aria-label="control">
           🕹️
         </span>
-        Makecrawl
+        Make Crawl
       </a>
       <a href="/settingprofile">
         <span role="img" aria-label="about us">
-          💁🏻‍♂️
+        ⚙️
         </span>
-        Settingprofile
+        Setting Crawl
       </a>
       <a href="/specificcrawling">
         <span role="img" aria-label="control">
           🕹️
         </span>
-        Specificcrawl
+        Specific Crawl
       </a>
       <a href="/userprofile">
         <span role="img" aria-label="control">
@@ -172,7 +173,7 @@ function AppAppBar() {
             {"SSACRETARY"}
           </Link>
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-          <Avatar sx={{bgcolor:deepOrange[500]}}>H</Avatar>
+          <Avatar sx={{bgcolor:deepOrange[500]}}>A</Avatar>
           </Box>
         </Toolbar>
       </AppBar>

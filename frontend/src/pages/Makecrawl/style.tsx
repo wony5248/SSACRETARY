@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export const Userprofilediv = styled.div`
+export const Userprofilediv1 = styled.div`
     display:flex;
     align-items: center;
     margin-top: 24px;
@@ -10,7 +10,7 @@ export const Userprofilediv = styled.div`
     font-style:medium;
     font-family:Roboto;
 `;
-export const Formdiv = styled.div`
+export const Formdiv1 = styled.div`
     display : flex;
     flex-direction: column;
     border:1px solid #D8D8D8;
@@ -24,7 +24,7 @@ export const Formdiv = styled.div`
     margin-bottom:48px;
     border-radius: 8px;
 `;
-export const Checkbtn = styled.button`
+export const Checkbtn1 = styled.button`
     border: 1px solid #6200EE;
     width: 20%;
     color:white;
@@ -32,7 +32,7 @@ export const Checkbtn = styled.button`
     background-color:#6200EE;
 `;
 
-export const Styledbtn = styled.button`
+export const Styledbtn1 = styled.button`
   margin-top: 24px;
   background-color: #D62B4B;
   color: white;

@@ -15,7 +15,7 @@ export const Bodydiv = styled.div`
     width: 90%;
     overflow: auto;
     border-radius: 8px;
-    border : 1px solid black;
+    border : 1px solid #D8D8D8;
 `;
 export const Settingdiv = styled.div`
     border: 1px solid #6200EE;
@@ -42,7 +42,10 @@ export const Settingtagdiv = styled.div`
 export const Settingtag = styled.div`
     background-color: #6200EE;
     color: white;
+    padding: 0 4px;
     display:flex;
+    justify-content:center;
+    min-width:40px;
     margin-right:12px;
     align-items:center;
     border: none;
