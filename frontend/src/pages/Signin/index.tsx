@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../../assets/logo.png"
+import { Alert, Button, TextField } from "@mui/material";
+import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+import { axiosOnSignIn } from "../../utils/axios";
+import { HeadlineH1, Container, CommonDiv } from "./style";
 
-const SignIn: React.FunctionComponent = () => {
+const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
   });
 
   const { email, password } = inputs;
+
+  const [message, setMessage] = useState("");
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -22,19 +25,25 @@ const SignIn: React.FunctionComponent = () => {
   };
 
   const onSignIn = function () {
-    setInputs({
-      email: "",
-      password: "",
-    });
+    axiosOnSignIn(email, password)
+      .then((res: any) => {
+        if (res.data.statusCode == 200) {
+          localStorage.setItem("jwt", res.data.token);
+          localStorage.setItem("userInfo", res.data.userInfo);
+          props.history.push("/settingprofile");
+        } else {
+          setMessage(res.data.message);
+        }
+      })
+      .catch((error: any) => {
+        setMessage(error.response.data.error);
+      });
   };
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <img src = {Logo} width="200px" height="200px"></img>
-      <h1 className="headline">SIGN IN</h1>
-      <div>
+    <Container>
+      <HeadlineH1>SIGN IN</HeadlineH1>
+      <CommonDiv>
         <TextField
           label="Email"
           name="email"
@@ -42,8 +51,8 @@ const SignIn: React.FunctionComponent = () => {
           value={email}
           required
         />
-      </div>
-      <div>
+      </CommonDiv>
+      <CommonDiv>
         <TextField
           label="Password"
           name="password"
@@ -51,19 +60,38 @@ const SignIn: React.FunctionComponent = () => {
           value={password}
           required
         />
-      </div>
-      <div>
-        <Button variant="contained" color="primary" onClick={onSignIn}>
-          SING IN
-        </Button>
-      </div>
-      <Link to="/signup">
-        <Button variant="outlined" color="primary">
-          CREATE ACCOUNT
-        </Button>
-      </Link>
-    </div>
+      </CommonDiv>
+      <CommonDiv>
+        {message !== "" ? <Alert severity="error">{message}</Alert> : null}
+      </CommonDiv>
+      <CommonDiv>
+        <div>
+          <Button
+            style={{ width: "200px" }}
+            variant="contained"
+            color="primary"
+            onClick={onSignIn}
+          >
+            SING IN
+          </Button>
+        </div>
+        <div>
+          <Link
+            style={{ color: "inherit", textDecoration: "none" }}
+            to="/signup"
+          >
+            <Button
+              style={{ width: "200px" }}
+              variant="outlined"
+              color="primary"
+            >
+              CREATE ACCOUNT
+            </Button>
+          </Link>
+        </div>
+      </CommonDiv>
+    </Container>
   );
 };
 
-export default SignIn;
+export default withRouter(SignIn);
