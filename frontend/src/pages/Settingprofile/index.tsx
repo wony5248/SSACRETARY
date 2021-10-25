@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import AAtag from "../../components/Atag";
 import { useMediaQuery } from "react-responsive";
+import TagIcon from '@mui/icons-material/Tag';
 import AppAppBar from "../../views/AppAppBar";
 import {
   Headerdiv,
@@ -68,7 +69,7 @@ const data = [
     tag4: "뷰"
 	}
 ];
-const SettingProfile = () => {
+const SettingProfile: React.FunctionComponent = () => {
   const Click = () => {
     console.log("clicked");
   };
@@ -90,10 +91,10 @@ const SettingProfile = () => {
                 <Settingdiv>
                 <Settingtitlediv>{item.title}</Settingtitlediv>
                 <Settingtagdiv>
-                  <Settingtag>{item.tag1}</Settingtag>
-                  <Settingtag>{item.tag2}</Settingtag>
-                  <Settingtag>{item.tag3}</Settingtag>
-                  <Settingtag>{item.tag4}</Settingtag>
+                  <Settingtag>#️{item.tag1}</Settingtag>
+                  <Settingtag>#️{item.tag2}</Settingtag>
+                  <Settingtag>#️{item.tag3}</Settingtag>
+                  <Settingtag>#️{item.tag4}</Settingtag>
                 </Settingtagdiv>
               </Settingdiv>
             ))}

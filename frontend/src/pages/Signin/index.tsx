@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
 
 const SignIn: React.FunctionComponent = () => {
   const [inputs, setInputs] = useState({
@@ -27,7 +29,9 @@ const SignIn: React.FunctionComponent = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <h1 className="headline">SIGN IN</h1>
       <div>
         <TextField

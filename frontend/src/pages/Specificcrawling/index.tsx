@@ -50,7 +50,7 @@ const card = (
   </React.Fragment>
 );
 
-const SettingProfile = () => {
+const SettingProfile: React.FunctionComponent = () => {
   const Click = () => {
     console.log("clicked");
   };
@@ -58,7 +58,7 @@ const SettingProfile = () => {
   return (
     <div>
       <AppAppBar />
-      <Desktop>this page is SettingProfile page</Desktop>
+      <Desktop>this page is Specificcrawl page</Desktop>
       <Mobile>
         <div
           style={{
