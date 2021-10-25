@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Alert, Button, TextField } from "@mui/material";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import { axiosOnSignIn } from "../../utils/axios";
-import { HeadlineH1, Container, CommonDiv } from "./style";
+import { HeadlineH1 } from "../../components/Headline/index";
+import { CommonDiv } from "../../components/CommonDiv/index";
+import { Container } from "../../components/Container/index";
 
 const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   const [inputs, setInputs] = useState({

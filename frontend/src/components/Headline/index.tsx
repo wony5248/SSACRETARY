@@ -1,4 +1,6 @@
-.headline {
+import styled from "styled-components";
+
+export const HeadlineH1 = styled.h1`
   width: 80px;
   height: 24px;
   overflow: visible;
@@ -13,4 +15,4 @@
   letter-spacing: 0.15000000596046448px;
   line-height: 1.2;
   text-align: left;
-}
+`;
