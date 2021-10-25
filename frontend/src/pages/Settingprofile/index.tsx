@@ -9,7 +9,7 @@ import {
   Settingdiv,
   Settingtitlediv,
   Settingtagdiv,
-  Settingtag
+  Settingtag,
 } from "./style";
 import Btn from "../../components/Button";
 const Desktop = ({ children }: any) => {
@@ -24,7 +24,50 @@ const Mobile = ({ children }: any) => {
   const isMobile = useMediaQuery({ maxWidth: 612 });
   return isMobile ? children : null;
 };
-
+const data = [
+	{
+		title: '제목1',
+		tag1: 'MySQL',
+		tag2: "스프링",
+    tag3: "리액트",
+    tag4: "뷰"
+	},
+  {
+		title: '제목2',
+		tag1: 'MySQL',
+		tag2: "스프링",
+    tag3: "리액트",
+    tag4: "뷰"
+	},
+  {
+		title: '제목3',
+		tag1: 'MySQL',
+		tag2: "스프링",
+    tag3: "리액트",
+    tag4: "뷰"
+	},
+  {
+		title: '제목4',
+		tag1: 'MySQL',
+		tag2: "스프링",
+    tag3: "리액트",
+    tag4: "뷰"
+	},
+  {
+		title: '제목5',
+		tag1: 'MySQL',
+		tag2: "스프링",
+    tag3: "리액트",
+    tag4: "뷰"
+	},
+  {
+		title: '제목1',
+		tag1: 'MySQL',
+		tag2: "스프링",
+    tag3: "리액트",
+    tag4: "뷰"
+	}
+];
 const SettingProfile = () => {
   const Click = () => {
     console.log("clicked");
@@ -43,16 +86,17 @@ const SettingProfile = () => {
         >
           <Headerdiv>Crawlings</Headerdiv>
           <Bodydiv>
-            <Settingdiv>
-              <Settingtitlediv>Title1</Settingtitlediv>
-              <Settingtagdiv><Settingtag>tag1</Settingtag></Settingtagdiv>
-            </Settingdiv>
-            <Settingdiv></Settingdiv>
-            <Settingdiv></Settingdiv>
-            <Settingdiv></Settingdiv>
-            <Settingdiv></Settingdiv>
-            <Settingdiv></Settingdiv>
-            <Settingdiv></Settingdiv>
+            {data.map((item, key) => (
+                <Settingdiv>
+                <Settingtitlediv>{item.title}</Settingtitlediv>
+                <Settingtagdiv>
+                  <Settingtag>{item.tag1}</Settingtag>
+                  <Settingtag>{item.tag2}</Settingtag>
+                  <Settingtag>{item.tag3}</Settingtag>
+                  <Settingtag>{item.tag4}</Settingtag>
+                </Settingtagdiv>
+              </Settingdiv>
+            ))}
           </Bodydiv>
           <Btn onClick={Click} name="Make Crawl"></Btn>
         </div>

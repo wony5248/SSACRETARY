@@ -29,17 +29,21 @@ export const Settingtitlediv = styled.div`
     width: 100%;
     border-radius: 8px;
     margin-top:4px;
+    padding-left:4px;
     margin-bottom: 12px;
 `;
 export const Settingtagdiv = styled.div`
     border-radius: 8px;
     display: flex;
+    padding-left:4px;
+    justify-content:flex-start
+    
 `;
 export const Settingtag = styled.div`
     background-color: #6200EE;
     color: white;
-    text-align:center;
     display:flex;
+    margin-right:12px;
     align-items:center;
     border: none;
     width:auto;
