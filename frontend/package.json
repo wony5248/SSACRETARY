@@ -5,7 +5,13 @@
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
+<<<<<<< HEAD
+    "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
+    "@mui/styles": "^5.0.1",
+=======
+    "@mui/material": "^5.0.4",
+>>>>>>> d173eae38493e2694a05d487d1c583b4caddb38a
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -15,7 +21,9 @@
     "@types/react-dom": "^17.0.0",
     "axios": "^0.23.0",
     "dotenv": "^8.2.0",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
+    "react-burger-menu": "^3.0.6",
     "react-dom": "^17.0.2",
     "react-responsive": "^9.0.0-beta.4",
     "react-router-dom": "^5.3.0",
@@ -49,7 +57,9 @@
     ]
   },
   "devDependencies": {
+    "@types/material-ui": "^0.21.11",
     "@types/react-router-dom": "^5.3.1",
+    "@types/react-tap-event-plugin": "^0.0.31",
     "@types/styled-components": "^5.1.15",
     "babel-plugin-styled-components": "^1.13.2",
     "gh-pages": "^3.2.3"

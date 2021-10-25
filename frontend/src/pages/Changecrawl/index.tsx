@@ -1,31 +1,30 @@
-import React from 'react';
-import styled from 'styled-components';
-import AAtag from "../../components/Atag"
-
-
-const ChangeCrawl =  () => {
-    return(
-        <div>
-            this page is ChangeCrawl page
-            <br/>
-            <AAtag href="/" name = "SignIn"></AAtag>
-            <br/>
-            <AAtag href="/signup" name = "SignUp"></AAtag>
-            <br/>
-            <AAtag href="/changecrawl" name = "ChangeCrawl"></AAtag>
-            <br/>
-            <AAtag href="/makecrawl" name = "MakeCrawl"></AAtag>
-            <br/>
-            <AAtag href="/log" name = "Log"></AAtag>
-            <br/>
-            <AAtag href="/settingprofile" name = "SettingProfile"></AAtag>
-            <br/>
-            <AAtag href="/specificcrawling" name = "Specificcrawling"></AAtag>
-            <br/>
-            <AAtag href="/userprofile" name = "UserProfile"></AAtag>
-        </div>
-    );
+import React from "react";
+import styled from "styled-components";
+import AAtag from "../../components/Atag";
+import { useMediaQuery } from "react-responsive";
+import AppAppBar from "../../views/AppAppBar";
+const Desktop = ({ children }: any) => {
+  const isDesktop = useMediaQuery({ minWidth: 613 });
+  return isDesktop ? children : null;
+};
+const Tablet = ({ children }: any) => {
+  const isTablet = useMediaQuery({ minWidth: 613, maxWidth: 1060 });
+  return isTablet ? children : null;
+};
+const Mobile = ({ children }: any) => {
+  const isMobile = useMediaQuery({ maxWidth: 612 });
+  return isMobile ? children : null;
 };
 
+const ChangeCrawl = () => {
+  const isMobile = useMediaQuery({ maxWidth: 612 });
+  return (
+    <div>
+      <AppAppBar />
+      <Desktop>this page is ChangeCrawl page</Desktop>
+      <Mobile>this page is ChangeCrawl page111</Mobile>
+    </div>
+  );
+};
 
 export default ChangeCrawl;
