@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Alert, Button, TextField } from "@mui/material";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import { axiosOnSignIn } from "../../utils/axios";
+import { HeadlineH1, Container, CommonDiv } from "./style";
 
 const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   const [inputs, setInputs] = useState({
@@ -38,9 +39,9 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   };
 
   return (
-    <div>
-      <h1 className="headline">SIGN IN</h1>
-      <div>
+    <Container>
+      <HeadlineH1>SIGN IN</HeadlineH1>
+      <CommonDiv>
         <TextField
           label="Email"
           name="email"
@@ -48,8 +49,8 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
           value={email}
           required
         />
-      </div>
-      <div>
+      </CommonDiv>
+      <CommonDiv>
         <TextField
           label="Password"
           name="password"
@@ -57,21 +58,37 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
           value={password}
           required
         />
-      </div>
-      <div>
+      </CommonDiv>
+      <CommonDiv>
         {message !== "" ? <Alert severity="error">{message}</Alert> : null}
-      </div>
-      <div>
-        <Button variant="contained" color="primary" onClick={onSignIn}>
-          SING IN
-        </Button>
-      </div>
-      <Link style={{ color: "inherit", textDecoration: "none" }} to="/signup">
-        <Button variant="outlined" color="primary">
-          CREATE ACCOUNT
-        </Button>
-      </Link>
-    </div>
+      </CommonDiv>
+      <CommonDiv>
+        <div>
+          <Button
+            style={{ width: "200px" }}
+            variant="contained"
+            color="primary"
+            onClick={onSignIn}
+          >
+            SING IN
+          </Button>
+        </div>
+        <div>
+          <Link
+            style={{ color: "inherit", textDecoration: "none" }}
+            to="/signup"
+          >
+            <Button
+              style={{ width: "200px" }}
+              variant="outlined"
+              color="primary"
+            >
+              CREATE ACCOUNT
+            </Button>
+          </Link>
+        </div>
+      </CommonDiv>
+    </Container>
   );
 };
 
