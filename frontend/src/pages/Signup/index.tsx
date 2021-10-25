@@ -13,21 +13,32 @@ import {
 const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   const [inputs, setInputs] = useState({
     email: "",
+    emailValidNum: "",
+    emailInputNum: "",
     nickname: "",
     password: "",
     passwordCheck: "",
     phone: "",
   });
 
-  const { email, nickname, password, passwordCheck, phone } = inputs;
+  const {
+    email,
+    nickname,
+    password,
+    passwordCheck,
+    phone,
+    emailValidNum,
+    emailInputNum,
+  } = inputs;
 
   const [checks, setChecks] = useState({
     emailCheck: "default",
+    emailValidCheck: "default",
     nicknameCheck: "default",
     phoneCheck: "default",
   });
 
-  const { emailCheck, nicknameCheck, phoneCheck } = checks;
+  const { emailCheck, nicknameCheck, phoneCheck, emailValidCheck } = checks;
 
   const [message, setMessage] = useState("");
 
@@ -99,7 +110,25 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
       });
   };
 
-  const onSingUp = () => {
+  const onSignUp = () => {
+    console.log("signup");
+    if (emailCheck !== "available") {
+      setMessage("Email check failed");
+      return;
+    } else if (emailValidCheck !== "valid") {
+      setMessage("Email validation failed");
+      return;
+    }
+    if (nicknameCheck !== "available") {
+      setMessage("Nickname check failed");
+      return;
+    }
+    if (phone.trim() !== "") {
+      if (phoneCheck !== "available") {
+        setMessage("phone number check failed");
+        return;
+      }
+    }
     props.history.push("/settingprofile");
   };
 
@@ -134,6 +163,18 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           </Button>
         </div>
       </CommonDiv>
+      {emailValidCheck === "waiting" ? (
+        <div>
+          <TextField
+            name="email"
+            label="Email"
+            style={{ marginRight: "10px", width: "200px" }}
+            required={true}
+            onChange={onChange}
+          />
+          <Button></Button>
+        </div>
+      ) : null}
       <CommonDiv>
         <div style={{ display: "flex" }}>
           <TextField
@@ -210,17 +251,26 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           </Button>
         </div>
       </CommonDiv>
-      <CommonDiv></CommonDiv>
-      <div style={{ marginTop: "40px" }}>
-        <CommonDiv>
-          <Button variant="contained" style={{ width: "200px" }}>
-            SIGN UP
-          </Button>
-          <Button variant="outlined" style={{ width: "200px" }}>
-            GO BACK
-          </Button>
-        </CommonDiv>
-      </div>
+      <CommonDiv>
+        {" "}
+        {message !== "" ? <Alert severity="error">{message}</Alert> : null}{" "}
+      </CommonDiv>
+      <CommonDiv>
+        <Button
+          variant="contained"
+          style={{ width: "200px" }}
+          onClick={onSignUp}
+        >
+          SIGN UP
+        </Button>
+        <Button
+          variant="outlined"
+          style={{ width: "200px" }}
+          onClick={onGoBack}
+        >
+          GO BACK
+        </Button>
+      </CommonDiv>
     </Container>
   );
 };
