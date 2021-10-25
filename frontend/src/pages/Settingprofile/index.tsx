@@ -89,7 +89,7 @@ const SettingProfile: React.FunctionComponent = () => {
           <Bodydiv>
             {data.map((item, key) => (
                 <Settingdiv>
-                <Settingtitlediv>{item.title}</Settingtitlediv>
+                <Settingtitlediv>{key}{item.title}</Settingtitlediv>
                 <Settingtagdiv>
                   <Settingtag>#️{item.tag1}</Settingtag>
                   <Settingtag>#️{item.tag2}</Settingtag>

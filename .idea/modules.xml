@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/S05P31A402.iml" filepath="$PROJECT_DIR$/.idea/S05P31A402.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ssacretary.iml" filepath="$PROJECT_DIR$/.idea/modules/ssacretary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ssacretary.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ssacretary.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ssacretary.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ssacretary.test.iml" />
     </modules>
   </component>
 </project>
