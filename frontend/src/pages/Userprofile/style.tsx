@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-export const Urldiv = styled.div`
+export const Profilediv = styled.div`
     display:flex;
     align-items: center;
     margin-top: 24px;
     margin-bottom: 24px;
 `;
-export const Carddiv = styled.div`
+export const Profileinput = styled.input`
     display : flex;
     flex-direction: column;
     align-items:center;
@@ -17,7 +17,7 @@ export const Carddiv = styled.div`
     border-radius: 8px;
     // border : 1px solid black;
 `;
-export const Cardcondiv = styled.div`
+export const Duplicate = styled.div`
     border: 1px solid #6200EE;
     width: 360px;
     border-radius: 8px;
