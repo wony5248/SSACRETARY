@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CommonDiv = styled.div`
-  width: 200px;
+  width: 300px;
   height: 24px;
   margin-top: 20px;
   margin-bottom: 20px;
