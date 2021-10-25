@@ -1,6 +1,15 @@
 import axios from "axios";
 import { BASE_URL } from "./statics";
 
-const onSignIn = function (email: String, password: String) {};
+const axiosOnSignIn = function (email: String, password: String) {
+  axios({
+    method: "POST",
+    url: BASE_URL + "/user/login",
+    data: {
+      email: email,
+      password: password,
+    },
+  });
+};
 
-export { onSignIn };
+export { axiosOnSignIn };
