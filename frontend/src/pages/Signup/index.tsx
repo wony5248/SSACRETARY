@@ -5,6 +5,11 @@ import Button from "@mui/material/Button";
 import { HeadlineH1 } from "../../components/Headline/index";
 import { CommonDiv } from "../../components/CommonDiv/index";
 import { Container } from "../../components/Container/index";
+import {
+  axiosOnEmailCheck,
+  axiosOnNicknameCheck,
+  axiosOnPhoneNumberCheck,
+} from "../../utils/axios";
 
 const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   const [inputs, setInputs] = useState({
@@ -18,9 +23,9 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   const { email, nickname, password, passwordCheck, phone } = inputs;
 
   const [checks, setChecks] = useState({
-    emailCheck: false,
-    nicknameCheck: false,
-    phoneCheck: false,
+    emailCheck: "default",
+    nicknameCheck: "default",
+    phoneCheck: "default",
   });
 
   const { emailCheck, nicknameCheck, phoneCheck } = checks;
@@ -33,7 +38,15 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
     });
   };
 
-  const onEmailCheck = () => {};
+  const onEmailCheck = () => {
+    axiosOnEmailCheck(email)
+      .then((res: any) => {
+        console.log(res);
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
 
   const onNicknameCheck = () => {};
 
@@ -61,9 +74,10 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           />
           <Button
             style={{ marginLeft: "10px" }}
-            name="email"
             variant="contained"
             size="small"
+            color={emailCheck === "available" ? "success" : "primary"}
+            onClick={onEmailCheck}
           >
             AVAILITY
           </Button>
@@ -83,6 +97,8 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             variant="contained"
             style={{ marginLeft: "10px" }}
             size="small"
+            color={nicknameCheck === "available" ? "success" : "primary"}
+            onClick={onNicknameCheck}
           >
             AVAILITY
           </Button>
@@ -124,6 +140,8 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             variant="contained"
             size="small"
             style={{ marginLeft: "10px" }}
+            color={phoneCheck === "available" ? "success" : "primary"}
+            onClick={onPhoneCheck}
           >
             AVAILITY
           </Button>
