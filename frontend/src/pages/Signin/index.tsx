@@ -11,9 +11,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
 
   const { email, password } = inputs;
 
-  const [message, setMessage] = useState({
-    message: "",
-  });
+  const [message, setMessage] = useState("");
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -25,12 +23,19 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
 
   const onSignIn = function () {
     axiosOnSignIn(email, password)
-      .then((res) => {
-        if (res.status === 200) {
+      .then((res: any) => {
+        console.log(res);
+        if (res.data.statusCode == 200) {
+          localStorage.setItem("jwt", res.data.jwt);
+          localStorage.setItem("userInfo", res.data.userInfo);
           props.history.push("/settingprofile");
+        } else {
+          setMessage(res.data.message);
         }
       })
-      .catch(({ response }) => {});
+      .catch((error: any) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -55,7 +60,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
         />
       </div>
       <div>
-        <Alert severity="error">This is an error alert — check it out!</Alert>
+        <Alert severity="error">{message}</Alert>
       </div>
       <div>
         <Button variant="contained" color="primary" onClick={onSignIn}>
@@ -71,4 +76,4 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   );
 };
 
-export default SignIn;
+export default withRouter(SignIn);
