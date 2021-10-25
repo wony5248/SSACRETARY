@@ -24,9 +24,8 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   const onSignIn = function () {
     axiosOnSignIn(email, password)
       .then((res: any) => {
-        console.log(res);
         if (res.data.statusCode == 200) {
-          localStorage.setItem("jwt", res.data.jwt);
+          localStorage.setItem("jwt", res.data.token);
           localStorage.setItem("userInfo", res.data.userInfo);
           props.history.push("/settingprofile");
         } else {
@@ -34,7 +33,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
         }
       })
       .catch((error: any) => {
-        console.log(error);
+        setMessage(error.response.data.error);
       });
   };
 
@@ -60,7 +59,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
         />
       </div>
       <div>
-        <Alert severity="error">{message}</Alert>
+        {message !== "" ? <Alert severity="error">{message}</Alert> : null}
       </div>
       <div>
         <Button variant="contained" color="primary" onClick={onSignIn}>
