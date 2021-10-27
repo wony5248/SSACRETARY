@@ -12,9 +12,9 @@ import {
 } from "../../utils/axios";
 
 const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
+  var _ = require("lodash");
   const [inputs, setInputs] = useState({
     email: "",
-    emailValidNum: "",
     emailInputNum: "",
     nickname: "",
     password: "",
@@ -22,15 +22,8 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
     phone: "",
   });
 
-  const {
-    email,
-    nickname,
-    password,
-    passwordCheck,
-    phone,
-    emailValidNum,
-    emailInputNum,
-  } = inputs;
+  const { email, nickname, password, passwordCheck, phone, emailInputNum } =
+    inputs;
 
   const [checks, setChecks] = useState({
     emailCheck: "default",
@@ -40,6 +33,8 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   });
 
   const { emailCheck, nicknameCheck, phoneCheck, emailValidCheck } = checks;
+
+  const [emailValidNum, setEmailValidNum] = useState("");
 
   const [message, setMessage] = useState("");
 
