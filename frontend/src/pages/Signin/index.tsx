@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import Logo from "../../assets/logo.png";
 import { Alert, Button, TextField } from "@mui/material";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
@@ -27,8 +26,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   };
 
   const onSignIn = async function () {
-    await userAPI
-      .axiosOnSignIn(email, password)
+    axiosOnSignIn(email, password)
       .then((res: any) => {
         if (res.data.statusCode == 200) {
           localStorage.setItem("jwt", res.data.token);
