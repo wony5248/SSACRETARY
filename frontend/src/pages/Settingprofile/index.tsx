@@ -87,14 +87,14 @@ const SettingProfile: React.FunctionComponent = () => {
         >
           <Headerdiv>Crawlings</Headerdiv>
           <Bodydiv>
-            {data.map((item, key) => (
-                <Settingdiv>
-                <Settingtitlediv>{key}{item.title}</Settingtitlediv>
+            {data.map((item, index) => (
+                <Settingdiv key={index}>
+                <Settingtitlediv >{item.title}</Settingtitlediv>
                 <Settingtagdiv>
-                  <Settingtag>#️{item.tag1}</Settingtag>
-                  <Settingtag>#️{item.tag2}</Settingtag>
-                  <Settingtag>#️{item.tag3}</Settingtag>
-                  <Settingtag>#️{item.tag4}</Settingtag>
+                  <Settingtag >#️{item.tag1}</Settingtag>
+                  <Settingtag >#️{item.tag2}</Settingtag>
+                  <Settingtag >#️{item.tag3}</Settingtag>
+                  <Settingtag >#️{item.tag4}</Settingtag>
                 </Settingtagdiv>
               </Settingdiv>
             ))}

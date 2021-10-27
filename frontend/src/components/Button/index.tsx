@@ -9,14 +9,11 @@ const Styledbtn = styled.button`
   outline: none;
   width: 328px;
   height: 36px;
-  &:hover {
-    background-color: #a3cca3;
-  }
 `;
 
 const Btn = (props: any) => {
-  const { onClick, name } = props;
-  return <Styledbtn onClick={() => onClick()}>{name}</Styledbtn>;
+  const { onClick, name, style } = props;
+  return <Styledbtn style={style} onClick={() => onClick()}>{name}</Styledbtn>;
 };
 
 export default Btn;

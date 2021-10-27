@@ -105,17 +105,17 @@ const Menu = (props: any) => {
   const { open } = props;
   return (
     <StyledMenu open={open}>
-      <a href="/changecrawl">
-        <span role="img" aria-label="about us">
-          💁🏻‍♂️
-        </span>
-        Change Crawl
-      </a>
       <a href="/makecrawl">
         <span role="img" aria-label="control">
-          🕹️
+        🔨
         </span>
         Make Crawl
+      </a>
+      <a href="/changecrawl">
+        <span role="img" aria-label="about us">
+        🔧
+        </span>
+        Change Crawl
       </a>
       <a href="/settingprofile">
         <span role="img" aria-label="about us">
@@ -125,15 +125,21 @@ const Menu = (props: any) => {
       </a>
       <a href="/specificcrawling">
         <span role="img" aria-label="control">
-          🕹️
+        📌
         </span>
         Specific Crawl
       </a>
       <a href="/userprofile">
         <span role="img" aria-label="control">
-          🕹️
+        🙎‍♂️
         </span>
-        Userprofile
+        UserProfile
+      </a>
+      <a href="/makecrawl">
+        <span role="img" aria-label="control">
+        🔨
+        </span>
+        Crawl Log
       </a>
     </StyledMenu>
   );
