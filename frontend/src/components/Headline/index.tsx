@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HeadlineH1 = styled.h1`
   width: 80px;
-  height: 36px;
+  height: 24px;
   overflow: visible;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -15,21 +15,4 @@ export const HeadlineH1 = styled.h1`
   letter-spacing: 0.15000000596046448px;
   line-height: 1.2;
   text-align: left;
-`;
-
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 100px;
-`;
-
-export const CommonDiv = styled.div`
-  width: 200px;
-  height: 24px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
