@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import Logo from "../../assets/logo.png";
+
 import { Alert, Button, TextField } from "@mui/material";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+
+import Logo from "../../assets/logo.png";
 import { axiosOnSignIn } from "../../utils/axios";
 import { HeadlineH1 } from "../../components/Headline/index";
 import { CommonDiv } from "../../components/CommonDiv/index";
@@ -28,7 +30,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   const onSignIn = async function () {
     axiosOnSignIn(email, password)
       .then((res: any) => {
-        if (res.data.statusCode == 200) {
+        if (res.data.statusCode === 200) {
           localStorage.setItem("jwt", res.data.token);
           localStorage.setItem("userInfo", res.data.userInfo);
           props.history.push("/settingprofile");

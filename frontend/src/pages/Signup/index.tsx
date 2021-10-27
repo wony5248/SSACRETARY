@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { TextField, Button, Alert } from "@mui/material";
+
 import { HeadlineH1 } from "../../components/Headline/index";
 import { CommonDiv } from "../../components/CommonDiv/index";
 import { Container } from "../../components/Container/index";
@@ -11,7 +12,6 @@ import {
   axiosOnPhoneNumberCheck,
   axiosOnSignUp,
 } from "../../utils/axios";
-import { info } from "console";
 
 const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   var _ = require("lodash");
@@ -51,30 +51,32 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   };
 
   const onEmailCheck = () => {
-    axiosOnEmailCheck(email)
-      .then((res: any) => {
-        if (res.status === 201) {
-          setChecks({
-            ...checks,
-            ["emailCheck"]: "available",
-          });
-          setChecks({
-            ...checks,
-            ["emailStep"]: "waiting",
-          });
-          let tmpValidationNumber = makeValidationNumber();
-          setEmailValidNum(tmpValidationNumber);
-          sendEmail(email, tmpValidationNumber);
-        } else {
-          setChecks({
-            ...checks,
-            ["emailCheck"]: "not available",
-          });
-        }
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
+    if (email.trim() !== "") {
+      axiosOnEmailCheck(email)
+        .then((res: any) => {
+          if (res.status === 201) {
+            setChecks({
+              ...checks,
+              ["emailCheck"]: "available",
+              ["emailStep"]: "waiting",
+            });
+            console.log(emailCheck);
+            let tmpValidationNumber = makeValidationNumber();
+            setEmailValidNum(tmpValidationNumber);
+            sendEmail(email, tmpValidationNumber);
+          } else {
+            setChecks({
+              ...checks,
+              ["emailCheck"]: "not available",
+            });
+          }
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    } else {
+      alert("email isn't allowed to be empty");
+    }
   };
 
   const onEmailValidation = function () {
@@ -82,12 +84,9 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
       setChecks({
         ...checks,
         ["emailValidCheck"]: "available",
-      });
-      info("Email validation done");
-      setChecks({
-        ...checks,
         ["emailStep"]: "done",
       });
+      alert("Email validation done");
     } else {
       setChecks({
         ...checks,
@@ -97,50 +96,62 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   };
 
   const onNicknameCheck = function () {
-    axiosOnNicknameCheck(nickname)
-      .then((res: any) => {
-        if (res.status === 201) {
-          setChecks({
-            ...checks,
-            ["nicknameCheck"]: "available",
-          });
-        } else {
-          setChecks({
-            ...checks,
-            ["nicknameCheck"]: "not available",
-          });
-        }
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
+    if (nickname.trim() !== "") {
+      axiosOnNicknameCheck(nickname)
+        .then((res: any) => {
+          if (res.status === 201) {
+            setChecks({
+              ...checks,
+              ["nicknameCheck"]: "available",
+            });
+            console.log(nicknameCheck);
+          } else {
+            setChecks({
+              ...checks,
+              ["nicknameCheck"]: "not available",
+            });
+          }
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    } else {
+      alert("nickname isn't allowed to be empty");
+    }
   };
 
   const onPhoneCheck = function () {
-    axiosOnPhoneNumberCheck(phone)
-      .then((res: any) => {
-        if (res.status === 201) {
-          setChecks({
-            ...checks,
-            ["phoneCheck"]: "available",
-          });
-        } else {
-          setChecks({
-            ...checks,
-            ["phoneCheck"]: "not available",
-          });
-        }
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
+    if (phone.trim() !== "") {
+      axiosOnPhoneNumberCheck(phone)
+        .then((res: any) => {
+          if (res.status === 201) {
+            setChecks({
+              ...checks,
+              ["phoneCheck"]: "available",
+            });
+            console.log(phoneCheck);
+          } else {
+            setChecks({
+              ...checks,
+              ["phoneCheck"]: "not available",
+            });
+          }
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    } else {
+      alert(
+        "Phone isn't required. But if you want to use, then please fill with something in phone"
+      );
+    }
   };
 
   const onSignUp = function () {
     if (emailCheck !== "available") {
       setMessage("Email check failed");
       return;
-    } else if (emailValidCheck !== "valid") {
+    } else if (emailValidCheck !== "available") {
       setMessage("Email validation failed");
       return;
     }
@@ -156,7 +167,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
     }
     axiosOnSignUp(email, nickname, password, passwordCheck, phone)
       .then((res: any) => {
-        if (res.status === 200) {
+        if (res.status === 201) {
           props.history.push("/");
         } else {
           setMessage(res.data.message);
@@ -199,36 +210,44 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
         </div>
       </CommonDiv>
       {emailStep === "waiting" ? (
-        <div>
-          <TextField
-            error={emailValidCheck === "not available" ? false : true}
-            name="emailInputNum"
-            label="Validation Number"
-            style={{ marginRight: "10px", width: "200px" }}
-            required={true}
-            onChange={onChange}
-            helperText={
-              emailValidCheck === "not available"
-                ? ""
-                : "Validation Number is wrong"
-            }
-          />
-          <Button style={{ marginLeft: "10px" }} onClick={onEmailValidation}>
-            Valid
-          </Button>
-        </div>
+        <CommonDiv>
+          <div style={{ display: "flex" }}>
+            <TextField
+              error={emailValidCheck === "not available" ? false : true}
+              name="emailInputNum"
+              label="Validation Number"
+              style={{ marginRight: "10px", width: "200px" }}
+              required={true}
+              onChange={onChange}
+              helperText={
+                emailValidCheck === "not available"
+                  ? ""
+                  : "Validation Number is wrong"
+              }
+            />
+            <Button
+              style={{ marginLeft: "10px", height: "55px" }}
+              variant="contained"
+              size="small"
+              color={emailValidCheck === "available" ? "success" : "primary"}
+              onClick={onEmailValidation}
+            >
+              Valid
+            </Button>
+          </div>
+        </CommonDiv>
       ) : null}
       <CommonDiv>
         <div style={{ display: "flex" }}>
           <TextField
-            error={emailCheck === "not available" ? true : false}
+            error={nicknameCheck === "not available" ? true : false}
             name="nickname"
             label="Nickname"
             style={{ marginRight: "10px", width: "200px" }}
             required={true}
             onChange={onChange}
             helperText={
-              emailCheck === "not available"
+              nicknameCheck === "not available"
                 ? "Your nickname isn't available"
                 : ""
             }
@@ -272,13 +291,13 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
       <CommonDiv>
         <div style={{ display: "flex" }}>
           <TextField
-            error={emailCheck === "not available" ? true : false}
+            error={phoneCheck === "not available" ? true : false}
             name="phone"
             label="Phone"
             style={{ marginRight: "10px", width: "200px" }}
             onChange={onChange}
             helperText={
-              emailCheck === "not available"
+              phoneCheck === "not available"
                 ? "Your phone number isn't available"
                 : ""
             }
