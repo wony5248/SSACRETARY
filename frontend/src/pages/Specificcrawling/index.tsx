@@ -1,10 +1,11 @@
-import React from "react";
+import React, {Component} from "react";
 import Box from "@mui/material/Box";
 import { useMediaQuery } from "react-responsive";
 import AppAppBar from "../../views/AppAppBar";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import "react-mui-charts/dist/index.css";
 import Typography from "@mui/material/Typography";
 import { Urldiv, Carddiv } from "./style";
 import Btn from "../../components/Button";

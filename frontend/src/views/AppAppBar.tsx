@@ -237,7 +237,7 @@ function AppAppBar() {
                 My Settings
               </MenuItem>
               
-              <MenuItem>
+              <MenuItem onClick ={() => window.location.href="/"}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>
