@@ -82,7 +82,6 @@ const UserProfile = () => {
               ...checks,
               ["phoneCheck"]: "available",
             });
-            console.log(phoneCheck);
           } else {
             setChecks({
               ...checks,
