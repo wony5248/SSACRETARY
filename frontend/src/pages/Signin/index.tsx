@@ -28,19 +28,23 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   };
 
   const onSignIn = async function () {
-    axiosOnSignIn(email, password)
-      .then((res: any) => {
-        if (res.data.statusCode === 200) {
-          localStorage.setItem("jwt", res.data.token);
-          localStorage.setItem("userInfo", res.data.userInfo);
-          props.history.push("/settingprofile");
-        } else {
-          setMessage(res.data.message);
-        }
-      })
-      .catch((error: any) => {
-        setMessage(error.response.data.error);
-      });
+    if (email.trim() !== "" && password.trim() !== "") {
+      axiosOnSignIn(email, password)
+        .then((res: any) => {
+          if (res.data.statusCode === 200) {
+            localStorage.setItem("jwt", res.data.token);
+            localStorage.setItem("userInfo", res.data.userInfo);
+            props.history.push("/settingprofile");
+          } else {
+            setMessage(res.data.message);
+          }
+        })
+        .catch((error: any) => {
+          setMessage(error.response.data.error);
+        });
+    } else {
+      alert("Email and password both required");
+    }
   };
 
   return (
