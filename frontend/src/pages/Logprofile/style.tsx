@@ -4,6 +4,7 @@ export const Userprofilediv1 = styled.div`
   display: flex;
   align-items: center;
   margin-top: 24px;
+  margin-bottom: 24px;
   font-weight: bold;
   font-style: medium;
   font-family: Roboto;
@@ -27,16 +28,22 @@ export const Keworddiv = styled.div`
   border: 1px solid #d8d8d8;
   margin-bottom: 24px;
 `;
-export const Formdiv1 = styled.div`
+export const Carddiv1 = styled.div`
   display: flex;
-  flex-direction: column;
-  border: 1px solid #d8d8d8;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 16px 16px;
-  margin-top: 24px;
+  margin-bottom: 32px;
   width: 90%;
-  border-radius: 8px;
+  height:300px;
+  background-color: rgba(98, 0, 238, 0.08);
+  opaciry:0.08;
+`;
+export const Carddiv2 = styled.div`
+  align-items: center;
+  width: 84%;
+  height:84%;
+  padding: 3%;
+  background-color:white;
 `;
 export const Alarmdiv = styled.div`
   width: 62%;

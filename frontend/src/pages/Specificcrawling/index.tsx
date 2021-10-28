@@ -1,24 +1,23 @@
-import React from "react";
-import styled from "styled-components";
-import AAtag from "../../components/Atag";
+import React, {Component} from "react";
 import Box from "@mui/material/Box";
 import { useMediaQuery } from "react-responsive";
 import AppAppBar from "../../views/AppAppBar";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import "react-mui-charts/dist/index.css";
 import Typography from "@mui/material/Typography";
-import { Urldiv, Carddiv, Cardcondiv } from "./style";
+import { Urldiv, Carddiv } from "./style";
 import Btn from "../../components/Button";
 import { Grid } from "@mui/material";
 const Desktop = ({ children }: any) => {
   const isDesktop = useMediaQuery({ minWidth: 613 });
   return isDesktop ? children : null;
 };
-const Tablet = ({ children }: any) => {
-  const isTablet = useMediaQuery({ minWidth: 613, maxWidth: 1060 });
-  return isTablet ? children : null;
-};
+// const Tablet = ({ children }: any) => {
+//   const isTablet = useMediaQuery({ minWidth: 613, maxWidth: 1060 });
+//   return isTablet ? children : null;
+// };
 const Mobile = ({ children }: any) => {
   const isMobile = useMediaQuery({ maxWidth: 612 });
   return isMobile ? children : null;
