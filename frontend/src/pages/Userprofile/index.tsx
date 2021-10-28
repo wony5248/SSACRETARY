@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import AAtag from "../../components/Atag";
 import { useMediaQuery } from "react-responsive";
+import { TextField, Button, Alert } from "@mui/material";
+
 import AppAppBar from "../../views/AppAppBar";
-import { Userprofilediv, Formdiv, Checkbtn } from "./style";
-import TextField from "@mui/material/TextField";
-import Btn from"../../components/Button"
+import Btn from "../../components/Button";
+import { Userprofilediv, Formdiv } from "./style";
 import { Styledbtn } from "./style";
-import { display } from "@mui/system";
+import {
+  axiosOnNicknameCheck,
+  axiosOnPhoneNumberCheck,
+} from "../../utils/axios";
+
 const Desktop = ({ children }: any) => {
   const isDesktop = useMediaQuery({ minWidth: 613 });
   return isDesktop ? children : null;
@@ -26,7 +29,18 @@ const UserProfile = () => {
     nickname: "",
     phone: "",
   });
+
   const { email, nickname, phone } = inputs;
+
+  const [checks, setChecks] = useState({
+    nicknameCheck: "dafualt",
+    phoneCheck: "default",
+  });
+
+  const { nicknameCheck, phoneCheck } = checks;
+
+  const [message, setMessage] = useState("");
+
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
     setInputs({
@@ -35,13 +49,70 @@ const UserProfile = () => {
     });
   };
 
-  const onSignIn = function () {
-    setInputs({
-      email: "",
-      nickname: "",
-      phone: "",
-    });
+  const onNicknameCheck = function () {
+    if (nickname.trim() !== "") {
+      axiosOnNicknameCheck(nickname)
+        .then((res: any) => {
+          if (res.status === 201) {
+            setChecks({
+              ...checks,
+              ["nicknameCheck"]: "available",
+            });
+          } else {
+            setChecks({
+              ...checks,
+              ["nicknameCheck"]: "not available",
+            });
+          }
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    } else {
+      alert("nickname isn't allowed to be empty");
+    }
   };
+
+  const onPhoneCheck = function () {
+    if (phone.trim() !== "") {
+      axiosOnPhoneNumberCheck(phone)
+        .then((res: any) => {
+          if (res.status === 201) {
+            setChecks({
+              ...checks,
+              ["phoneCheck"]: "available",
+            });
+          } else {
+            setChecks({
+              ...checks,
+              ["phoneCheck"]: "not available",
+            });
+          }
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+    } else {
+      alert(
+        "Phone isn't required. But if you want to use, then please fill with something in phone"
+      );
+    }
+  };
+
+  const onChangeProfile = function () {
+    if (nicknameCheck !== "available") {
+      setMessage("Nickname check failed");
+      return;
+    }
+    if (phone.trim() !== "") {
+      if (phoneCheck !== "available") {
+        setMessage("phone number check failed");
+        return;
+      }
+    }
+  };
+
+  const onWithdrawl = function () {};
   //   const isMobile = useMediaQuery({ maxWidth: 612 });
   return (
     <div>
@@ -65,33 +136,78 @@ const UserProfile = () => {
                 onChange={onChange}
                 value={email}
                 required
-                style={{ width: "100%", backgroundColor:"#E6E6E6" }}
+                style={{ width: "100%", backgroundColor: "#E6E6E6" }}
               ></TextField>
             </div>
-            <div style={{ width: "100%", marginTop: "24px", display:"flex", justifyContent:"space-between" }}>
+            <div
+              style={{
+                width: "100%",
+                marginTop: "24px",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
               <TextField
+                error={nicknameCheck === "not available" ? true : false}
                 label="Nickname"
                 name="nickname"
                 onChange={onChange}
                 value={nickname}
                 required
-                style={{ width: "70%", backgroundColor:"#E6E6E6" }}
+                style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                helperText={
+                  nicknameCheck === "not available"
+                    ? "Your nickname isn't available"
+                    : ""
+                }
               ></TextField>
-              <Checkbtn>CHECK</Checkbtn>
+              <Button
+                variant="contained"
+                size="small"
+                style={{ marginLeft: "10px", height: "55px" }}
+                color={nicknameCheck === "available" ? "success" : "primary"}
+                onClick={onNicknameCheck}
+              >
+                AVAILITY
+              </Button>
             </div>
-            <div style={{ width: "100%", marginTop: "24px", display:"flex", justifyContent:"space-between" }}>
-            <TextField
+            <div
+              style={{
+                width: "100%",
+                marginTop: "24px",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <TextField
+                error={phoneCheck === "not available" ? true : false}
                 label="Phone"
                 name="phone"
                 onChange={onChange}
                 value={phone}
                 required
-                style={{ width: "70%", backgroundColor:"#E6E6E6" }}
+                style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                helperText={
+                  phoneCheck === "not available"
+                    ? "Your phone number isn't available"
+                    : ""
+                }
               ></TextField>
-              <Checkbtn>CHECK</Checkbtn>
+              <Button
+                variant="contained"
+                size="small"
+                style={{ marginLeft: "10px", height: "55px" }}
+                color={phoneCheck === "available" ? "success" : "primary"}
+                onClick={onPhoneCheck}
+              >
+                AVAILITY
+              </Button>
             </div>
           </Formdiv>
-          <Btn name = "CHANGE PROFILE"></Btn>
+          {message.trim() !== "" ? (
+            <Alert severity="error">{message}</Alert>
+          ) : null}
+          <Btn name="CHANGE PROFILE" onClick={onChangeProfile}></Btn>
           <Styledbtn>WITHDRAWL</Styledbtn>
         </div>
       </Mobile>

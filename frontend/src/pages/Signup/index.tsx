@@ -60,7 +60,6 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               ["emailCheck"]: "available",
               ["emailStep"]: "waiting",
             });
-            console.log(emailCheck);
             let tmpValidationNumber = makeValidationNumber();
             setEmailValidNum(tmpValidationNumber);
             sendEmail(email, tmpValidationNumber);
@@ -104,7 +103,6 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               ...checks,
               ["nicknameCheck"]: "available",
             });
-            console.log(nicknameCheck);
           } else {
             setChecks({
               ...checks,
@@ -129,7 +127,6 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               ...checks,
               ["phoneCheck"]: "available",
             });
-            console.log(phoneCheck);
           } else {
             setChecks({
               ...checks,
