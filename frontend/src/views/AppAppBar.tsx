@@ -230,7 +230,7 @@ function AppAppBar() {
                 <Avatar />User Profile
               </MenuItem>
               <Divider />
-              <MenuItem>
+              <MenuItem onClick ={() => window.location.href="/settingprofile"}>
                 <ListItemIcon>
                   <Settings fontSize="small" />
                 </ListItemIcon>
