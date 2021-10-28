@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import AAtag from "../../components/Atag";
+import Fab from "@mui/material/Fab";
 import { useMediaQuery } from "react-responsive";
 import AppAppBar from "../../views/AppAppBar";
 import TextField from "@mui/material/TextField";
@@ -10,8 +9,6 @@ import {
   Userprofilediv1,
   Formdiv1,
   Removebtn,
-  Styledbtn1,
-  Styledlabel,
   Keworddiv,
   Alarmdiv,
   Addbtn,
@@ -20,25 +17,24 @@ import Btn from "../../components/Button";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Radio,
-  IconButton,
   Switch,
   Box,
   InputLabel,
   MenuItem,
   FormControl,
   Select,
+  RadioGroup,
+  FormControlLabel,
 } from "@mui/material";
-import { Label } from "@mui/icons-material";
-import { flexbox } from "@mui/system";
-const label = { inputProps: { "aria-label": "Switch demo" } };
+
 const Desktop = ({ children }: any) => {
   const isDesktop = useMediaQuery({ minWidth: 613 });
   return isDesktop ? children : null;
 };
-const Tablet = ({ children }: any) => {
-  const isTablet = useMediaQuery({ minWidth: 613, maxWidth: 1060 });
-  return isTablet ? children : null;
-};
+// const Tablet = ({ children }: any) => {
+//   const isTablet = useMediaQuery({ minWidth: 613, maxWidth: 1060 });
+//   return isTablet ? children : null;
+// };
 const Mobile = ({ children }: any) => {
   const isMobile = useMediaQuery({ maxWidth: 612 });
   return isMobile ? children : null;
@@ -47,6 +43,7 @@ const Mobile = ({ children }: any) => {
 const ChangeCrawl = () => {
   const [checked, setChecked] = React.useState(true);
   const [checked2, setChecked2] = React.useState(false);
+  const [value, setValue] = React.useState("and");
   const [time, setTime] = React.useState(60);
   const [data, setData] = React.useState([
     { keyword: "React" },
@@ -68,14 +65,14 @@ const ChangeCrawl = () => {
   });
   const {
     url,
-    keyword1,
-    keyword2,
-    keyword3,
-    keyword4,
-    keyword5,
-    keyword6,
-    keyword7,
-    keyword8,
+    // keyword1,
+    // keyword2,
+    // keyword3,
+    // keyword4,
+    // keyword5,
+    // keyword6,
+    // keyword7,
+    // keyword8,
   } = inputs;
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -85,9 +82,13 @@ const ChangeCrawl = () => {
     });
   };
   const addTag = () => {
-    data.push({ keyword: "JBJ"})
-    console.log(data)
-    console.log("jbj")
+    data.push({ keyword: "JBJ" });
+    console.log(data);
+    console.log("jbj");
+  };
+  const radioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+    console.log(event.target.value);
   };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -114,7 +115,7 @@ const ChangeCrawl = () => {
             alignItems: "center",
           }}
         >
-          <Userprofilediv1>Make Crawling</Userprofilediv1>
+          <Userprofilediv1>Change Crawling</Userprofilediv1>
           <Formdiv1>
             <div style={{ width: "100%" }}>
               <TextField
@@ -134,24 +135,24 @@ const ChangeCrawl = () => {
                 margin: "24px 0",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <Radio></Radio>
-                <Styledlabel>
-                  AND
-                  <IconButton onClick={() => console.log("click")}>
-                    <VisibilityIcon></VisibilityIcon>
-                  </IconButton>
-                </Styledlabel>
-              </div>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <Radio></Radio>
-                <Styledlabel>
-                  OR
-                  <IconButton onClick={() => console.log("click")}>
-                    <VisibilityIcon></VisibilityIcon>
-                  </IconButton>
-                </Styledlabel>
-              </div>
+              <RadioGroup
+                row
+                aria-label="condition"
+                defaultValue="and"
+                name="row-radio-buttons-group"
+                onChange={radioChange}
+              >
+                <FormControlLabel
+                  value="and"
+                  control={<Radio />}
+                  label="AND"
+                />
+                <FormControlLabel
+                  value="or"
+                  control={<Radio />}
+                  label="OR"
+                />
+              </RadioGroup>
             </div>
             <Keworddiv>
               {data.map((item, key) => (
