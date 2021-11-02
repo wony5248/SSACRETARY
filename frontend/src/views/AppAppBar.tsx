@@ -10,9 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { deepOrange } from "@mui/material/colors";
@@ -226,18 +224,21 @@ function AppAppBar() {
               transformOrigin={{ horizontal: "right", vertical: "top" }}
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
-              <MenuItem onClick ={() => window.location.href="/userprofile"}>
-                <Avatar />User Profile
+              <MenuItem onClick={() => (window.location.href = "/userprofile")}>
+                <Avatar />
+                User Profile
               </MenuItem>
               <Divider />
-              <MenuItem onClick ={() => window.location.href="/settingprofile"}>
+              <MenuItem
+                onClick={() => (window.location.href = "/settingprofile")}
+              >
                 <ListItemIcon>
                   <Settings fontSize="small" />
                 </ListItemIcon>
                 My Settings
               </MenuItem>
-              
-              <MenuItem onClick ={() => window.location.href="/"}>
+
+              <MenuItem onClick={() => (window.location.href = "/")}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>

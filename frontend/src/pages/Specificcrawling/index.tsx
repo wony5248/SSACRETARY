@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import { useMediaQuery } from "react-responsive";
 import AppAppBar from "../../views/AppAppBar";

@@ -8,13 +8,11 @@ import {
   Userprofilediv1,
   Formdiv1,
   Removebtn,
-  Styledlabel,
   Keworddiv,
   Alarmdiv,
   Addbtn,
 } from "./style";
 import Btn from "../../components/Button";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Radio,
   Switch,
@@ -29,6 +27,7 @@ import {
 
 const Desktop = ({ children }: any) => {
   const isDesktop = useMediaQuery({ minWidth: 613 });
+  console.log(children)
   return isDesktop ? children : null;
 };
 // const Tablet = ({ children }: any) => {
