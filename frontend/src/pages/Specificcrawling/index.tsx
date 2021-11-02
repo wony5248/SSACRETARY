@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Box from "@mui/material/Box";
 import { useMediaQuery } from "react-responsive";
 import AppAppBar from "../../views/AppAppBar";
@@ -32,11 +32,59 @@ const bull = (
   </Box>
 );
 
-const card = (
+const card1 = (
   <React.Fragment>
     <CardContent>
       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
         Word Count
+      </Typography>
+      <Typography variant="h5" component="div">
+        be{bull}nev{bull}o{bull}lent
+      </Typography>
+      <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        adjective
+      </Typography>
+    </CardContent>
+    <CardActions></CardActions>
+  </React.Fragment>
+);
+const card2 = (
+  <React.Fragment>
+    <CardContent>
+      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        Word Percentage
+      </Typography>
+      <Typography variant="h5" component="div">
+        be{bull}nev{bull}o{bull}lent
+      </Typography>
+      <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        adjective
+      </Typography>
+    </CardContent>
+    <CardActions></CardActions>
+  </React.Fragment>
+);
+const card3 = (
+  <React.Fragment>
+    <CardContent>
+      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        Word Cycle
+      </Typography>
+      <Typography variant="h5" component="div">
+        be{bull}nev{bull}o{bull}lent
+      </Typography>
+      <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        adjective
+      </Typography>
+    </CardContent>
+    <CardActions></CardActions>
+  </React.Fragment>
+);
+const card4 = (
+  <React.Fragment>
+    <CardContent>
+      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        Word Date
       </Typography>
       <Typography variant="h5" component="div">
         be{bull}nev{bull}o{bull}lent
@@ -57,7 +105,35 @@ const SettingProfile: React.FunctionComponent = () => {
   return (
     <div>
       <AppAppBar />
-      <Desktop>this page is Specificcrawl page</Desktop>
+      <Desktop>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Urldiv style={{fontSize:"24px"}}>URL</Urldiv>
+          <Carddiv style={{height:"900px"}}>
+            <Grid style={{height:"100%"}} container spacing={2}>
+              <Grid style={{height:"45%"}} item xs={6}>
+                <Card style={{height:"100%"}} variant="outlined">{card1}</Card>
+              </Grid>
+              <Grid style={{height:"45%"}} item xs={6}>
+                <Card style={{height:"100%"}} variant="outlined">{card2}</Card>
+              </Grid>
+              <Grid style={{height:"45%"}} item xs={6}>
+                <Card style={{height:"100%"}} variant="outlined">{card3}</Card>
+              </Grid>
+              <Grid style={{height:"45%"}} item xs={6}>
+                <Card style={{height:"100%"}} variant="outlined">{card4}</Card>
+              </Grid>
+            </Grid>
+          </Carddiv>
+          <Btn style={{width:"90%"}} onClick={Click} name="Go to Detail"></Btn>
+          <Btn style={{width:"90%"}} onClick={Click} name="Make Crawl"></Btn>
+        </div>
+      </Desktop>
       <Mobile>
         <div
           style={{
@@ -70,16 +146,16 @@ const SettingProfile: React.FunctionComponent = () => {
           <Carddiv>
             <Grid container spacing={2}>
               <Grid item xs={6}>
-                <Card variant="outlined">{card}</Card>
+                <Card variant="outlined">{card1}</Card>
               </Grid>
               <Grid item xs={6}>
-                <Card variant="outlined">{card}</Card>
+                <Card variant="outlined">{card2}</Card>
               </Grid>
               <Grid item xs={6}>
-                <Card variant="outlined">{card}</Card>
+                <Card variant="outlined">{card3}</Card>
               </Grid>
               <Grid item xs={6}>
-                <Card variant="outlined">{card}</Card>
+                <Card variant="outlined">{card4}</Card>
               </Grid>
             </Grid>
           </Carddiv>

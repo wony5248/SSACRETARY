@@ -23,48 +23,48 @@ const Mobile = ({ children }: any) => {
   return isMobile ? children : null;
 };
 const data = [
-	{
-		title: '제목1',
-		tag1: 'MySQL',
-		tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰"
-	},
   {
-		title: '제목2',
-		tag1: 'MySQL',
-		tag2: "스프링",
+    title: "제목1",
+    tag1: "MySQL",
+    tag2: "스프링",
     tag3: "리액트",
-    tag4: "뷰"
-	},
+    tag4: "뷰",
+  },
   {
-		title: '제목3',
-		tag1: 'MySQL',
-		tag2: "스프링",
+    title: "제목2",
+    tag1: "MySQL",
+    tag2: "스프링",
     tag3: "리액트",
-    tag4: "뷰"
-	},
+    tag4: "뷰",
+  },
   {
-		title: '제목4',
-		tag1: 'MySQL',
-		tag2: "스프링",
+    title: "제목3",
+    tag1: "MySQL",
+    tag2: "스프링",
     tag3: "리액트",
-    tag4: "뷰"
-	},
+    tag4: "뷰",
+  },
   {
-		title: '제목5',
-		tag1: 'MySQL',
-		tag2: "스프링",
+    title: "제목4",
+    tag1: "MySQL",
+    tag2: "스프링",
     tag3: "리액트",
-    tag4: "뷰"
-	},
+    tag4: "뷰",
+  },
   {
-		title: '제목1',
-		tag1: 'MySQL',
-		tag2: "스프링",
+    title: "제목5",
+    tag1: "MySQL",
+    tag2: "스프링",
     tag3: "리액트",
-    tag4: "뷰"
-	}
+    tag4: "뷰",
+  },
+  {
+    title: "제목1",
+    tag1: "MySQL",
+    tag2: "스프링",
+    tag3: "리액트",
+    tag4: "뷰",
+  },
 ];
 const SettingProfile: React.FunctionComponent = () => {
   const Click = () => {
@@ -73,7 +73,31 @@ const SettingProfile: React.FunctionComponent = () => {
   return (
     <div>
       <AppAppBar />
-      <Desktop>this page is SettingProfile page</Desktop>
+      <Desktop>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Headerdiv style={{fontSize:"24px"}}>Crawlings</Headerdiv>
+          <Bodydiv style={{height: "1000px", display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
+            {data.map((item, index) => (
+              <Settingdiv style={{width:"60%"}} key={index}>
+                <Settingtitlediv>{item.title}</Settingtitlediv>
+                <Settingtagdiv>
+                  <Settingtag>#️{item.tag1}</Settingtag>
+                  <Settingtag>#️{item.tag2}</Settingtag>
+                  <Settingtag>#️{item.tag3}</Settingtag>
+                  <Settingtag>#️{item.tag4}</Settingtag>
+                </Settingtagdiv>
+              </Settingdiv>
+            ))}
+          </Bodydiv>
+          <Btn style={{marginTop:"48px", width:"90%"}} onClick={Click} name="Make Crawl"></Btn>
+        </div>
+      </Desktop>
       <Mobile>
         <div
           style={{
@@ -85,13 +109,13 @@ const SettingProfile: React.FunctionComponent = () => {
           <Headerdiv>Crawlings</Headerdiv>
           <Bodydiv>
             {data.map((item, index) => (
-                <Settingdiv key={index}>
-                <Settingtitlediv >{item.title}</Settingtitlediv>
+              <Settingdiv key={index}>
+                <Settingtitlediv>{item.title}</Settingtitlediv>
                 <Settingtagdiv>
-                  <Settingtag >#️{item.tag1}</Settingtag>
-                  <Settingtag >#️{item.tag2}</Settingtag>
-                  <Settingtag >#️{item.tag3}</Settingtag>
-                  <Settingtag >#️{item.tag4}</Settingtag>
+                  <Settingtag>#️{item.tag1}</Settingtag>
+                  <Settingtag>#️{item.tag2}</Settingtag>
+                  <Settingtag>#️{item.tag3}</Settingtag>
+                  <Settingtag>#️{item.tag4}</Settingtag>
                 </Settingtagdiv>
               </Settingdiv>
             ))}

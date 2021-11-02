@@ -32,6 +32,7 @@ export const Carddiv1 = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  algin-self: center;
   margin-bottom: 32px;
   width: 90%;
   height:300px;

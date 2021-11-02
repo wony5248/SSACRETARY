@@ -7,6 +7,7 @@ const Styledbtn = styled.button`
   color: white;
   border: none;
   outline: none;
+  cursor:pointer;
   width: 328px;
   height: 36px;
 `;

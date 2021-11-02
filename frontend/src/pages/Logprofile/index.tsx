@@ -1,14 +1,10 @@
+import { Grid } from "@mui/material";
 import React from "react";
 
 import { useMediaQuery } from "react-responsive";
 import AppAppBar from "../../views/AppAppBar";
 
-import {
-  Userprofilediv1,
-  Carddiv1,
-  Carddiv2,
-
-} from "./style";
+import { Userprofilediv1, Carddiv1, Carddiv2 } from "./style";
 
 const data = [
   {
@@ -43,6 +39,46 @@ const data = [
     triggerddate: "20211028",
     crawlingsource: "오우쉣",
   },
+  {
+    title: "Title",
+    url: "URL",
+    keyword1: "keyword1",
+    keyword2: "keyword2",
+    triggerddate: "20211028",
+    crawlingsource: "오우쉣",
+  },
+  {
+    title: "Title",
+    url: "URL",
+    keyword1: "keyword1",
+    keyword2: "keyword2",
+    triggerddate: "20211028",
+    crawlingsource: "오우쉣",
+  },
+  {
+    title: "Title",
+    url: "URL",
+    keyword1: "keyword1",
+    keyword2: "keyword2",
+    triggerddate: "20211028",
+    crawlingsource: "오우쉣",
+  },
+  {
+    title: "Title",
+    url: "URL",
+    keyword1: "keyword1",
+    keyword2: "keyword2",
+    triggerddate: "20211028",
+    crawlingsource: "오우쉣",
+  },
+  {
+    title: "Title",
+    url: "URL",
+    keyword1: "keyword1",
+    keyword2: "keyword2",
+    triggerddate: "20211028",
+    crawlingsource: "오우쉣",
+  },
 ];
 const Desktop = ({ children }: any) => {
   const isDesktop = useMediaQuery({ minWidth: 613 });
@@ -58,11 +94,36 @@ const Mobile = ({ children }: any) => {
 };
 
 const Logprofile = () => {
-
   return (
     <div>
       <AppAppBar />
-      <Desktop>this page is LogProfile page</Desktop>
+      <Desktop>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Userprofilediv1 style={{fontSize:"24px"}}>Log</Userprofilediv1>
+          <Grid container spacing={2} style={{marginTop: "24px"}}>
+            {data.map((item) => (
+              <Grid item xs={6} style={{paddingTop:"0px", display:"flex", justifyContent:"center", alignItems:"center"}}>
+                <Carddiv1 style={{padding:"16px 0"}}>
+                  <Carddiv2>
+                    <div>{item.title}</div>
+                    <div>{item.url}</div>
+                    <div>{item.keyword1}</div>
+                    <div>{item.keyword2}</div>
+                    <div>{item.triggerddate}</div>
+                    <div>{item.crawlingsource}</div>
+                  </Carddiv2>
+                </Carddiv1>
+              </Grid>
+            ))}
+          </Grid>
+        </div>
+      </Desktop>
       <Mobile>
         <div
           style={{

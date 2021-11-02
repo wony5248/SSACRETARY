@@ -5,7 +5,6 @@ import { TextField, Button, Alert } from "@mui/material";
 import AppAppBar from "../../views/AppAppBar";
 import Btn from "../../components/Button";
 import { Userprofilediv, Formdiv } from "./style";
-import { Styledbtn } from "./style";
 import {
   axiosOnNicknameCheck,
   axiosOnPhoneNumberCheck,
@@ -112,13 +111,107 @@ const UserProfile = () => {
     }
   };
 
-  const onWithdrawl = function () {};
+
+  const onWithdrawl = function () {
+    console.log("withdrawl")
+  };
   //   const isMobile = useMediaQuery({ maxWidth: 612 });
   return (
     <div>
       {/* {isMobile ? <AppAppBar /> : undefined} */}
       <AppAppBar />
-      <Desktop>this page is UserProfile page</Desktop>
+      <Desktop>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Userprofilediv style={{marginTop:"72px", fontSize:"28px"}}>Profile</Userprofilediv>
+          <Formdiv style={{width:"500px", height:"500px", justifyContent:"space-evenly"}}>
+            <div style={{ width: "100%" }}>
+              <TextField
+                label="Email"
+                name="email"
+                onChange={onChange}
+                value={email}
+                required
+                style={{ width: "100%", backgroundColor: "#E6E6E6" }}
+              ></TextField>
+            </div>
+            <div
+              style={{
+                width: "100%",
+                marginTop: "24px",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <TextField
+                error={nicknameCheck === "not available" ? true : false}
+                label="Nickname"
+                name="nickname"
+                onChange={onChange}
+                value={nickname}
+                required
+                style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                helperText={
+                  nicknameCheck === "not available"
+                    ? "Your nickname isn't available"
+                    : ""
+                }
+              ></TextField>
+              <Button
+                variant="contained"
+                size="small"
+                style={{ marginLeft: "10px", height: "55px" }}
+                color={nicknameCheck === "available" ? "success" : "primary"}
+                onClick={onNicknameCheck}
+              >
+                AVAILITY
+              </Button>
+            </div>
+            <div
+              style={{
+                width: "100%",
+                marginTop: "24px",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <TextField
+                error={phoneCheck === "not available" ? true : false}
+                label="Phone"
+                name="phone"
+                onChange={onChange}
+                value={phone}
+                required
+                style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                helperText={
+                  phoneCheck === "not available"
+                    ? "Your phone number isn't available"
+                    : ""
+                }
+              ></TextField>
+              <Button
+                variant="contained"
+                size="small"
+                style={{ marginLeft: "10px", height: "55px" }}
+                color={phoneCheck === "available" ? "success" : "primary"}
+                onClick={onPhoneCheck}
+              >
+                AVAILITY
+              </Button>
+            </div>
+          </Formdiv>
+          {message.trim() !== "" ? (
+            <Alert severity="error">{message}</Alert>
+          ) : null}
+          <Btn style={{width: "500px"}} name="CHANGE PROFILE" onClick={onChangeProfile}></Btn>
+          <Btn style={{width: "500px", backgroundColor: "#D62B4B"}} name="WITHDRAWL" onClick={onWithdrawl}></Btn>
+        </div>
+      </Desktop>
       <Mobile>
         <div
           style={{
@@ -208,7 +301,7 @@ const UserProfile = () => {
             <Alert severity="error">{message}</Alert>
           ) : null}
           <Btn name="CHANGE PROFILE" onClick={onChangeProfile}></Btn>
-          <Styledbtn>WITHDRAWL</Styledbtn>
+          <Btn style={{backgroundColor: "#D62B4B"}} name="WITHDRAWL" onClick={onWithdrawl}></Btn>
         </div>
       </Mobile>
     </div>

@@ -50,6 +50,7 @@ export const Alarmdiv = styled.div`
 export const Addbtn = styled.button`
   border-radius: 8px;
   width: 113px;
+  cursor: pointer;
   color: white;
   border: none;
   display: flex;
@@ -64,6 +65,7 @@ export const Removebtn = styled.button`
   border-radius: 100px;
   width: 56px;
   color: white;
+  cursor:pointer;
   border: none;
   height: 56px;
   background-color: #d62b4b;

@@ -55,15 +55,3 @@ export const Duplicate = styled.div`
   min-height: 88px;
 `;
 
-export const Styledbtn = styled.button`
-  margin-top: 24px;
-  background-color: #D62B4B;
-  color: white;
-  border: none;
-  outline: none;
-  width: 328px;
-  height: 36px;
-  &:hover {
-    background-color: #a3cca3;
-  }
-`;
