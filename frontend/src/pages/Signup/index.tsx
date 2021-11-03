@@ -287,6 +287,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               width: "200px",
               backgroundColor: "#FFFFFF",
             }}
+            type="password"
             required={true}
             onChange={onChange}
           />
@@ -296,6 +297,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             error={password === passwordCheck ? false : true}
             name="passwordCheck"
             label="PasswordCheck"
+            type="password"
             required={true}
             style={{
               alignSelf: "start",
@@ -304,9 +306,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             }}
             onChange={onChange}
             helperText={
-              password === passwordCheck
-                ? ""
-                : "passwordCheck isn't identical to password"
+              password === passwordCheck ? "" : "passwordCheck isn't identical"
             }
           />
         </CommonDiv>

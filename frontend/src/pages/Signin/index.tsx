@@ -69,6 +69,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
             label="Password"
             name="password"
             style={{ backgroundColor: "#FFFFFF" }}
+            type="password"
             onChange={onChange}
             value={password}
             required
