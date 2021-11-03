@@ -1,9 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100%;
+  width: 400px;
+  height: 750px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 100px;
+  border: solid;
+  border-width: thin;
+  border-radius: 0.5rem;
+  box-shadow: 5px 5px 5px 5px grey;
 `;

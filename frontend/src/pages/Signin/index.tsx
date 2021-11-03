@@ -48,57 +48,62 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   };
 
   return (
-    <Container>
-      <img src={Logo} width="200px" height="200px"></img>
-      <HeadlineH1>SIGN IN</HeadlineH1>
-      <CommonDiv>
-        <TextField
-          label="Email"
-          name="email"
-          onChange={onChange}
-          value={email}
-          required
-        />
-      </CommonDiv>
-      <CommonDiv>
-        <TextField
-          label="Password"
-          name="password"
-          onChange={onChange}
-          value={password}
-          required
-        />
-      </CommonDiv>
-      <CommonDiv>
-        {message !== "" ? <Alert severity="error">{message}</Alert> : null}
-      </CommonDiv>
-      <CommonDiv>
-        <div>
-          <Button
-            style={{ width: "200px" }}
-            variant="contained"
-            color="primary"
-            onClick={onSignIn}
-          >
-            SING IN
-          </Button>
-        </div>
-        <div>
-          <Link
-            style={{ color: "inherit", textDecoration: "none" }}
-            to="/signup"
-          >
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <Container>
+        <img src={Logo} width="200px" height="200px"></img>
+        <HeadlineH1>SIGN IN</HeadlineH1>
+        <CommonDiv>
+          <TextField
+            label="Email"
+            name="email"
+            onChange={onChange}
+            value={email}
+            required
+          />
+        </CommonDiv>
+        <CommonDiv>
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            onChange={onChange}
+            value={password}
+            required
+          />
+        </CommonDiv>
+        <CommonDiv>
+          {message !== "" ? <Alert severity="error">{message}</Alert> : null}
+        </CommonDiv>
+        <CommonDiv>
+          <div>
             <Button
               style={{ width: "200px" }}
-              variant="outlined"
+              variant="contained"
               color="primary"
+              onClick={onSignIn}
             >
-              CREATE ACCOUNT
+              SING IN
             </Button>
-          </Link>
-        </div>
-      </CommonDiv>
-    </Container>
+          </div>
+          <div>
+            <Link
+              style={{ color: "inherit", textDecoration: "none" }}
+              to="/signup"
+            >
+              <Button
+                style={{ width: "200px", backgroundColor: "#FFFFFF" }}
+                variant="outlined"
+                color="primary"
+              >
+                CREATE ACCOUNT
+              </Button>
+            </Link>
+          </div>
+        </CommonDiv>
+      </Container>
+    </div>
   );
 };
 

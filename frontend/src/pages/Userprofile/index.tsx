@@ -14,14 +14,12 @@ const Desktop = ({ children }: any) => {
   const isDesktop = useMediaQuery({ minWidth: 613 });
   return isDesktop ? children : null;
 };
-// const Tablet = ({ children }: any) => {
-//   const isTablet = useMediaQuery({ minWidth: 613, maxWidth: 1060 });
-//   return isTablet ? children : null;
-// };
+
 const Mobile = ({ children }: any) => {
   const isMobile = useMediaQuery({ maxWidth: 612 });
   return isMobile ? children : null;
 };
+
 const UserProfile = () => {
   const [inputs, setInputs] = useState({
     email: "",
@@ -55,17 +53,17 @@ const UserProfile = () => {
           if (res.status === 201) {
             setChecks({
               ...checks,
-              ["nicknameCheck"]: "available",
+              nicknameCheck: "available",
             });
           } else {
             setChecks({
               ...checks,
-              ["nicknameCheck"]: "not available",
+              nicknameCheck: "not available",
             });
           }
         })
         .catch((error: any) => {
-          console.log(error);
+          alert(error.response.data.error);
         });
     } else {
       alert("nickname isn't allowed to be empty");
@@ -79,17 +77,17 @@ const UserProfile = () => {
           if (res.status === 201) {
             setChecks({
               ...checks,
-              ["phoneCheck"]: "available",
+              phoneCheck: "available",
             });
           } else {
             setChecks({
               ...checks,
-              ["phoneCheck"]: "not available",
+              phoneCheck: "not available",
             });
           }
         })
         .catch((error: any) => {
-          console.log(error);
+          alert(error.response.data.error);
         });
     } else {
       alert(
@@ -99,6 +97,7 @@ const UserProfile = () => {
   };
 
   const onChangeProfile = function () {
+    console.log("changeProfile");
     if (nicknameCheck !== "available") {
       setMessage("Nickname check failed");
       return;
@@ -111,9 +110,8 @@ const UserProfile = () => {
     }
   };
 
-
   const onWithdrawl = function () {
-    console.log("withdrawl")
+    console.log("withdrawl");
   };
   //   const isMobile = useMediaQuery({ maxWidth: 612 });
   return (
@@ -128,8 +126,16 @@ const UserProfile = () => {
             alignItems: "center",
           }}
         >
-          <Userprofilediv style={{marginTop:"72px", fontSize:"28px"}}>Profile</Userprofilediv>
-          <Formdiv style={{width:"500px", height:"500px", justifyContent:"space-evenly"}}>
+          <Userprofilediv style={{ marginTop: "72px", fontSize: "28px" }}>
+            Profile
+          </Userprofilediv>
+          <Formdiv
+            style={{
+              width: "500px",
+              height: "500px",
+              justifyContent: "space-evenly",
+            }}
+          >
             <div style={{ width: "100%" }}>
               <TextField
                 label="Email"
@@ -208,8 +214,16 @@ const UserProfile = () => {
           {message.trim() !== "" ? (
             <Alert severity="error">{message}</Alert>
           ) : null}
-          <Btn style={{width: "500px"}} name="CHANGE PROFILE" onClick={onChangeProfile}></Btn>
-          <Btn style={{width: "500px", backgroundColor: "#D62B4B"}} name="WITHDRAWL" onClick={onWithdrawl}></Btn>
+          <Btn
+            style={{ width: "500px" }}
+            name="CHANGE PROFILE"
+            onClick={onChangeProfile}
+          ></Btn>
+          <Btn
+            style={{ width: "500px", backgroundColor: "#D62B4B" }}
+            name="WITHDRAWL"
+            onClick={onWithdrawl}
+          ></Btn>
         </div>
       </Desktop>
       <Mobile>
@@ -301,7 +315,11 @@ const UserProfile = () => {
             <Alert severity="error">{message}</Alert>
           ) : null}
           <Btn name="CHANGE PROFILE" onClick={onChangeProfile}></Btn>
-          <Btn style={{backgroundColor: "#D62B4B"}} name="WITHDRAWL" onClick={onWithdrawl}></Btn>
+          <Btn
+            style={{ backgroundColor: "#D62B4B" }}
+            name="WITHDRAWL"
+            onClick={onWithdrawl}
+          ></Btn>
         </div>
       </Mobile>
     </div>
