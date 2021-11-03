@@ -57,8 +57,8 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           if (res.status === 201) {
             setChecks({
               ...checks,
-              ["emailCheck"]: "available",
-              ["emailStep"]: "waiting",
+              emailCheck: "available",
+              emailStep: "waiting",
             });
             let tmpValidationNumber = makeValidationNumber();
             setEmailValidNum(tmpValidationNumber);
@@ -66,12 +66,12 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           } else {
             setChecks({
               ...checks,
-              ["emailCheck"]: "not available",
+              emailCheck: "not available",
             });
           }
         })
         .catch((error: any) => {
-          console.log(error);
+          alert(error.response.data.error);
         });
     } else {
       alert("email isn't allowed to be empty");
@@ -82,14 +82,14 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
     if (emailValidNum === emailInputNum) {
       setChecks({
         ...checks,
-        ["emailValidCheck"]: "available",
-        ["emailStep"]: "done",
+        emailValidCheck: "available",
+        emailStep: "done",
       });
       alert("Email validation done");
     } else {
       setChecks({
         ...checks,
-        ["emailValidCheck"]: "not available",
+        emailValidCheck: "not available",
       });
     }
   };
@@ -101,17 +101,17 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           if (res.status === 201) {
             setChecks({
               ...checks,
-              ["nicknameCheck"]: "available",
+              nicknameCheck: "available",
             });
           } else {
             setChecks({
               ...checks,
-              ["nicknameCheck"]: "not available",
+              nicknameCheck: "not available",
             });
           }
         })
         .catch((error: any) => {
-          console.log(error);
+          alert(error.response.data.error);
         });
     } else {
       alert("nickname isn't allowed to be empty");
@@ -125,17 +125,17 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           if (res.status === 201) {
             setChecks({
               ...checks,
-              ["phoneCheck"]: "available",
+              phoneCheck: "available",
             });
           } else {
             setChecks({
               ...checks,
-              ["phoneCheck"]: "not available",
+              phoneCheck: "not available",
             });
           }
         })
         .catch((error: any) => {
-          console.log(error);
+          alert(error.response.data.error);
         });
     } else {
       alert(
