@@ -61,14 +61,12 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
             onChange={onChange}
             value={email}
             required
-            style={{ backgroundColor: "#FFFFFF" }}
           />
         </CommonDiv>
         <CommonDiv>
           <TextField
             label="Password"
             name="password"
-            style={{ backgroundColor: "#FFFFFF" }}
             type="password"
             onChange={onChange}
             value={password}

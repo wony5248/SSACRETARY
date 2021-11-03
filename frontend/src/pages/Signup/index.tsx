@@ -194,7 +194,6 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               style={{
                 marginRight: "10px",
                 width: "200px",
-                backgroundColor: "#FFFFFF",
               }}
               required={true}
               onChange={onChange}
@@ -225,7 +224,6 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
                 style={{
                   marginRight: "10px",
                   width: "200px",
-                  backgroundColor: "#FFFFFF",
                 }}
                 required={true}
                 onChange={onChange}
@@ -256,7 +254,6 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               style={{
                 marginRight: "10px",
                 width: "200px",
-                backgroundColor: "#FFFFFF",
               }}
               required={true}
               onChange={onChange}
@@ -285,7 +282,6 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             style={{
               alignSelf: "start",
               width: "200px",
-              backgroundColor: "#FFFFFF",
             }}
             type="password"
             required={true}
@@ -302,7 +298,6 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             style={{
               alignSelf: "start",
               width: "200px",
-              backgroundColor: "#FFFFFF",
             }}
             onChange={onChange}
             helperText={
@@ -319,7 +314,6 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               style={{
                 marginRight: "10px",
                 width: "200px",
-                backgroundColor: "#FFFFFF",
               }}
               onChange={onChange}
               helperText={
@@ -354,7 +348,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           </Button>
           <Button
             variant="outlined"
-            style={{ width: "200px", backgroundColor: "#FFFFFF" }}
+            style={{ width: "200px" }}
             onClick={onGoBack}
           >
             GO BACK
