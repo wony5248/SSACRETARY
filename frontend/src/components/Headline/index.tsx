@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const HeadlineH1 = styled.h1`
-  width: 80px;
+  width: 200px;
   height: 24px;
   overflow: visible;
   white-space: pre-wrap;
@@ -14,5 +14,5 @@ export const HeadlineH1 = styled.h1`
   font-size: 20px;
   letter-spacing: 0.15000000596046448px;
   line-height: 1.2;
-  text-align: left;
+  text-align: center;
 `;
