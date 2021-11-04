@@ -10,6 +10,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Repository
 public class SettingQueryRepository {
-    private final JPAQueryFactory queryFactory;
+//    private final JPAQueryFactory queryFactory;
 
 }

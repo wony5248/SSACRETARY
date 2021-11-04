@@ -1,31 +1,22 @@
 package com.ssacretary.api.service;
 
-import com.ssacretary.api.request.UserPostReq;
-import com.ssacretary.db.entity.User;
-import com.ssacretary.db.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.ssacretary.api.request.user.EditUserReq;
+import com.ssacretary.api.request.user.LoginReq;
+import com.ssacretary.api.request.user.SignupReq;
+import com.ssacretary.api.response.user.UserLoginPostRes;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public interface UserService {
+    public boolean isValidToken(String token);
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    public void createUser(SignupReq signupReq);
 
-    public void createUser(UserPostReq userPostReq) {
+    public UserLoginPostRes login(LoginReq loginReq);
 
-        if (userPostReq.getPassword().equals(userPostReq.getPasswordCheck())) {
-            userRepository.save(User.builder()
-                    .email(userPostReq.getEmail())
-                    .nickname(userPostReq.getNickname())
-                    .phone(userPostReq.getPhone())
-                    .password(passwordEncoder.encode(userPostReq.getPassword()))
-                    .build());
-        }
+//    public BaseResponseBody signOut(String JWT);
 
-    }
+    public boolean editUser(String jwt, EditUserReq editUserReq);
 
+    public UserLoginPostRes getProfile(String token);
 }

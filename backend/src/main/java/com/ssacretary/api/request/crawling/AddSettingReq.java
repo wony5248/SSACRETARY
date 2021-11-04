@@ -1,4 +1,4 @@
-package com.ssacretary.api.request;
+package com.ssacretary.api.request.crawling;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;

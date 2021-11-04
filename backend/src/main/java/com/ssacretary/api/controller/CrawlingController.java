@@ -1,6 +1,6 @@
 package com.ssacretary.api.controller;
 
-import com.ssacretary.api.request.AddSettingReq;
+import com.ssacretary.api.request.crawling.AddSettingReq;
 import com.ssacretary.api.response.crawling.GetAllLogsRes;
 import com.ssacretary.api.response.crawling.GetAllSettingsRes;
 import com.ssacretary.api.response.crawling.GetSettingDetailRes;
@@ -8,15 +8,10 @@ import com.ssacretary.api.service.CrawlingService;
 import com.ssacretary.common.response.BaseResponseBody;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Api(value = "Crawling API", tags = {"Crawling"})
 @RequestMapping("/api/crawling")

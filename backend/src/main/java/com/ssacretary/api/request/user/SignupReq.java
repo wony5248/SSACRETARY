@@ -1,4 +1,4 @@
-package com.ssacretary.api.request;
+package com.ssacretary.api.request.user;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -7,8 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel("UserPostReq")
-public class UserPostReq {
+@ApiModel("SignupReq")
+public class SignupReq {
 
     @ApiModelProperty(name="유저 이메일")
     String email;

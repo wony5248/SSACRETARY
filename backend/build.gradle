@@ -33,8 +33,13 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
-	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	/* JWT 설정 */
+	implementation group: 'com.auth0', name: 'java-jwt', version: '3.18.1'
+	implementation 'io.jsonwebtoken:jjwt-api:0.10.7'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.10.7'
+	runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.10.7')
 
 	implementation("io.springfox:springfox-swagger2:3.0.0")
 	implementation("io.springfox:springfox-swagger-ui:3.0.0")
@@ -49,6 +54,10 @@ dependencies {
 	implementation 'commons-fileupload:commons-fileupload:1.4'
 
 	implementation 'com.querydsl:querydsl-jpa'
+
+	/* Redis */
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	compile('org.springframework.boot:spring-boot-starter-data-redis')
 }
 
 def querydslDir = "$buildDir/generated/querydsl"

@@ -1,11 +1,13 @@
 package com.ssacretary.api.response.crawling;
 
 import com.ssacretary.common.response.BaseResponseBody;
+import io.swagger.annotations.ApiModel;
 import lombok.Setter;
 
 import java.util.List;
 
 @Setter
+@ApiModel("GetSettingDetailRes")
 public class GetSettingDetailRes extends BaseResponseBody {
     String userEmail;
     String type;
