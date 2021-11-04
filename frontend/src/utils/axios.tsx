@@ -62,7 +62,7 @@ export const axiosOnChangeProfile = function (
     method: "PUT",
     url: BASE_URL + "/user",
     headers: {
-      token: jwt,
+      Authorization: jwt,
     },
     data: {
       userNickname: nickname,
