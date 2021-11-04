@@ -62,12 +62,12 @@ public class UserController {
     // 회원정보 수정
     @PutMapping("/editUser")
     @ApiOperation(value = "회원정보 수정")
-    public ResponseEntity<BaseResponseBody> editUser(@RequestHeader(value = "Authorization") String JWT, @RequestBody EditUserReq editUserReq){
-        boolean resbody = userServiceImpl.editUser(JWT,editUserReq);
-        if(resbody){
-            return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
+    public ResponseEntity<UserLoginPostRes> editUser(@RequestHeader(value = "Authorization") String JWT, @RequestBody EditUserReq editUserReq){
+        UserLoginPostRes resbody = userServiceImpl.editUser(JWT,editUserReq);
+        if(resbody.getJwt().equals(JWT) && resbody.getEmail()!=null){
+            return ResponseEntity.ok(UserLoginPostRes.of(200, "수정 성공",resbody.getJwt(),resbody.getEmail(),resbody.getPhoneNum(),resbody.getNickname()));
         }
-        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failed"));
+        return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "유효하지 않은 연결입니다.",null,null,null,null));
     }
 
 //    //로그아웃

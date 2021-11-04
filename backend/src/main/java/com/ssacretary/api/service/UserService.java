@@ -16,7 +16,7 @@ public interface UserService {
 
 //    public BaseResponseBody signOut(String JWT);
 
-    public boolean editUser(String jwt, EditUserReq editUserReq);
+    public UserLoginPostRes editUser(String jwt, EditUserReq editUserReq);
 
     public UserLoginPostRes getProfile(String token);
 }
