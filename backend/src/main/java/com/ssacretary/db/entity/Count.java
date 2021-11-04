@@ -15,7 +15,7 @@ public class Count {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "count_id")
-    private Long countId;
+    private int countId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "log_id")

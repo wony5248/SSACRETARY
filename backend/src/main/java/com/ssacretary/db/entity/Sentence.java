@@ -15,7 +15,7 @@ public class Sentence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sentence_id")
-    private Long sentenceId;
+    private int sentenceId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "log_id")

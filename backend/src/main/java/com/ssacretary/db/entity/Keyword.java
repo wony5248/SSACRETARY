@@ -17,7 +17,7 @@ public class Keyword {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "keyword_id")
-    private Long keywordId;
+    private int keywordId;
 
     @OneToMany(mappedBy = "keyword")
     private List<SettingKeyword> settingKeywordList = new ArrayList<>();
