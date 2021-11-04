@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Styledbtn = styled.button`
   margin-top: 24px;
-  background-color: #6200ee;
+  background-color: #1976d2;
   color: white;
   border: none;
   outline: none;
