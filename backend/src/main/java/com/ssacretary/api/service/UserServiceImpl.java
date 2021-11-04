@@ -76,20 +76,22 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean editUser(String jwt, EditUserReq editUserReq){
+    public UserLoginPostRes editUser(String jwt, EditUserReq editUserReq){
         try{
             String email = jwtTokenProvider.getUserInfo(jwt);
-            System.out.println("1");
-            System.out.println(email);
             User user = userRepository.findByEmail(email).get();
-            System.out.println("2");
-            System.out.println(user.getNickname());
             user.updateUserProfile(editUserReq);
             userRepository.save(user);
-            return true;
+
+            UserLoginPostRes resbody = new UserLoginPostRes();
+            resbody.setJwt(jwt);
+            resbody.setNickname(user.getNickname());
+            resbody.setEmail(email);
+            resbody.setPhoneNum(user.getPhone());
+            return resbody;
         }catch (Exception e){
             System.out.println(e);
-            return false;
+            return null;
         }
     }
 
