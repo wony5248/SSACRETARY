@@ -65,7 +65,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
     if (email.trim() !== "") {
       axiosOnEmailCheck(email)
         .then((res: any) => {
-          if (res.status === 201) {
+          if (res.status === 200) {
             setChecks({
               ...checks,
               emailCheck: "available",
@@ -109,7 +109,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
     if (nickname.trim() !== "") {
       axiosOnNicknameCheck(nickname)
         .then((res: any) => {
-          if (res.status === 201) {
+          if (res.status === 200) {
             setChecks({
               ...checks,
               nicknameCheck: "available",
@@ -133,7 +133,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
     if (phone.trim() !== "") {
       axiosOnPhoneNumberCheck(phone)
         .then((res: any) => {
-          if (res.status === 201) {
+          if (res.status === 200) {
             setChecks({
               ...checks,
               phoneCheck: "available",
@@ -175,7 +175,8 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
     }
     axiosOnSignUp(email, nickname, password, passwordCheck, phone)
       .then((res: any) => {
-        if (res.status === 201) {
+        if (res.status === 200) {
+          alert("Your sign up request success");
           props.history.push("/");
         } else {
           setMessage(res.data.message);

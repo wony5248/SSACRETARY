@@ -58,7 +58,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
     if (nickname.trim() !== "") {
       axiosOnNicknameCheck(nickname)
         .then((res: any) => {
-          if (res.status === 201) {
+          if (res.status === 200) {
             setChecks({
               ...checks,
               nicknameCheck: "available",
@@ -82,7 +82,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
     if (phone.trim() !== "") {
       axiosOnPhoneNumberCheck(phone)
         .then((res: any) => {
-          if (res.status === 201) {
+          if (res.status === 200) {
             setChecks({
               ...checks,
               phoneCheck: "available",
