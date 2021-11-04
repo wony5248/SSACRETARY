@@ -103,51 +103,51 @@ public class ScheduledTasks {
                     result.add(items);
                 }
             }
-            System.out.println(result.size());
-            System.out.println(result);
+//            System.out.println(result.size());
+//            System.out.println(result);
 //            System.out.println(arr2);
 //            System.out.println(arr.containsAll(arr2));
-            String subject = stockList + "사이트에 대한 새로운 크롤링 결과";
-            String fromMail = "wony5248@gmail.com";
-            String fromName = "장범진";
-            String toMail = "wony5248@gmail.com";
-            Properties props = new Properties();
-
-            props.put("mail.smtp.host", "smtp.gmail.com"); // use Gmail
-            props.put("mail.smtp.port", "587"); // set port
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true"); // use TLS
-
-
-            Session mailSession = Session.getInstance(props, new javax.mail.Authenticator(){
-                protected PasswordAuthentication getPasswordAuthentication(){
-                    return new PasswordAuthentication(useremail, password);
-                }
-            });
-
-            try {
-                MimeMessage message = new MimeMessage(mailSession);
-
-                message.setFrom(new InternetAddress(fromMail, MimeUtility.encodeText(fromName, "UTF-8", "B")));
-                message.setRecipients(
-                        Message.RecipientType.TO,
-                        InternetAddress.parse(toMail)
-                );
-                message.setSubject(subject);
-                message.setContent(result.size() + "개의 크롤링 조건에 일치하는 결과" + result.toString(),"text/html;charset=UTF-8");
-                message.setSentDate(new java.util.Date());
-
-                Transport t = mailSession.getTransport("smtp");
-                t.connect(useremail, password);
-                t.sendMessage(message, message.getAllRecipients());
-                t.close();
-                System.out.println("DONE");
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-
-
+//            String subject = stockList + "사이트에 대한 새로운 크롤링 결과";
+//            String fromMail = "wony5248@gmail.com";
+//            String fromName = "장범진";
+//            String toMail = "wony5248@gmail.com";
+//            Properties props = new Properties();
+//
+//            props.put("mail.smtp.host", "smtp.gmail.com"); // use Gmail
+//            props.put("mail.smtp.port", "587"); // set port
+//            props.put("mail.smtp.auth", "true");
+//            props.put("mail.smtp.starttls.enable", "true"); // use TLS
+//
+//
+//            Session mailSession = Session.getInstance(props, new javax.mail.Authenticator(){
+//                protected PasswordAuthentication getPasswordAuthentication(){
+//                    return new PasswordAuthentication(useremail, password);
+//                }
+//            });
+//
+//            try {
+//                MimeMessage message = new MimeMessage(mailSession);
+//
+//                message.setFrom(new InternetAddress(fromMail, MimeUtility.encodeText(fromName, "UTF-8", "B")));
+//                message.setRecipients(
+//                        Message.RecipientType.TO,
+//                        InternetAddress.parse(toMail)
+//                );
+//                message.setSubject(subject);
+//                message.setContent(result.size() + "개의 크롤링 조건에 일치하는 결과" + result.toString(),"text/html;charset=UTF-8");
+//                message.setSentDate(new java.util.Date());
+//
+//                Transport t = mailSession.getTransport("smtp");
+//               t.connect(useremail, password);
+//               t.sendMessage(message, message.getAllRecipients());
+//               t.close();
+//                System.out.println("DONE");
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
+//
+//
+//
 
 //            System.out.println(tbody);
 
