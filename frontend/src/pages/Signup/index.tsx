@@ -55,6 +55,24 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
+    if (name === "email") {
+      setChecks({
+        ...checks,
+        emailCheck: "default",
+        emailStep: "default",
+        emailValidCheck: "default",
+      });
+    } else if (name === "nickname") {
+      setChecks({
+        ...checks,
+        nicknameCheck: "default",
+      });
+    } else if (name === "phone") {
+      setChecks({
+        ...checks,
+        phoneCheck: "default",
+      });
+    }
     setInputs({
       ...inputs,
       [name]: value,
