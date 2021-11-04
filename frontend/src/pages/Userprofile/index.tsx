@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { RouteComponentProps } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { TextField, Button, Alert } from "@mui/material";
 
@@ -8,6 +9,8 @@ import { Userprofilediv, Formdiv } from "./style";
 import {
   axiosOnNicknameCheck,
   axiosOnPhoneNumberCheck,
+  axiosOnChangeProfile,
+  axiosOnWithdrawl,
 } from "../../utils/axios";
 
 const Desktop = ({ children }: any) => {
@@ -20,11 +23,16 @@ const Mobile = ({ children }: any) => {
   return isMobile ? children : null;
 };
 
-const UserProfile = () => {
+const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
+  const localEmail = localStorage.getItem("email");
+  const localNickname = localStorage.getItem("nickname");
+  const localPhone = localStorage.getItem("phoneNum");
+  const localJWT = localStorage.getItem("jwt");
+
   const [inputs, setInputs] = useState({
-    email: "",
-    nickname: "",
-    phone: "",
+    email: localEmail !== null ? localEmail : "",
+    nickname: localNickname !== null ? localNickname : "",
+    phone: localPhone !== null ? localPhone : "",
   });
 
   const { email, nickname, phone } = inputs;
@@ -107,10 +115,25 @@ const UserProfile = () => {
         return;
       }
     }
+    axiosOnChangeProfile(localJWT !== null ? localJWT : "", nickname, phone)
+      .then((res: any) => {
+        if (res.data.statusCode === 200) {
+          localStorage.setItem("jwt", res.data.jwt);
+          localStorage.setItem("email", res.data.email);
+          localStorage.setItem("nickname", res.data.nickname);
+          localStorage.setItem("phoneNum", res.data.phoneNum);
+          props.history.push("/settingprofile");
+        } else {
+          setMessage(res.data.message);
+        }
+      })
+      .catch((error: any) => {
+        setMessage(error.response.data.error);
+      });
   };
 
   const onWithdrawl = function () {
-    console.log("withdrawl");
+    console.log("oneWithdrawl");
   };
   //   const isMobile = useMediaQuery({ maxWidth: 612 });
   return (
