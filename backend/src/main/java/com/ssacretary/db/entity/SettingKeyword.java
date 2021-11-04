@@ -15,7 +15,7 @@ public class SettingKeyword {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sk_id")
-    private Long skId;
+    private int skId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "setting_id")

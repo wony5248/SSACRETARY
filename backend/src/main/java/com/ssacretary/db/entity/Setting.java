@@ -18,7 +18,7 @@ public class Setting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "setting_id")
-    private Long settingId;
+    private int settingId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "email")
@@ -38,6 +38,9 @@ public class Setting {
 
     @Column(name = "alarm")
     private Boolean alarm;
+
+    @Column(name = "sms")
+    private Boolean sms;
 
     @Column(name = "name")
     private String name;

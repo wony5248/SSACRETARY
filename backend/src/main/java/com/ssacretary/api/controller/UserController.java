@@ -1,15 +1,16 @@
 package com.ssacretary.api.controller;
 
-import com.ssacretary.api.request.UserLoginPostReq;
-import com.ssacretary.api.request.UserPostReq;
-import com.ssacretary.api.response.UserLoginPostRes;
-import com.ssacretary.api.service.UserService;
+import com.ssacretary.api.request.user.EditUserReq;
+import com.ssacretary.api.request.user.LoginReq;
+import com.ssacretary.api.request.user.SignupReq;
+import com.ssacretary.api.response.user.UserLoginPostRes;
+import com.ssacretary.api.service.UserServiceImpl;
 import com.ssacretary.common.response.BaseResponseBody;
 import com.ssacretary.config.JwtTokenProvider;
+import com.ssacretary.db.entity.Log;
 import com.ssacretary.db.entity.User;
 import com.ssacretary.db.repository.UserRepository;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +18,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 @Api(value = "유저 API", tags = {"User"})
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 @RestController
 @CrossOrigin(origins = "*")
@@ -31,30 +32,52 @@ public class UserController {
     private final UserRepository userRepository;
 
     @Autowired
-    UserService userService;
+    UserServiceImpl userServiceImpl;
 
     // 회원가입
     @PostMapping("/")
     @ApiOperation(value = "회원 가입", notes = "<strong>이메일과 패스워드</strong>를 통해 회원가입 한다.")
-    public ResponseEntity<? extends BaseResponseBody> signUp(@RequestBody UserPostReq userPostReq) {
+    public ResponseEntity<? extends BaseResponseBody> signUp(@RequestBody SignupReq signupReq) {
 
-        userService.createUser(userPostReq);
+        userServiceImpl.createUser(signupReq);
 
-        return ResponseEntity.status(201).body(BaseResponseBody.of(200, "정상"));
+        return ResponseEntity.ok().body(BaseResponseBody.of(200, "정상"));
     }
 
     // 로그인
     @PostMapping("/login")
     @ApiOperation(value = "로그인", notes = "<strong>아이디와 패스워드</strong>를 통해 로그인 한다.")
-    public ResponseEntity<UserLoginPostRes> login(@RequestBody UserLoginPostReq userLoginPostReq) {
-        User user = userRepository.findByEmail(userLoginPostReq.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
-        if (!passwordEncoder.matches(userLoginPostReq.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+    public ResponseEntity<UserLoginPostRes> login(@RequestBody @ApiParam(value = "로그인 정보", required = true) LoginReq loginReq, HttpServletResponse response) {
+        UserLoginPostRes resbody = userServiceImpl.login(loginReq);
+        response.setHeader("Authorization",resbody.getJwt());
+        if(resbody.getNickname()!=null){
+            return ResponseEntity.ok(UserLoginPostRes.of(200, "Success",resbody.getJwt(), resbody.getEmail(), resbody.getPhoneNum(), resbody.getNickname()));
         }
-
-        return new ResponseEntity<UserLoginPostRes>(jwtTokenProvider.loginResponse(user.getEmail()), HttpStatus.OK);
+        return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "아이디 또는 비밀번호가 틀렸습니다.",null,null,null,null));
     }
+
+
+
+
+    // 회원정보 수정
+    @PutMapping("/editUser")
+    @ApiOperation(value = "회원정보 수정")
+    public ResponseEntity<BaseResponseBody> editUser(@RequestHeader(value = "Authorization") String JWT, @RequestBody EditUserReq editUserReq){
+        boolean resbody = userServiceImpl.editUser(JWT,editUserReq);
+        if(resbody){
+            return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
+        }
+        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failed"));
+    }
+
+//    //로그아웃
+//    @ApiImplicitParams({@ApiImplicitParam(name = "SSACRETARY-TOKEN", value = "JWT token", required = true, dataType = "string", paramType = "header")})
+//    @ApiOperation(value = "로그아웃")
+//    @GetMapping("/signout")
+//    public BaseResponseBody signOut(@RequestHeader(value = "SSACRETARY-TOKEN") String JWT) {
+//        return userServiceImpl.signOut(JWT);
+//    }
+
 
     // 회원 이메일 중복 확인
     @GetMapping("/userEmailCheck/{email}")
