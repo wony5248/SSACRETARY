@@ -93,7 +93,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
               to="/signup"
             >
               <Button
-                style={{ width: "200px", backgroundColor: "#FFFFFF" }}
+                style={{ width: "200px" }}
                 variant="outlined"
                 color="primary"
               >
