@@ -84,7 +84,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
               color="primary"
               onClick={onSignIn}
             >
-              SING IN
+              SIGN IN
             </Button>
           </div>
           <div>

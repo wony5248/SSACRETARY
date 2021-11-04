@@ -74,7 +74,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           alert(error.response.data.error);
         });
     } else {
-      alert("email isn't allowed to be empty");
+      alert("Email isn't allowed to be empty");
     }
   };
 
@@ -114,7 +114,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           alert(error.response.data.error);
         });
     } else {
-      alert("nickname isn't allowed to be empty");
+      alert("Nickname isn't allowed to be empty");
     }
   };
 
@@ -301,7 +301,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             }}
             onChange={onChange}
             helperText={
-              password === passwordCheck ? "" : "passwordCheck isn't identical"
+              password === passwordCheck ? "" : "PasswordCheck isn't identical"
             }
           />
         </CommonDiv>
