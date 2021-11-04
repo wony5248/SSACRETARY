@@ -43,8 +43,10 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
       axiosOnSignIn(email, password)
         .then((res: any) => {
           if (res.data.statusCode === 200) {
-            localStorage.setItem("jwt", res.data.token);
-            localStorage.setItem("userInfo", res.data.userInfo);
+            localStorage.setItem("jwt", res.data.jwt);
+            localStorage.setItem("email", res.data.email);
+            localStorage.setItem("nickname", res.data.nickname);
+            localStorage.setItem("phoneNum", res.data.phoneNum);
             props.history.push("/settingprofile");
           } else {
             setMessage(res.data.message);
