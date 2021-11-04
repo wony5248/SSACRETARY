@@ -84,7 +84,7 @@ const SettingProfile: React.FunctionComponent = () => {
           <Headerdiv style={{fontSize:"24px"}}>Crawlings</Headerdiv>
           <Bodydiv style={{height: "1000px", display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
             {data.map((item, index) => (
-              <Settingdiv style={{width:"60%"}} key={index}>
+              <Settingdiv onClick={() => console.log(index)} style={{width:"60%"}} key={index}>
                 <Settingtitlediv>{item.title}</Settingtitlediv>
                 <Settingtagdiv>
                   <Settingtag>#️{item.tag1}</Settingtag>
@@ -109,7 +109,7 @@ const SettingProfile: React.FunctionComponent = () => {
           <Headerdiv>Crawlings</Headerdiv>
           <Bodydiv>
             {data.map((item, index) => (
-              <Settingdiv key={index}>
+              <Settingdiv onClick={() => console.log(index)} key={index}>
                 <Settingtitlediv>{item.title}</Settingtitlediv>
                 <Settingtagdiv>
                   <Settingtag>#️{item.tag1}</Settingtag>
