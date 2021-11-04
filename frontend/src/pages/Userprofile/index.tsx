@@ -97,7 +97,6 @@ const UserProfile = () => {
   };
 
   const onChangeProfile = function () {
-    console.log("changeProfile");
     if (nicknameCheck !== "available") {
       setMessage("Nickname check failed");
       return;
