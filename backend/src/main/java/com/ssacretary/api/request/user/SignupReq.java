@@ -23,6 +23,6 @@ public class SignupReq {
     String passwordCheck;
 
     @ApiModelProperty(name="유저 핸드폰 번호")
-    String phone;
+    String phoneNum;
 
 }

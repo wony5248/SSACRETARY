@@ -50,7 +50,7 @@ public class UserController {
         if(resbody.getNickname()!=null){
             return ResponseEntity.ok(UserLoginPostRes.of(200, "로그인 성공",resbody.getJwt(), resbody.getEmail(), resbody.getPhoneNum(), resbody.getNickname()));
         }
-        return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "로그인 실패",null,null,null,null));
+        return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "로그인 실패","","","",""));
     }
 
 
@@ -64,7 +64,7 @@ public class UserController {
         if(resbody.getJwt().equals(JWT) && resbody.getEmail()!=null){
             return ResponseEntity.ok(UserLoginPostRes.of(200, "수정 성공",resbody.getJwt(),resbody.getEmail(),resbody.getPhoneNum(),resbody.getNickname()));
         }
-        return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "유효하지 않은 연결입니다.",null,null,null,null));
+        return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "유효하지 않은 연결입니다.",resbody.getJwt(),"","",""));
     }
 
 //    //로그아웃
