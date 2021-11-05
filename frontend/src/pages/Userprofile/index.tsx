@@ -165,7 +165,12 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
         return;
       }
     }
-    axiosOnChangeProfile(localJWT !== null ? localJWT : "", nickname, phone)
+    axiosOnChangeProfile(
+      localJWT !== null ? localJWT : "",
+      email,
+      nickname,
+      phone
+    )
       .then((res: any) => {
         if (res.data.statusCode === 200) {
           console.log(res.data);
@@ -195,7 +200,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
   };
 
   const onWithdrawl = function () {
-    axiosOnWithdrawl(localJWT !== null ? localJWT : "")
+    axiosOnWithdrawl(localJWT !== null ? localJWT : "", email)
       .then((res: any) => {
         if (res.data.statusCode === 200) {
           localStorage.clear();
