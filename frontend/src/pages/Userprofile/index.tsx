@@ -142,11 +142,11 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
       })
       .catch((error: any) => {
         console.log(error);
-        // if (error.response.data.statusCode === 400) {
-        //   setMessage(error.response.data.message);
-        // } else {
-        //   console.log(error.response.data);
-        // }
+        if (error.response.data.statusCode === 400) {
+          setMessage(error.response.data.message);
+        } else {
+          console.log(error.response.data);
+        }
       });
   };
 
