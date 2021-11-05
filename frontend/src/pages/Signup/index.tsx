@@ -210,381 +210,186 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   };
 
   return (
-    <>
-      <Mobile>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Container>
-            <HeadlineH1>SIGN UP</HeadlineH1>
-            <CommonDiv>
-              <div style={{ display: "flex" }}>
-                <TextField
-                  error={emailCheck === "not available" ? true : false}
-                  name="email"
-                  label="Email"
-                  style={{
-                    marginRight: "10px",
-                    width: "200px",
-                  }}
-                  required={true}
-                  onChange={onChange}
-                  helperText={
-                    emailCheck === "not available"
-                      ? "Your email isn't available"
-                      : ""
-                  }
-                />
-                <Button
-                  style={{ marginLeft: "10px", height: "55px" }}
-                  variant="contained"
-                  size="small"
-                  color={emailCheck === "available" ? "success" : "primary"}
-                  onClick={onEmailCheck}
-                >
-                  AVAILITY
-                </Button>
-              </div>
-            </CommonDiv>
-            {emailStep === "waiting" ? (
-              <CommonDiv>
-                <div style={{ display: "flex" }}>
-                  <TextField
-                    error={emailValidCheck === "not available" ? false : true}
-                    name="emailInputNum"
-                    label="Validation Number"
-                    style={{
-                      marginRight: "10px",
-                      width: "200px",
-                    }}
-                    required={true}
-                    onChange={onChange}
-                    helperText={
-                      emailValidCheck === "not available"
-                        ? ""
-                        : "Validation Number is wrong"
-                    }
-                  />
-                  <Button
-                    style={{ marginLeft: "10px", height: "55px" }}
-                    variant="contained"
-                    size="small"
-                    color={
-                      emailValidCheck === "available" ? "success" : "primary"
-                    }
-                    onClick={onEmailValidation}
-                  >
-                    Valid
-                  </Button>
-                </div>
-              </CommonDiv>
-            ) : null}
-            <CommonDiv>
-              <div style={{ display: "flex" }}>
-                <TextField
-                  error={nicknameCheck === "not available" ? true : false}
-                  name="nickname"
-                  label="Nickname"
-                  style={{
-                    marginRight: "10px",
-                    width: "200px",
-                  }}
-                  required={true}
-                  onChange={onChange}
-                  helperText={
-                    nicknameCheck === "not available"
-                      ? "Your nickname isn't available"
-                      : ""
-                  }
-                />
-                <Button
-                  name="nickname"
-                  variant="contained"
-                  style={{ marginLeft: "10px", height: "55px" }}
-                  size="small"
-                  color={nicknameCheck === "available" ? "success" : "primary"}
-                  onClick={onNicknameCheck}
-                >
-                  AVAILITY
-                </Button>
-              </div>
-            </CommonDiv>
-            <CommonDiv>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Container>
+        <HeadlineH1>SIGN UP</HeadlineH1>
+        <CommonDiv>
+          <div style={{ display: "flex" }}>
+            <TextField
+              error={emailCheck === "not available" ? true : false}
+              name="email"
+              label="Email"
+              style={{
+                marginRight: "10px",
+                width: "200px",
+              }}
+              required={true}
+              onChange={onChange}
+              helperText={
+                emailCheck === "not available"
+                  ? "Your email isn't available"
+                  : ""
+              }
+            />
+            <Button
+              style={{ marginLeft: "10px", height: "55px" }}
+              variant="contained"
+              size="small"
+              color={emailCheck === "available" ? "success" : "primary"}
+              onClick={onEmailCheck}
+            >
+              AVAILITY
+            </Button>
+          </div>
+        </CommonDiv>
+        {emailStep === "waiting" ? (
+          <CommonDiv>
+            <div style={{ display: "flex" }}>
               <TextField
-                name="password"
-                label="Password"
+                error={emailValidCheck === "not available" ? false : true}
+                name="emailInputNum"
+                label="Validation Number"
                 style={{
-                  alignSelf: "start",
+                  marginRight: "10px",
                   width: "200px",
                 }}
-                type="password"
                 required={true}
-                onChange={onChange}
-              />
-            </CommonDiv>
-            <CommonDiv>
-              <TextField
-                error={password === passwordCheck ? false : true}
-                name="passwordCheck"
-                label="PasswordCheck"
-                type="password"
-                required={true}
-                style={{
-                  alignSelf: "start",
-                  width: "200px",
-                }}
                 onChange={onChange}
                 helperText={
-                  password === passwordCheck
+                  emailValidCheck === "not available"
                     ? ""
-                    : "PasswordCheck isn't identical"
+                    : "Validation Number is wrong"
                 }
               />
-            </CommonDiv>
-            <CommonDiv>
-              <div style={{ display: "flex" }}>
-                <TextField
-                  error={phoneCheck === "not available" ? true : false}
-                  name="phone"
-                  label="Phone"
-                  style={{
-                    marginRight: "10px",
-                    width: "200px",
-                  }}
-                  onChange={onChange}
-                  helperText={
-                    phoneCheck === "not available"
-                      ? "Your phone number isn't available"
-                      : ""
-                  }
-                />
-                <Button
-                  variant="contained"
-                  size="small"
-                  style={{ marginLeft: "10px", height: "55px" }}
-                  color={phoneCheck === "available" ? "success" : "primary"}
-                  onClick={onPhoneCheck}
-                >
-                  AVAILITY
-                </Button>
-              </div>
-            </CommonDiv>
-            <CommonDiv>
-              {message.trim() !== "" ? (
-                <Alert severity="error">{message}</Alert>
-              ) : null}
-            </CommonDiv>
-            <CommonDiv>
               <Button
+                style={{ marginLeft: "10px", height: "55px" }}
                 variant="contained"
-                style={{ width: "200px" }}
-                onClick={onSignUp}
+                size="small"
+                color={emailValidCheck === "available" ? "success" : "primary"}
+                onClick={onEmailValidation}
               >
-                SIGN UP
+                Valid
               </Button>
-              <Button
-                variant="outlined"
-                style={{ width: "200px" }}
-                onClick={onGoBack}
-              >
-                GO BACK
-              </Button>
-            </CommonDiv>
-          </Container>
-        </div>
-      </Mobile>
-      <Desktop>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            marginTop: "30px",
-          }}
-        >
-          <Container>
-            <HeadlineH1>SIGN UP</HeadlineH1>
-            <CommonDiv>
-              <div style={{ display: "flex" }}>
-                <TextField
-                  error={emailCheck === "not available" ? true : false}
-                  name="email"
-                  label="Email"
-                  style={{
-                    marginRight: "10px",
-                    width: "200px",
-                  }}
-                  required={true}
-                  onChange={onChange}
-                  helperText={
-                    emailCheck === "not available"
-                      ? "Your email isn't available"
-                      : ""
-                  }
-                />
-                <Button
-                  style={{ marginLeft: "10px", height: "55px" }}
-                  variant="contained"
-                  size="small"
-                  color={emailCheck === "available" ? "success" : "primary"}
-                  onClick={onEmailCheck}
-                >
-                  AVAILITY
-                </Button>
-              </div>
-            </CommonDiv>
-            {emailStep === "waiting" ? (
-              <CommonDiv>
-                <div style={{ display: "flex" }}>
-                  <TextField
-                    error={emailValidCheck === "not available" ? false : true}
-                    name="emailInputNum"
-                    label="Validation Number"
-                    style={{
-                      marginRight: "10px",
-                      width: "200px",
-                    }}
-                    required={true}
-                    onChange={onChange}
-                    helperText={
-                      emailValidCheck === "not available"
-                        ? ""
-                        : "Validation Number is wrong"
-                    }
-                  />
-                  <Button
-                    style={{ marginLeft: "10px", height: "55px" }}
-                    variant="contained"
-                    size="small"
-                    color={
-                      emailValidCheck === "available" ? "success" : "primary"
-                    }
-                    onClick={onEmailValidation}
-                  >
-                    Valid
-                  </Button>
-                </div>
-              </CommonDiv>
-            ) : null}
-            <CommonDiv>
-              <div style={{ display: "flex" }}>
-                <TextField
-                  error={nicknameCheck === "not available" ? true : false}
-                  name="nickname"
-                  label="Nickname"
-                  style={{
-                    marginRight: "10px",
-                    width: "200px",
-                  }}
-                  required={true}
-                  onChange={onChange}
-                  helperText={
-                    nicknameCheck === "not available"
-                      ? "Your nickname isn't available"
-                      : ""
-                  }
-                />
-                <Button
-                  name="nickname"
-                  variant="contained"
-                  style={{ marginLeft: "10px", height: "55px" }}
-                  size="small"
-                  color={nicknameCheck === "available" ? "success" : "primary"}
-                  onClick={onNicknameCheck}
-                >
-                  AVAILITY
-                </Button>
-              </div>
-            </CommonDiv>
-            <CommonDiv>
-              <TextField
-                name="password"
-                label="Password"
-                style={{
-                  alignSelf: "start",
-                  width: "200px",
-                }}
-                type="password"
-                required={true}
-                onChange={onChange}
-              />
-            </CommonDiv>
-            <CommonDiv>
-              <TextField
-                error={password === passwordCheck ? false : true}
-                name="passwordCheck"
-                label="PasswordCheck"
-                type="password"
-                required={true}
-                style={{
-                  alignSelf: "start",
-                  width: "200px",
-                }}
-                onChange={onChange}
-                helperText={
-                  password === passwordCheck
-                    ? ""
-                    : "PasswordCheck isn't identical"
-                }
-              />
-            </CommonDiv>
-            <CommonDiv>
-              <div style={{ display: "flex" }}>
-                <TextField
-                  error={phoneCheck === "not available" ? true : false}
-                  name="phone"
-                  label="Phone"
-                  style={{
-                    marginRight: "10px",
-                    width: "200px",
-                  }}
-                  onChange={onChange}
-                  helperText={
-                    phoneCheck === "not available"
-                      ? "Your phone number isn't available"
-                      : ""
-                  }
-                />
-                <Button
-                  variant="contained"
-                  size="small"
-                  style={{ marginLeft: "10px", height: "55px" }}
-                  color={phoneCheck === "available" ? "success" : "primary"}
-                  onClick={onPhoneCheck}
-                >
-                  AVAILITY
-                </Button>
-              </div>
-            </CommonDiv>
-            <CommonDiv>
-              {message.trim() !== "" ? (
-                <Alert severity="error">{message}</Alert>
-              ) : null}
-            </CommonDiv>
-            <CommonDiv>
-              <Button
-                variant="contained"
-                style={{ width: "200px" }}
-                onClick={onSignUp}
-              >
-                SIGN UP
-              </Button>
-              <Button
-                variant="outlined"
-                style={{ width: "200px" }}
-                onClick={onGoBack}
-              >
-                GO BACK
-              </Button>
-            </CommonDiv>
-          </Container>
-        </div>
-      </Desktop>
-    </>
+            </div>
+          </CommonDiv>
+        ) : null}
+        <CommonDiv>
+          <div style={{ display: "flex" }}>
+            <TextField
+              error={nicknameCheck === "not available" ? true : false}
+              name="nickname"
+              label="Nickname"
+              style={{
+                marginRight: "10px",
+                width: "200px",
+              }}
+              required={true}
+              onChange={onChange}
+              helperText={
+                nicknameCheck === "not available"
+                  ? "Your nickname isn't available"
+                  : ""
+              }
+            />
+            <Button
+              name="nickname"
+              variant="contained"
+              style={{ marginLeft: "10px", height: "55px" }}
+              size="small"
+              color={nicknameCheck === "available" ? "success" : "primary"}
+              onClick={onNicknameCheck}
+            >
+              AVAILITY
+            </Button>
+          </div>
+        </CommonDiv>
+        <CommonDiv>
+          <TextField
+            name="password"
+            label="Password"
+            style={{
+              alignSelf: "start",
+              width: "200px",
+            }}
+            type="password"
+            required={true}
+            onChange={onChange}
+          />
+        </CommonDiv>
+        <CommonDiv>
+          <TextField
+            error={password === passwordCheck ? false : true}
+            name="passwordCheck"
+            label="PasswordCheck"
+            type="password"
+            required={true}
+            style={{
+              alignSelf: "start",
+              width: "200px",
+            }}
+            onChange={onChange}
+            helperText={
+              password === passwordCheck ? "" : "PasswordCheck isn't identical"
+            }
+          />
+        </CommonDiv>
+        <CommonDiv>
+          <div style={{ display: "flex" }}>
+            <TextField
+              error={phoneCheck === "not available" ? true : false}
+              name="phone"
+              label="Phone"
+              style={{
+                marginRight: "10px",
+                width: "200px",
+              }}
+              onChange={onChange}
+              helperText={
+                phoneCheck === "not available"
+                  ? "Your phone number isn't available"
+                  : ""
+              }
+            />
+            <Button
+              variant="contained"
+              size="small"
+              style={{ marginLeft: "10px", height: "55px" }}
+              color={phoneCheck === "available" ? "success" : "primary"}
+              onClick={onPhoneCheck}
+            >
+              AVAILITY
+            </Button>
+          </div>
+        </CommonDiv>
+        <CommonDiv>
+          {message.trim() !== "" ? (
+            <Alert severity="error">{message}</Alert>
+          ) : null}
+        </CommonDiv>
+        <CommonDiv>
+          <Button
+            variant="contained"
+            style={{ width: "200px" }}
+            onClick={onSignUp}
+          >
+            SIGN UP
+          </Button>
+          <Button
+            variant="outlined"
+            style={{ width: "200px" }}
+            onClick={onGoBack}
+          >
+            GO BACK
+          </Button>
+        </CommonDiv>
+      </Container>
+    </div>
   );
 };
 
