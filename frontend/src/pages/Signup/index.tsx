@@ -205,6 +205,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             <CommonDiv>
               <div style={{ display: "flex" }}>
                 <TextField
+                  type="email"
                   error={emailCheck === "not available" ? true : false}
                   name="email"
                   label="Email"
