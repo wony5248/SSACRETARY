@@ -211,6 +211,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
       })
       .catch((error: any) => {
         if (error.response.data.statusCode === 400) {
+          console.log(error.response.data);
           setMessages({
             ...messages,
             message: error.response.data.message,
@@ -245,6 +246,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
           >
             <div style={{ width: "100%" }}>
               <TextField
+                disabled
                 label="Email"
                 name="email"
                 onChange={onChange}
