@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService{
         try{
             String email = jwtTokenProvider.getUserInfo(jwt);
             if(!email.equals(editUserReq.getEmail())) throw new Exception();
-            User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
+            User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
             user.updateUserProfile(editUserReq);
             userRepository.save(user);
 

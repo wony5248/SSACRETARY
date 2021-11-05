@@ -66,9 +66,9 @@ public class UserController {
         return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "유효하지 않은 연결입니다.",resbody.getJwt(),"","",""));
     }
 
-    @DeleteMapping("/{email}")
+    @DeleteMapping("/")
     @ApiOperation(value = "회원 탈퇴")
-    public ResponseEntity<BaseResponseBody> deleteUser(@RequestHeader(value = "Authorization") String JWT, @RequestParam String email){
+    public ResponseEntity<BaseResponseBody> deleteUser(@RequestHeader(value = "Authorization") String JWT, @RequestBody String email){
         boolean resbody = userServiceImpl.deleteUser(JWT, email);
 
         if(resbody){

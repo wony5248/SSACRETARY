@@ -29,27 +29,23 @@ public class CrawlingServiceImpl implements CrawlingService{
     @Autowired
     JwtTokenProvider jwtTokenProvider;
 
-    public String getEmailFromJwt(String jwt){
-        String email = jwtTokenProvider.getUserInfo(jwt);
-        User user = userRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 아이디입니다"));
-        return user.getEmail();
-    }
-
     @Override
     public boolean addSetting(String jwt, AddSettingReq addSettingReq){
         try {
             //jwt로 본인확인후
-
+            String email = jwtTokenProvider.getUserInfo(jwt);
+            if(!email.equals(addSettingReq.getEmail())) throw new Exception();
 
             //키워드가 있는지를 검사
+
             for(int i=0;i<addSettingReq.getKeywords().size();i++){
                 String k = addSettingReq.getKeywords().get(i);
                 keywordRepository.save(Keyword.builder().keyword(k).build());
             }
-            Optional<User> user = userRepository.findByEmail(addSettingReq.getUserEmail());
+            User user = userRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 이메일입니다."));
             LocalDateTime dateTime = LocalDateTime.now();
             settingRepository.save(Setting.builder()
-            .user(user.get()).url(addSettingReq.getUrl()).type(addSettingReq.getType()).alarm(addSettingReq.isMailAlarm()).sms(addSettingReq.isSmsAlarm())
+            .user(user).url(addSettingReq.getUrl()).type(addSettingReq.getType()).alarm(addSettingReq.isMailAlarm()).sms(addSettingReq.isSmsAlarm())
             .name(addSettingReq.getName()).createdAt(dateTime).updatedAt(dateTime).build());
             return true;
         }catch (Exception e){
@@ -58,28 +54,31 @@ public class CrawlingServiceImpl implements CrawlingService{
         }
     };
     @Override
-    public GetAllSettingsRes getAllSettings(){
-        //jwt인증 후
+    public GetAllSettingsRes getAllSettings(String jwt){
+        //jwt로 본인확인후
+//        String email = jwtTokenProvider.getUserInfo(jwt);
+//        if(!email.equals(addSettingReq.getEmail())) throw new Exception();
+
 //        Setting setting = settingRepository.
         return null;
     };
     @Override
-    public GetSettingDetailRes getSettingDetail(String crawlingId){
+    public GetSettingDetailRes getSettingDetail(String jwt, String crawlingId){
 
         return null;
     };
     @Override
-    public boolean editSetting(String crawlingId){
+    public boolean editSetting(String jwt, String crawlingId){
 
         return false;
     };
     @Override
-    public boolean deleteSetting(String crawlingId){
+    public boolean deleteSetting(String jwt, String crawlingId){
 
         return false;
     };
     @Override
-    public GetAllLogsRes getAllLog(){
+    public GetAllLogsRes getAllLog(String jwt){
 
         return null;
     };

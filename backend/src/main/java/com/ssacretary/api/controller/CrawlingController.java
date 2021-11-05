@@ -41,7 +41,7 @@ public class CrawlingController {
     public ResponseEntity<GetAllSettingsRes> getAllSettings(@RequestHeader("Authorization") String JWT) {
         //jwt로 본인확인후 가져옴
 
-        GetAllSettingsRes getAllSettingsRes = crawlingService.getAllSettings();
+        GetAllSettingsRes getAllSettingsRes = crawlingService.getAllSettings(JWT);
 
         return ResponseEntity.status(401).body(GetAllSettingsRes.of(401, "Failed",null));
     }
@@ -50,7 +50,7 @@ public class CrawlingController {
     @ApiOperation(value = "크롤링 세팅 하나의 정보 가져오기")
     public ResponseEntity<GetSettingDetailRes> getSettingDetail(@RequestHeader("Authorization") String JWT, @PathVariable("crawlingId") String crawlingId){
         //jwt로 본인확인
-        GetSettingDetailRes getSettingDetailRes = crawlingService.getSettingDetail(crawlingId);
+        GetSettingDetailRes getSettingDetailRes = crawlingService.getSettingDetail(JWT, crawlingId);
 
         return ResponseEntity.status(401).body(GetSettingDetailRes.of(401, "Failed",null,null,null,null,0,false,false,null));
     }
@@ -59,7 +59,7 @@ public class CrawlingController {
     @ApiOperation(value = "크롤링 세팅 수정")
     public ResponseEntity<BaseResponseBody> editSetting(@RequestHeader("Authorization") String JWT, @PathVariable("crawlingId") String crawlingId){
         //jwt로 본인확인후 가져옴
-        boolean resbody = crawlingService.editSetting(crawlingId);
+        boolean resbody = crawlingService.editSetting(JWT, crawlingId);
 
         if(resbody){
             return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
@@ -71,7 +71,7 @@ public class CrawlingController {
     @ApiOperation(value = "크롤링 세팅 삭제")
     public ResponseEntity<BaseResponseBody> deleteSetting(@RequestHeader("Authorization") String JWT, @PathVariable("crawlingId") String crawlingId){
         //jwt로 본인확인후 가져옴
-        boolean resbody = crawlingService.deleteSetting(crawlingId);
+        boolean resbody = crawlingService.deleteSetting(JWT, crawlingId);
 
         if(resbody){
             return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
@@ -83,7 +83,7 @@ public class CrawlingController {
     @ApiOperation(value = "나의 모든 크롤링 로그 조회")
     public ResponseEntity<GetAllLogsRes> getAllLog(@RequestHeader("Authorization") String JWT){
         //jwt로 본인확인후 가져옴
-        GetAllLogsRes getAllLogsRes = crawlingService.getAllLog();
+        GetAllLogsRes getAllLogsRes = crawlingService.getAllLog(JWT);
 
         return ResponseEntity.status(401).body(GetAllLogsRes.of(401, "Failed",null));
     }

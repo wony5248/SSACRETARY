@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 public interface CrawlingService {
     public boolean addSetting(String jwt, AddSettingReq addSettingReq);
 
-    public GetAllSettingsRes getAllSettings();
+    public GetAllSettingsRes getAllSettings(String jwt);
 
-    public GetSettingDetailRes getSettingDetail(String crawlingId);
+    public GetSettingDetailRes getSettingDetail(String jwt, String crawlingId);
 
-    public boolean editSetting(String crawlingId);
+    public boolean editSetting(String jwt, String crawlingId);
 
-    public boolean deleteSetting(String crawlingId);
+    public boolean deleteSetting(String jwt, String crawlingId);
 
-    public GetAllLogsRes getAllLog();
+    public GetAllLogsRes getAllLog(String jwt);
 }
