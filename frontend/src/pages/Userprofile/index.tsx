@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { RouteComponentProps } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { TextField, Button, Alert } from "@mui/material";
 
@@ -8,6 +9,8 @@ import { Userprofilediv, Formdiv } from "./style";
 import {
   axiosOnNicknameCheck,
   axiosOnPhoneNumberCheck,
+  axiosOnChangeProfile,
+  axiosOnWithdrawl,
 } from "../../utils/axios";
 
 const Desktop = ({ children }: any) => {
@@ -20,11 +23,16 @@ const Mobile = ({ children }: any) => {
   return isMobile ? children : null;
 };
 
-const UserProfile = () => {
+const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
+  const localEmail = localStorage.getItem("email");
+  const localNickname = localStorage.getItem("nickname");
+  const localPhone = localStorage.getItem("phoneNum");
+  const localJWT = localStorage.getItem("jwt");
+
   const [inputs, setInputs] = useState({
-    email: "",
-    nickname: "",
-    phone: "",
+    email: localEmail !== null ? localEmail : "",
+    nickname: localNickname !== null ? localNickname : "",
+    phone: localPhone !== null ? localPhone : "",
   });
 
   const { email, nickname, phone } = inputs;
@@ -40,6 +48,17 @@ const UserProfile = () => {
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
+    if (name === "nickname") {
+      setChecks({
+        ...checks,
+        nicknameCheck: "default",
+      });
+    } else if (name === "phone") {
+      setChecks({
+        ...checks,
+        phoneCheck: "default",
+      });
+    }
     setInputs({
       ...inputs,
       [name]: value,
@@ -50,20 +69,21 @@ const UserProfile = () => {
     if (nickname.trim() !== "") {
       axiosOnNicknameCheck(nickname)
         .then((res: any) => {
-          if (res.status === 201) {
+          console.log(res.status);
+          if (res.status === 200) {
             setChecks({
               ...checks,
               nicknameCheck: "available",
             });
-          } else {
+          }
+        })
+        .catch((error: any) => {
+          if (error.response.data.statusCode === 400) {
             setChecks({
               ...checks,
               nicknameCheck: "not available",
             });
           }
-        })
-        .catch((error: any) => {
-          alert(error.response.data.error);
         });
     } else {
       alert("nickname isn't allowed to be empty");
@@ -74,20 +94,20 @@ const UserProfile = () => {
     if (phone.trim() !== "") {
       axiosOnPhoneNumberCheck(phone)
         .then((res: any) => {
-          if (res.status === 201) {
+          if (res.status === 200) {
             setChecks({
               ...checks,
               phoneCheck: "available",
             });
-          } else {
+          }
+        })
+        .catch((error: any) => {
+          if (error.response.data.statusCode === 400) {
             setChecks({
               ...checks,
               phoneCheck: "not available",
             });
           }
-        })
-        .catch((error: any) => {
-          alert(error.response.data.error);
         });
     } else {
       alert(
@@ -97,7 +117,6 @@ const UserProfile = () => {
   };
 
   const onChangeProfile = function () {
-    console.log("changeProfile");
     if (nicknameCheck !== "available") {
       setMessage("Nickname check failed");
       return;
@@ -108,10 +127,45 @@ const UserProfile = () => {
         return;
       }
     }
+    axiosOnChangeProfile(localJWT !== null ? localJWT : "", nickname, phone)
+      .then((res: any) => {
+        if (res.data.statusCode === 200) {
+          localStorage.setItem("jwt", res.data.jwt);
+          localStorage.setItem("email", res.data.email);
+          localStorage.setItem("nickname", res.data.nickname);
+          localStorage.setItem("phoneNum", res.data.phoneNum);
+          props.history.push("/settingprofile");
+        } else {
+          setMessage(res.data.message);
+        }
+      })
+      .catch((error: any) => {
+        console.log(error);
+        // if (error.response.data.statusCode === 400) {
+        //   setMessage(error.response.data.message);
+        // } else {
+        //   console.log(error.response.data);
+        // }
+      });
   };
 
   const onWithdrawl = function () {
-    console.log("withdrawl");
+    axiosOnWithdrawl(localJWT !== null ? localJWT : "")
+      .then((res: any) => {
+        if (res.data.statusCode === 200) {
+          localStorage.clear();
+          props.history.push("/");
+        } else {
+          console.log(res.data);
+        }
+      })
+      .catch((error: any) => {
+        if (error.response.data.statusCode === 400) {
+          setMessage(error.response.data.message);
+        } else {
+          console.log(error.response);
+        }
+      });
   };
   //   const isMobile = useMediaQuery({ maxWidth: 612 });
   return (
