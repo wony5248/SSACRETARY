@@ -69,6 +69,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
     if (nickname.trim() !== "") {
       axiosOnNicknameCheck(nickname)
         .then((res: any) => {
+          console.log(res.status);
           if (res.status === 200) {
             setChecks({
               ...checks,
@@ -144,7 +145,18 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
   };
 
   const onWithdrawl = function () {
-    console.log("oneWithdrawl");
+    axiosOnWithdrawl(localJWT !== null ? localJWT : "")
+      .then((res: any) => {
+        if (res.data.statusCode === 200) {
+          localStorage.clear();
+          props.history.push("/");
+        } else {
+          setMessage(res.data.message);
+        }
+      })
+      .catch((error: any) => {
+        setMessage(error.response.data.error);
+      });
   };
   //   const isMobile = useMediaQuery({ maxWidth: 612 });
   return (
