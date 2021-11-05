@@ -66,9 +66,9 @@ public class UserController {
         return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "유효하지 않은 연결입니다.",resbody.getJwt(),"","",""));
     }
 
-    @DeleteMapping("/{email}")
+    @DeleteMapping("/")
     @ApiOperation(value = "회원 탈퇴")
-    public ResponseEntity<BaseResponseBody> deleteUser(@RequestHeader(value = "Authorization") String JWT, @RequestParam String email){
+    public ResponseEntity<BaseResponseBody> deleteUser(@RequestHeader(value = "Authorization") String JWT, @RequestBody String email){
         boolean resbody = userServiceImpl.deleteUser(JWT, email);
 
         if(resbody){
@@ -88,7 +88,7 @@ public class UserController {
 
     // 회원 이메일 중복 확인
     @GetMapping("/userEmailCheck/{email}")
-    @ApiOperation(value = "회원 이메일 중복 확인", notes = "DB에 있으면 202, 없으면 201")
+    @ApiOperation(value = "회원 이메일 중복 확인", notes = "DB에 있으면 400, 없으면 200")
     public ResponseEntity<? extends BaseResponseBody> userEmailCheck(@PathVariable("email") String email) {
         if (userRepository.findByEmail(email).isPresent()) {
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "이메일이 중복입니다"));
@@ -99,7 +99,7 @@ public class UserController {
 
     // 회원 닉네임 중복 확인
     @GetMapping("/userNickNameCheck/{nickname}")
-    @ApiOperation(value = "회원 닉네임 중복 확인", notes = "DB에 있으면 202, 없으면 201")
+    @ApiOperation(value = "회원 닉네임 중복 확인", notes = "DB에 있으면 400, 없으면 200")
     public ResponseEntity<? extends BaseResponseBody> userNickNameCheck(@PathVariable("nickname") String nickname) {
         if (userRepository.findByNickname(nickname).isPresent()) {
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "닉네임이 중복입니다"));
@@ -110,7 +110,7 @@ public class UserController {
 
     // 회원 닉네임 중복 확인
     @GetMapping("/userPhoneNumberCheck/{phone}")
-    @ApiOperation(value = "회원 핸드폰 번호 중복 확인", notes = "DB에 있으면 202, 없으면 201")
+    @ApiOperation(value = "회원 핸드폰 번호 중복 확인", notes = "DB에 있으면 400, 없으면 200")
     public ResponseEntity<? extends BaseResponseBody> userPhoneNumberCheck(@PathVariable("phone") String phone) {
         if (userRepository.findByPhone(phone).isPresent()) {
             return ResponseEntity.status(400).body(BaseResponseBody.of(400, "닉네임이 중복입니다"));
