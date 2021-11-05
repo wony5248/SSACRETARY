@@ -24,10 +24,10 @@ public class SsacretaryApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 //				registry.addMapping("/**").allowedOrigins("http://front-server.com");
-				registry.addMapping("/api/**")
-						.allowedOrigins("http://localhost:8080","http://localhost:3000","http://ssacretary.com","http://127.0.0.1:8080","http://127.0.0.1:3000")
-						.allowCredentials(true)
-						.exposedHeaders("authorization")
+				registry.addMapping("/**")
+						.allowedOrigins("http://localhost:8080","http://localhost:3000","http://ssacretary.com")
+//						.allowCredentials(true)
+//						.exposedHeaders("authorization")
 						.allowedMethods(
 								HttpMethod.GET.name(),
 								HttpMethod.HEAD.name(),
