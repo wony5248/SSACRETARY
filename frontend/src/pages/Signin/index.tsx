@@ -43,7 +43,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
           }
         })
         .catch((error: any) => {
-          setMessage(error.response.data.error);
+          setMessage(error.response);
         });
     } else {
       alert("Email and password both required");
