@@ -14,6 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { deepOrange } from "@mui/material/colors";
+import { Typography } from "@mui/material";
 interface ITest {
   open: any;
 }
@@ -173,15 +174,11 @@ function AppAppBar() {
             <Burger open={open} setOpen={setOpen} />
             <Menu open={open} setOpen={setOpen} />
           </Box>
-          <Link
-            variant="h6"
-            underline="none"
-            color="inherit"
-            href="/"
+          <Typography
             sx={{ fontSize: 24 }}
           >
             {"SSACRETARY"}
-          </Link>
+          </Typography>
           <React.Fragment>
             <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
               <Tooltip title="Account settings">
