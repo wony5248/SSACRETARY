@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService{
                 userRepository.save(User.builder()
                         .email(signupReq.getEmail())
                         .nickname(signupReq.getNickname())
-                        .phone(signupReq.getPhone())
+                        .phone(signupReq.getPhoneNum())
                         .password(passwordEncoder.encode(signupReq.getPassword()))
                         .build());
             }
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService{
             System.out.println(e);
             UserLoginPostRes resbody = new UserLoginPostRes();
             resbody.setJwt(jwt);
-            resbody.setEmail(null);
+            resbody.setEmail("");
             return resbody;
         }
     }
