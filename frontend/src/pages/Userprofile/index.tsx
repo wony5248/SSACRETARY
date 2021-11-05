@@ -79,7 +79,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
         });
         setMessages({
           ...messages,
-          phoneMessage: "Phone format wrong",
+          phoneMessage: "Phone format is wrong",
         });
       }
     }
@@ -122,6 +122,10 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             setChecks({
               ...checks,
               phoneCheck: "available",
+            });
+            setMessages({
+              ...messages,
+              phoneMessage: "",
             });
           }
         })

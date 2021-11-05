@@ -13,6 +13,7 @@ import {
   axiosOnPhoneNumberCheck,
   axiosOnSignUp,
 } from "../../utils/axios";
+import { onEmailRegexCheck, onPhoneRegexCheck } from "../../utils/regex";
 
 const Desktop: React.FunctionComponent = ({ children }: any) => {
   const isDesktop = useMediaQuery({ minWidth: 613 });
@@ -40,38 +41,89 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
 
   const [checks, setChecks] = useState({
     emailCheck: "default",
+    emailRegexCheck: "default",
     emailStep: "default",
     emailValidCheck: "default",
     nicknameCheck: "default",
     phoneCheck: "default",
+    phoneRegexCheck: "default",
   });
 
-  const { emailCheck, nicknameCheck, phoneCheck, emailValidCheck, emailStep } =
-    checks;
+  const {
+    emailCheck,
+    emailRegexCheck,
+    nicknameCheck,
+    phoneCheck,
+    phoneRegexCheck,
+    emailValidCheck,
+    emailStep,
+  } = checks;
 
   const [emailValidNum, setEmailValidNum] = useState("");
 
-  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState({
+    message: "",
+    emailMessage: "",
+    phoneMessage: "",
+  });
+
+  const { message, emailMessage, phoneMessage } = messages;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
     if (name === "email") {
-      setChecks({
-        ...checks,
-        emailCheck: "default",
-        emailStep: "default",
-        emailValidCheck: "default",
-      });
+      if (onEmailRegexCheck(email)) {
+        setChecks({
+          ...checks,
+          emailCheck: "default",
+          emailStep: "default",
+          emailValidCheck: "default",
+          emailRegexCheck: "available",
+        });
+        setMessages({
+          ...messages,
+          emailMessage: "",
+        });
+      } else {
+        setChecks({
+          ...checks,
+          emailCheck: "default",
+          emailStep: "default",
+          emailValidCheck: "default",
+          emailRegexCheck: "not available",
+        });
+        setMessages({
+          ...messages,
+          emailMessage: "Email format is wrong",
+        });
+      }
     } else if (name === "nickname") {
       setChecks({
         ...checks,
         nicknameCheck: "default",
       });
     } else if (name === "phone") {
-      setChecks({
-        ...checks,
-        phoneCheck: "default",
-      });
+      if (onPhoneRegexCheck(phone)) {
+        setChecks({
+          ...checks,
+          phoneCheck: "default",
+          phoneRegexCheck: "available",
+        });
+        setMessages({
+          ...messages,
+          phoneMessage: "",
+        });
+      } else {
+        setChecks({
+          ...checks,
+          phoneCheck: "default",
+          phoneRegexCheck: "not available",
+        });
+        setMessages({
+          ...messages,
+          phoneMessage: "Phone format is wrong",
+        });
+      }
     }
     setInputs({
       ...inputs,
@@ -164,6 +216,10 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               ...checks,
               phoneCheck: "available",
             });
+            setMessages({
+              ...messages,
+              phoneMessage: "",
+            });
           } else {
             console.log(res);
           }
@@ -173,6 +229,10 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             setChecks({
               ...checks,
               phoneCheck: "not available",
+            });
+            setMessages({
+              ...messages,
+              phoneMessage: "Phone number isn't available",
             });
           } else {
             console.log(error.response);
@@ -186,20 +246,32 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   };
 
   const onSignUp = function () {
-    if (emailCheck !== "available") {
-      setMessage("Email check failed");
+    if (emailCheck !== "available" || emailRegexCheck !== "available") {
+      setMessages({
+        ...messages,
+        message: "Email check failed",
+      });
       return;
     } else if (emailValidCheck !== "available") {
-      setMessage("Email validation failed");
+      setMessages({
+        ...messages,
+        message: "Email validation failed",
+      });
       return;
     }
     if (nicknameCheck !== "available") {
-      setMessage("Nickname check failed");
+      setMessages({
+        ...messages,
+        message: "Nickname check failed",
+      });
       return;
     }
     if (phone.trim() !== "") {
       if (phoneCheck !== "available") {
-        setMessage("phone number check failed");
+        setMessages({
+          ...messages,
+          message: "phone number check failed",
+        });
         return;
       }
     }
@@ -214,7 +286,10 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
       })
       .catch((error: any) => {
         if (error.response.data.statusCode === 400) {
-          setMessage(error.response.data.message);
+          setMessages({
+            ...messages,
+            message: error.response.data.message,
+          });
         } else {
           console.log(error.response);
         }
@@ -238,7 +313,12 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
         <CommonDiv>
           <div style={{ display: "flex" }}>
             <TextField
-              error={emailCheck === "not available" ? true : false}
+              error={
+                emailCheck === "not available" ||
+                emailRegexCheck === "not available"
+                  ? true
+                  : false
+              }
               name="email"
               label="Email"
               style={{
@@ -247,11 +327,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               }}
               required={true}
               onChange={onChange}
-              helperText={
-                emailCheck === "not available"
-                  ? "Your email isn't available"
-                  : ""
-              }
+              helperText={emailMessage}
             />
             <Button
               style={{ marginLeft: "10px", height: "55px" }}
@@ -358,7 +434,12 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
         <CommonDiv>
           <div style={{ display: "flex" }}>
             <TextField
-              error={phoneCheck === "not available" ? true : false}
+              error={
+                phoneCheck === "not available" ||
+                phoneRegexCheck === "not available"
+                  ? true
+                  : false
+              }
               name="phone"
               label="Phone"
               style={{
@@ -366,11 +447,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
                 width: "200px",
               }}
               onChange={onChange}
-              helperText={
-                phoneCheck === "not available"
-                  ? "Your phone number isn't available"
-                  : ""
-              }
+              helperText={phoneMessage}
             />
             <Button
               variant="contained"
