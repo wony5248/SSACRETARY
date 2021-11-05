@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface CrawlingService {
-    public boolean addSetting(AddSettingReq addSettingReq);
+    public boolean addSetting(String jwt, AddSettingReq addSettingReq);
 
     public GetAllSettingsRes getAllSettings();
 

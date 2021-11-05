@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean isValidToken(String token) {
         if (token != null && token.length() > 0) {
-            //logger.debug("token 검증");
             return jwtTokenProvider.validateToken(token);
         } else {
             throw new RuntimeException("인증 토큰이 없습니다");
@@ -45,23 +44,9 @@ public class UserServiceImpl implements UserService{
                     .build());
         }
     }
-//    public void signUp(UserReq info) {
-//        // 유저만 만들어서 저장. Role이 다르다!
-//            User user = User.builder()
-//                    .id(info.getId())
-//                    .nickname(info.getNickname())
-//                    .passwd(passwordEncoder.encode(info.getPasswd()))   //decoding how?
-//                    //   .roles(Collections.singletonList("ROLE_USER"))
-//                    .role("USER")
-//                    .pg(info.getPg())
-//                    .photo(info.getPhoto())
-//                    .build();
-//            userRepository.save(user);
-//    }
 
     @Override
     public UserLoginPostRes login(LoginReq loginReq) {
-        //logger.debug("로그인 메서드 진입");
         User user = userRepository.findByEmail(loginReq.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
         if (!passwordEncoder.matches(loginReq.getPassword(), user.getPassword())) {

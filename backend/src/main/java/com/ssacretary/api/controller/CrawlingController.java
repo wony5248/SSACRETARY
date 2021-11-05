@@ -6,6 +6,7 @@ import com.ssacretary.api.response.crawling.GetAllSettingsRes;
 import com.ssacretary.api.response.crawling.GetSettingDetailRes;
 import com.ssacretary.api.service.CrawlingService;
 import com.ssacretary.common.response.BaseResponseBody;
+import com.ssacretary.config.JwtTokenProvider;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +26,9 @@ public class CrawlingController {
 
     @PostMapping("/crawling")
     @ApiOperation(value = "크롤링 세팅 db에 저장")
-    public ResponseEntity<BaseResponseBody> addSetting(@RequestHeader("JWT") String JWT, @RequestBody AddSettingReq addSettingReq){
-        //jwt로 본인확인후
+    public ResponseEntity<BaseResponseBody> addSetting(@RequestHeader("Authorization") String JWT, @RequestBody AddSettingReq addSettingReq){
 
-        boolean resbody = crawlingService.addSetting(addSettingReq);
+        boolean resbody = crawlingService.addSetting(JWT, addSettingReq);
 
         if(resbody){
             return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
@@ -38,7 +38,7 @@ public class CrawlingController {
 
     @GetMapping("/crawling")
     @ApiOperation(value = "나의 모든 크롤링 정보 가져오기")
-    public ResponseEntity<GetAllSettingsRes> getAllSettings(@RequestHeader("JWT") String JWT) {
+    public ResponseEntity<GetAllSettingsRes> getAllSettings(@RequestHeader("Authorization") String JWT) {
         //jwt로 본인확인후 가져옴
 
         GetAllSettingsRes getAllSettingsRes = crawlingService.getAllSettings();
@@ -48,7 +48,7 @@ public class CrawlingController {
 
     @GetMapping("/crawling/{crawlingId}")
     @ApiOperation(value = "크롤링 세팅 하나의 정보 가져오기")
-    public ResponseEntity<GetSettingDetailRes> getSettingDetail(@RequestHeader("JWT") String JWT, @PathVariable("crawlingId") String crawlingId){
+    public ResponseEntity<GetSettingDetailRes> getSettingDetail(@RequestHeader("Authorization") String JWT, @PathVariable("crawlingId") String crawlingId){
         //jwt로 본인확인
         GetSettingDetailRes getSettingDetailRes = crawlingService.getSettingDetail(crawlingId);
 
@@ -57,7 +57,7 @@ public class CrawlingController {
 
     @PutMapping("/crawling/{crawlingId}")
     @ApiOperation(value = "크롤링 세팅 수정")
-    public ResponseEntity<BaseResponseBody> editSetting(@RequestHeader("JWT") String JWT, @PathVariable("crawlingId") String crawlingId){
+    public ResponseEntity<BaseResponseBody> editSetting(@RequestHeader("Authorization") String JWT, @PathVariable("crawlingId") String crawlingId){
         //jwt로 본인확인후 가져옴
         boolean resbody = crawlingService.editSetting(crawlingId);
 
@@ -69,7 +69,7 @@ public class CrawlingController {
 
     @DeleteMapping("/crawling/{crawlingId}")
     @ApiOperation(value = "크롤링 세팅 삭제")
-    public ResponseEntity<BaseResponseBody> deleteSetting(@RequestHeader("JWT") String JWT, @PathVariable("crawlingId") String crawlingId){
+    public ResponseEntity<BaseResponseBody> deleteSetting(@RequestHeader("Authorization") String JWT, @PathVariable("crawlingId") String crawlingId){
         //jwt로 본인확인후 가져옴
         boolean resbody = crawlingService.deleteSetting(crawlingId);
 
@@ -81,7 +81,7 @@ public class CrawlingController {
 
     @GetMapping("/log")
     @ApiOperation(value = "나의 모든 크롤링 로그 조회")
-    public ResponseEntity<GetAllLogsRes> getAllLog(@RequestHeader("JWT") String JWT){
+    public ResponseEntity<GetAllLogsRes> getAllLog(@RequestHeader("Authorization") String JWT){
         //jwt로 본인확인후 가져옴
         GetAllLogsRes getAllLogsRes = crawlingService.getAllLog();
 

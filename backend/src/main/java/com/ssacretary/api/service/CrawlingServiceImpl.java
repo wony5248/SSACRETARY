@@ -4,6 +4,7 @@ import com.ssacretary.api.request.crawling.AddSettingReq;
 import com.ssacretary.api.response.crawling.GetAllLogsRes;
 import com.ssacretary.api.response.crawling.GetAllSettingsRes;
 import com.ssacretary.api.response.crawling.GetSettingDetailRes;
+import com.ssacretary.config.JwtTokenProvider;
 import com.ssacretary.db.entity.Keyword;
 import com.ssacretary.db.entity.Setting;
 import com.ssacretary.db.entity.User;
@@ -25,10 +26,21 @@ public class CrawlingServiceImpl implements CrawlingService{
     private SettingRepository settingRepository;
     @Autowired
     private KeywordRepository keywordRepository;
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    public String getEmailFromJwt(String jwt){
+        String email = jwtTokenProvider.getUserInfo(jwt);
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 아이디입니다"));
+        return user.getEmail();
+    }
 
     @Override
-    public boolean addSetting(AddSettingReq addSettingReq){
+    public boolean addSetting(String jwt, AddSettingReq addSettingReq){
         try {
+            //jwt로 본인확인후
+
+
             //키워드가 있는지를 검사
             for(int i=0;i<addSettingReq.getKeywords().size();i++){
                 String k = addSettingReq.getKeywords().get(i);
