@@ -93,14 +93,18 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             setEmailValidNum(tmpValidationNumber);
             sendEmail(email, tmpValidationNumber);
           } else {
+            console.log(res);
+          }
+        })
+        .catch((error: any) => {
+          if (error.response.data.statusCode === 400) {
             setChecks({
               ...checks,
               emailCheck: "not available",
             });
+          } else {
+            console.log(error.response);
           }
-        })
-        .catch((error: any) => {
-          alert(error.response.data.error);
         });
     } else {
       alert("Email isn't allowed to be empty");
@@ -133,14 +137,18 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               nicknameCheck: "available",
             });
           } else {
+            console.log(res);
+          }
+        })
+        .catch((error: any) => {
+          if (error.response.data.statusCode === 400) {
             setChecks({
               ...checks,
               nicknameCheck: "not available",
             });
+          } else {
+            console.log(error.response);
           }
-        })
-        .catch((error: any) => {
-          alert(error.response.data.error);
         });
     } else {
       alert("Nickname isn't allowed to be empty");
@@ -157,14 +165,18 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               phoneCheck: "available",
             });
           } else {
+            console.log(res);
+          }
+        })
+        .catch((error: any) => {
+          if (error.response.data.statusCode === 400) {
             setChecks({
               ...checks,
               phoneCheck: "not available",
             });
+          } else {
+            console.log(error.response);
           }
-        })
-        .catch((error: any) => {
-          alert(error.response.data.error);
         });
     } else {
       alert(
@@ -197,11 +209,15 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           alert("Your sign up request success");
           props.history.push("/");
         } else {
-          setMessage(res.data.message);
+          console.log(res);
         }
       })
       .catch((error: any) => {
-        setMessage(error.response.data.error);
+        if (error.response.data.statusCode === 400) {
+          setMessage(error.response.data.message);
+        } else {
+          console.log(error.response);
+        }
       });
   };
 
