@@ -36,7 +36,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
             localStorage.setItem("jwt", res.data.jwt);
             localStorage.setItem("email", res.data.email);
             localStorage.setItem("nickname", res.data.nickname);
-            localStorage.setItem("phoneNum", res.data.phoneNum);
+            localStorage.setItem("phone", res.data.phoneNum);
             props.history.push("/settingprofile");
           } else {
             setMessage(res.data.message);

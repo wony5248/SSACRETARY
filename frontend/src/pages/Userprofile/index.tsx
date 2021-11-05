@@ -26,7 +26,7 @@ const Mobile = ({ children }: any) => {
 const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
   const localEmail = localStorage.getItem("email");
   const localNickname = localStorage.getItem("nickname");
-  const localPhone = localStorage.getItem("phoneNum");
+  const localPhone = localStorage.getItem("phone");
   const localJWT = localStorage.getItem("jwt");
 
   const [inputs, setInputs] = useState({
@@ -130,10 +130,11 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
     axiosOnChangeProfile(localJWT !== null ? localJWT : "", nickname, phone)
       .then((res: any) => {
         if (res.data.statusCode === 200) {
+          console.log(res.data);
           localStorage.setItem("jwt", res.data.jwt);
           localStorage.setItem("email", res.data.email);
           localStorage.setItem("nickname", res.data.nickname);
-          localStorage.setItem("phoneNum", res.data.phoneNum);
+          localStorage.setItem("phone", res.data.phoneNum);
           props.history.push("/settingprofile");
         } else {
           setMessage(res.data.message);
@@ -141,11 +142,11 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
       })
       .catch((error: any) => {
         console.log(error);
-        // if (error.response.data.statusCode === 400) {
-        //   setMessage(error.response.data.message);
-        // } else {
-        //   console.log(error.response.data);
-        // }
+        if (error.response.data.statusCode === 400) {
+          setMessage(error.response.data.message);
+        } else {
+          console.log(error.response.data);
+        }
       });
   };
 

@@ -1,5 +1,4 @@
 package com.ssacretary.api.controller;
-
 import com.ssacretary.api.request.user.EditUserReq;
 import com.ssacretary.api.request.user.LoginReq;
 import com.ssacretary.api.request.user.SignupReq;
@@ -50,7 +49,7 @@ public class UserController {
         if(resbody.getNickname()!=null){
             return ResponseEntity.ok(UserLoginPostRes.of(200, "로그인 성공",resbody.getJwt(), resbody.getEmail(), resbody.getPhoneNum(), resbody.getNickname()));
         }
-        return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "로그인 실패",null,null,null,null));
+        return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "로그인 실패","","","",""));
     }
 
 
@@ -64,7 +63,18 @@ public class UserController {
         if(resbody.getJwt().equals(JWT) && resbody.getEmail()!=null){
             return ResponseEntity.ok(UserLoginPostRes.of(200, "수정 성공",resbody.getJwt(),resbody.getEmail(),resbody.getPhoneNum(),resbody.getNickname()));
         }
-        return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "유효하지 않은 연결입니다.",null,null,null,null));
+        return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "유효하지 않은 연결입니다.",resbody.getJwt(),"","",""));
+    }
+
+    @DeleteMapping("/{email}")
+    @ApiOperation(value = "회원 탈퇴")
+    public ResponseEntity<BaseResponseBody> deleteUser(@RequestHeader(value = "Authorization") String JWT, @RequestParam String email){
+        boolean resbody = userServiceImpl.deleteUser(JWT, email);
+
+        if(resbody){
+            return ResponseEntity.ok().body(BaseResponseBody.of(200, "회원가입 성공"));
+        }
+        return ResponseEntity.status(400).body(BaseResponseBody.of(400, "회원가입 실패패"));
     }
 
 //    //로그아웃

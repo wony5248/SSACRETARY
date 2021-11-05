@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService{
                 userRepository.save(User.builder()
                         .email(signupReq.getEmail())
                         .nickname(signupReq.getNickname())
-                        .phone(signupReq.getPhone())
+                        .phone(signupReq.getPhoneNum())
                         .password(passwordEncoder.encode(signupReq.getPassword()))
                         .build());
             }
@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService{
     public UserLoginPostRes editUser(String jwt, EditUserReq editUserReq){
         try{
             String email = jwtTokenProvider.getUserInfo(jwt);
+            if(!email.equals(editUserReq.getEmail())) throw new Exception();
             User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
             user.updateUserProfile(editUserReq);
             userRepository.save(user);
@@ -72,8 +73,21 @@ public class UserServiceImpl implements UserService{
             System.out.println(e);
             UserLoginPostRes resbody = new UserLoginPostRes();
             resbody.setJwt(jwt);
-            resbody.setEmail(null);
+            resbody.setEmail("");
             return resbody;
+        }
+    }
+
+    @Override
+    public boolean deleteUser(String jwt, String userEmail){
+        try{
+            String email = jwtTokenProvider.getUserInfo(jwt);
+            if(!email.equals(userEmail)) return false;
+            userRepository.deleteByEmail(email);
+            return true;
+        }catch (Exception e){
+            System.out.println(e);
+            return false;
         }
     }
 

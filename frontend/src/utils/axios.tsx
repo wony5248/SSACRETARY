@@ -48,7 +48,7 @@ export const axiosOnSignUp = function (
       nickname: nickname,
       password: password,
       passwordCheck: passwordCheck,
-      phone: phone,
+      phoneNum: phone,
     },
   });
 };
@@ -60,13 +60,13 @@ export const axiosOnChangeProfile = function (
 ) {
   return axios({
     method: "PUT",
-    url: BASE_URL + "/user",
+    url: BASE_URL + "/user/",
     headers: {
       Authorization: jwt,
     },
     data: {
-      userNickname: nickname,
-      userPhone: phone,
+      nickname: nickname,
+      phoneNum: phone,
     },
   });
 };
@@ -74,7 +74,7 @@ export const axiosOnChangeProfile = function (
 export const axiosOnWithdrawl = function (jwt: string) {
   return axios({
     method: "DELETE",
-    url: BASE_URL + "/user",
+    url: BASE_URL + "/user/",
     headers: {
       Authorization: jwt,
     },
