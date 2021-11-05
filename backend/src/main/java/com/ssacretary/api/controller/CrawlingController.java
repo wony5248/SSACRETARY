@@ -24,7 +24,7 @@ public class CrawlingController {
     @Autowired
     CrawlingService crawlingService;
 
-    @PostMapping("/crawling")
+    @PostMapping("/")
     @ApiOperation(value = "크롤링 세팅 db에 저장")
     public ResponseEntity<BaseResponseBody> addSetting(@RequestHeader("Authorization") String JWT, @RequestBody AddSettingReq addSettingReq){
 
@@ -36,7 +36,7 @@ public class CrawlingController {
         return ResponseEntity.status(401).body(BaseResponseBody.of(401,"Failed"));
     }
 
-    @GetMapping("/crawling")
+    @GetMapping("/")
     @ApiOperation(value = "나의 모든 크롤링 정보 가져오기")
     public ResponseEntity<GetAllSettingsRes> getAllSettings(@RequestHeader("Authorization") String JWT) {
         //jwt로 본인확인후 가져옴
@@ -46,7 +46,7 @@ public class CrawlingController {
         return ResponseEntity.status(401).body(GetAllSettingsRes.of(401, "Failed",null));
     }
 
-    @GetMapping("/crawling/{crawlingId}")
+    @GetMapping("/{crawlingId}")
     @ApiOperation(value = "크롤링 세팅 하나의 정보 가져오기")
     public ResponseEntity<GetSettingDetailRes> getSettingDetail(@RequestHeader("Authorization") String JWT, @PathVariable("crawlingId") String crawlingId){
         //jwt로 본인확인
@@ -55,7 +55,7 @@ public class CrawlingController {
         return ResponseEntity.status(401).body(GetSettingDetailRes.of(401, "Failed",null,null,null,null,0,false,false,null));
     }
 
-    @PutMapping("/crawling/{crawlingId}")
+    @PutMapping("/{crawlingId}")
     @ApiOperation(value = "크롤링 세팅 수정")
     public ResponseEntity<BaseResponseBody> editSetting(@RequestHeader("Authorization") String JWT, @PathVariable("crawlingId") String crawlingId){
         //jwt로 본인확인후 가져옴
@@ -67,7 +67,7 @@ public class CrawlingController {
         return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failed"));
     }
 
-    @DeleteMapping("/crawling/{crawlingId}")
+    @DeleteMapping("/{crawlingId}")
     @ApiOperation(value = "크롤링 세팅 삭제")
     public ResponseEntity<BaseResponseBody> deleteSetting(@RequestHeader("Authorization") String JWT, @PathVariable("crawlingId") String crawlingId){
         //jwt로 본인확인후 가져옴
