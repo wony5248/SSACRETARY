@@ -1,5 +1,4 @@
 package com.ssacretary.api.controller;
-
 import com.ssacretary.api.request.user.EditUserReq;
 import com.ssacretary.api.request.user.LoginReq;
 import com.ssacretary.api.request.user.SignupReq;
