@@ -48,7 +48,7 @@ export const axiosOnSignUp = function (
       nickname: nickname,
       password: password,
       passwordCheck: passwordCheck,
-      phone: phone,
+      phoneNum: phone,
     },
   });
 };
@@ -65,8 +65,8 @@ export const axiosOnChangeProfile = function (
       Authorization: jwt,
     },
     data: {
-      userNickname: nickname,
-      userPhone: phone,
+      nickname: nickname,
+      phoneNum: phone,
     },
   });
 };
