@@ -60,7 +60,7 @@ export const axiosOnChangeProfile = function (
 ) {
   return axios({
     method: "PUT",
-    url: BASE_URL + "/user",
+    url: BASE_URL + "/user/",
     headers: {
       Authorization: jwt,
     },
@@ -74,7 +74,7 @@ export const axiosOnChangeProfile = function (
 export const axiosOnWithdrawl = function (jwt: string) {
   return axios({
     method: "DELETE",
-    url: BASE_URL + "/user",
+    url: BASE_URL + "/user/",
     headers: {
       Authorization: jwt,
     },
