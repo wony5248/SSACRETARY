@@ -313,6 +313,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
               <Button
                 variant="contained"
                 size="small"
+                disabled={phoneRegexCheck === "available" ? false : true}
                 style={{ marginLeft: "10px", height: "55px" }}
                 color={phoneCheck === "available" ? "success" : "primary"}
                 onClick={onPhoneCheck}
@@ -412,6 +413,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
               ></TextField>
               <Button
                 variant="contained"
+                disabled={phoneRegexCheck === "available" ? false : true}
                 size="small"
                 style={{ marginLeft: "10px", height: "55px" }}
                 color={phoneCheck === "available" ? "success" : "primary"}

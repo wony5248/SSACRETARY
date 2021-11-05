@@ -330,6 +330,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               helperText={emailMessage}
             />
             <Button
+              disabled={emailRegexCheck === "available" ? false : true}
               style={{ marginLeft: "10px", height: "55px" }}
               variant="contained"
               size="small"
@@ -450,6 +451,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               helperText={phoneMessage}
             />
             <Button
+              disabled={phoneRegexCheck === "available" ? false : true}
               variant="contained"
               size="small"
               style={{ marginLeft: "10px", height: "55px" }}
