@@ -1,5 +1,6 @@
 package com.ssacretary.api.service;
 
+import com.ssacretary.api.request.user.DeleteUserReq;
 import com.ssacretary.api.request.user.EditUserReq;
 import com.ssacretary.api.request.user.LoginReq;
 import com.ssacretary.api.request.user.SignupReq;
@@ -81,12 +82,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean deleteUser(String jwt, String userEmail){
+    public boolean deleteUser(String jwt, DeleteUserReq deleteUserReq){
         try{
             String email = jwtTokenProvider.getUserInfo(jwt);
-            System.out.println(email);
-            System.out.println(userEmail);
-            if(!email.equals(userEmail)) return false;
+            if(!email.equals(deleteUserReq.getEmail())) return false;
             userRepository.deleteByEmail(email);
             return true;
         }catch (Exception e){

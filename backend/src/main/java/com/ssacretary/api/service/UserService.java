@@ -1,5 +1,6 @@
 package com.ssacretary.api.service;
 
+import com.ssacretary.api.request.user.DeleteUserReq;
 import com.ssacretary.api.request.user.EditUserReq;
 import com.ssacretary.api.request.user.LoginReq;
 import com.ssacretary.api.request.user.SignupReq;
@@ -16,7 +17,7 @@ public interface UserService {
 
     public UserLoginPostRes editUser(String jwt, EditUserReq editUserReq);
 
-    public boolean deleteUser(String jwt, String userEmail);
+    public boolean deleteUser(String jwt, DeleteUserReq deleteUserReq);
 
 //    public UserLoginPostRes getProfile(String token);
 }

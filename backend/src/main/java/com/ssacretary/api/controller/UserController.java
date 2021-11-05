@@ -1,4 +1,5 @@
 package com.ssacretary.api.controller;
+import com.ssacretary.api.request.user.DeleteUserReq;
 import com.ssacretary.api.request.user.EditUserReq;
 import com.ssacretary.api.request.user.LoginReq;
 import com.ssacretary.api.request.user.SignupReq;
@@ -68,8 +69,8 @@ public class UserController {
 
     @DeleteMapping("/")
     @ApiOperation(value = "회원 탈퇴")
-    public ResponseEntity<BaseResponseBody> deleteUser(@RequestHeader(value = "Authorization") String JWT, @RequestBody String email){
-        boolean resbody = userServiceImpl.deleteUser(JWT, email);
+    public ResponseEntity<BaseResponseBody> deleteUser(@RequestHeader(value = "Authorization") String JWT, @RequestBody DeleteUserReq deleteUserReq){
+        boolean resbody = userServiceImpl.deleteUser(JWT, deleteUserReq);
 
         if(resbody){
             return ResponseEntity.ok().body(BaseResponseBody.of(200, "회원탈퇴 성공"));
