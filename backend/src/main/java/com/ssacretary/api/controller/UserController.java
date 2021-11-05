@@ -67,6 +67,17 @@ public class UserController {
         return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "유효하지 않은 연결입니다.",resbody.getJwt(),"","",""));
     }
 
+    @DeleteMapping("/{email}")
+    @ApiOperation(value = "회원 탈퇴")
+    public ResponseEntity<BaseResponseBody> deleteUser(@RequestHeader(value = "Authorization") String JWT, @RequestParam String email){
+        boolean resbody = userServiceImpl.deleteUser(JWT, email);
+
+        if(resbody){
+            return ResponseEntity.ok().body(BaseResponseBody.of(200, "회원가입 성공"));
+        }
+        return ResponseEntity.status(400).body(BaseResponseBody.of(400, "회원가입 실패패"));
+    }
+
 //    //로그아웃
 //    @ApiImplicitParams({@ApiImplicitParam(name = "SSACRETARY-TOKEN", value = "JWT token", required = true, dataType = "string", paramType = "header")})
 //    @ApiOperation(value = "로그아웃")
