@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-    public boolean isValidToken(String token);
-
-    public void createUser(SignupReq signupReq);
+    public boolean createUser(SignupReq signupReq);
 
     public UserLoginPostRes login(LoginReq loginReq);
 
@@ -18,5 +16,5 @@ public interface UserService {
 
     public UserLoginPostRes editUser(String jwt, EditUserReq editUserReq);
 
-    public UserLoginPostRes getProfile(String token);
+//    public UserLoginPostRes getProfile(String token);
 }

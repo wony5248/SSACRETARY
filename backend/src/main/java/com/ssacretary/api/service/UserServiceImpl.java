@@ -4,13 +4,10 @@ import com.ssacretary.api.request.user.EditUserReq;
 import com.ssacretary.api.request.user.LoginReq;
 import com.ssacretary.api.request.user.SignupReq;
 import com.ssacretary.api.response.user.UserLoginPostRes;
-import com.ssacretary.common.response.BaseResponseBody;
 import com.ssacretary.config.JwtTokenProvider;
 import com.ssacretary.db.entity.User;
 import com.ssacretary.db.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,23 +22,20 @@ public class UserServiceImpl implements UserService{
     JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public boolean isValidToken(String token) {
-        if (token != null && token.length() > 0) {
-            return jwtTokenProvider.validateToken(token);
-        } else {
-            throw new RuntimeException("인증 토큰이 없습니다");
-        }
-    }
-
-    @Override
-    public void createUser(SignupReq signupReq) {
-        if (signupReq.getPassword().equals(signupReq.getPasswordCheck())) {
-            userRepository.save(User.builder()
-                    .email(signupReq.getEmail())
-                    .nickname(signupReq.getNickname())
-                    .phone(signupReq.getPhone())
-                    .password(passwordEncoder.encode(signupReq.getPassword()))
-                    .build());
+    public boolean createUser(SignupReq signupReq) {
+        try{
+            if (signupReq.getPassword().equals(signupReq.getPasswordCheck())) {
+                userRepository.save(User.builder()
+                        .email(signupReq.getEmail())
+                        .nickname(signupReq.getNickname())
+                        .phone(signupReq.getPhone())
+                        .password(passwordEncoder.encode(signupReq.getPassword()))
+                        .build());
+            }
+            return true;
+        }catch (Exception e){
+            System.out.println(e);
+            return false;
         }
     }
 
@@ -64,7 +58,7 @@ public class UserServiceImpl implements UserService{
     public UserLoginPostRes editUser(String jwt, EditUserReq editUserReq){
         try{
             String email = jwtTokenProvider.getUserInfo(jwt);
-            User user = userRepository.findByEmail(email).get();
+            User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
             user.updateUserProfile(editUserReq);
             userRepository.save(user);
 
@@ -76,7 +70,10 @@ public class UserServiceImpl implements UserService{
             return resbody;
         }catch (Exception e){
             System.out.println(e);
-            return null;
+            UserLoginPostRes resbody = new UserLoginPostRes();
+            resbody.setJwt(jwt);
+            resbody.setEmail(null);
+            return resbody;
         }
     }
 
@@ -88,16 +85,16 @@ public class UserServiceImpl implements UserService{
 //        return BaseResponseBody.of(200, "Success Logout");
 //    }
 
-    @Override
-    public UserLoginPostRes getProfile(String token) {
-        String email = jwtTokenProvider.getUserInfo(token);
-
-        User member = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
-        UserLoginPostRes userLoginPostRes = new UserLoginPostRes();
-
-        userLoginPostRes.setEmail(email);
-        userLoginPostRes.setNickname(member.getNickname());
-        userLoginPostRes.setPhoneNum(member.getPhone());
-        return userLoginPostRes;
-    }
+//    @Override
+//    public UserLoginPostRes getProfile(String token) {
+//        String email = jwtTokenProvider.getUserInfo(token);
+//
+//        User member = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
+//        UserLoginPostRes userLoginPostRes = new UserLoginPostRes();
+//
+//        userLoginPostRes.setEmail(email);
+//        userLoginPostRes.setNickname(member.getNickname());
+//        userLoginPostRes.setPhoneNum(member.getPhone());
+//        return userLoginPostRes;
+//    }
 }
