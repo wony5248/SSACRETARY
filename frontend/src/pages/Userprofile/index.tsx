@@ -12,6 +12,7 @@ import {
   axiosOnChangeProfile,
   axiosOnWithdrawl,
 } from "../../utils/axios";
+import { onPhoneRegexCheck } from "../../utils/regex";
 
 const Desktop = ({ children }: any) => {
   const isDesktop = useMediaQuery({ minWidth: 613 });
@@ -40,11 +41,17 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
   const [checks, setChecks] = useState({
     nicknameCheck: "dafualt",
     phoneCheck: "default",
+    phoneRegexCheck: "default",
   });
 
-  const { nicknameCheck, phoneCheck } = checks;
+  const { nicknameCheck, phoneCheck, phoneRegexCheck } = checks;
 
-  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState({
+    message: "",
+    phoneMessage: "",
+  });
+
+  const { message, phoneMessage } = messages;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -54,10 +61,27 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
         nicknameCheck: "default",
       });
     } else if (name === "phone") {
-      setChecks({
-        ...checks,
-        phoneCheck: "default",
-      });
+      if (onPhoneRegexCheck(phone)) {
+        setChecks({
+          ...checks,
+          phoneRegexCheck: "available",
+          phoneCheck: "default",
+        });
+        setMessages({
+          ...messages,
+          phoneMessage: "",
+        });
+      } else {
+        setChecks({
+          ...checks,
+          phoneRegexCheck: "not available",
+          phoneCheck: "default",
+        });
+        setMessages({
+          ...messages,
+          phoneMessage: "Phone format wrong",
+        });
+      }
     }
     setInputs({
       ...inputs,
@@ -107,6 +131,10 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
               ...checks,
               phoneCheck: "not available",
             });
+            setMessages({
+              ...messages,
+              phoneMessage: "Phone number isn't available",
+            });
           }
         });
     } else {
@@ -118,12 +146,18 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
 
   const onChangeProfile = function () {
     if (nicknameCheck !== "available") {
-      setMessage("Nickname check failed");
+      setMessages({
+        ...messages,
+        message: "Nickname check failed",
+      });
       return;
     }
     if (phone.trim() !== "") {
-      if (phoneCheck !== "available") {
-        setMessage("phone number check failed");
+      if (phoneCheck !== "available" || phoneRegexCheck !== "available") {
+        setMessages({
+          ...messages,
+          message: "Phone number check failed",
+        });
         return;
       }
     }
@@ -137,15 +171,21 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
           localStorage.setItem("phone", res.data.phoneNum);
           props.history.push("/settingprofile");
         } else {
-          setMessage(res.data.message);
+          setMessages({
+            ...messages,
+            message: res.data.message,
+          });
         }
       })
       .catch((error: any) => {
         console.log(error);
         if (error.response.data.statusCode === 400) {
-          setMessage(error.response.data.message);
+          setMessages({
+            ...messages,
+            message: error.response.data.message,
+          });
         } else {
-          console.log(error.response.data);
+          console.log(error.response);
         }
       });
   };
@@ -162,7 +202,10 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
       })
       .catch((error: any) => {
         if (error.response.data.statusCode === 400) {
-          setMessage(error.response.data.message);
+          setMessages({
+            ...messages,
+            message: error.response.data.message,
+          });
         } else {
           console.log(error.response);
         }
@@ -242,18 +285,19 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
               }}
             >
               <TextField
-                error={phoneCheck === "not available" ? true : false}
+                error={
+                  phoneCheck === "not available" ||
+                  phoneRegexCheck === "not available"
+                    ? true
+                    : false
+                }
                 label="Phone"
                 name="phone"
                 onChange={onChange}
                 value={phone}
                 required
                 style={{ width: "70%", backgroundColor: "#E6E6E6" }}
-                helperText={
-                  phoneCheck === "not available"
-                    ? "Your phone number isn't available"
-                    : ""
-                }
+                helperText={phoneMessage}
               ></TextField>
               <Button
                 variant="contained"
