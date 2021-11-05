@@ -69,20 +69,21 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
     if (nickname.trim() !== "") {
       axiosOnNicknameCheck(nickname)
         .then((res: any) => {
+          console.log(res.status);
           if (res.status === 200) {
             setChecks({
               ...checks,
               nicknameCheck: "available",
             });
-          } else {
+          }
+        })
+        .catch((error: any) => {
+          if (error.response.data.statusCode === 400) {
             setChecks({
               ...checks,
               nicknameCheck: "not available",
             });
           }
-        })
-        .catch((error: any) => {
-          alert(error.response.data.error);
         });
     } else {
       alert("nickname isn't allowed to be empty");
@@ -98,15 +99,15 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
               ...checks,
               phoneCheck: "available",
             });
-          } else {
+          }
+        })
+        .catch((error: any) => {
+          if (error.response.data.statusCode === 400) {
             setChecks({
               ...checks,
               phoneCheck: "not available",
             });
           }
-        })
-        .catch((error: any) => {
-          alert(error.response.data.error);
         });
     } else {
       alert(
@@ -139,12 +140,32 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
         }
       })
       .catch((error: any) => {
-        setMessage(error.response.data.error);
+        console.log(error);
+        // if (error.response.data.statusCode === 400) {
+        //   setMessage(error.response.data.message);
+        // } else {
+        //   console.log(error.response.data);
+        // }
       });
   };
 
   const onWithdrawl = function () {
-    console.log("oneWithdrawl");
+    axiosOnWithdrawl(localJWT !== null ? localJWT : "")
+      .then((res: any) => {
+        if (res.data.statusCode === 200) {
+          localStorage.clear();
+          props.history.push("/");
+        } else {
+          console.log(res.data);
+        }
+      })
+      .catch((error: any) => {
+        if (error.response.data.statusCode === 400) {
+          setMessage(error.response.data.message);
+        } else {
+          console.log(error.response);
+        }
+      });
   };
   //   const isMobile = useMediaQuery({ maxWidth: 612 });
   return (

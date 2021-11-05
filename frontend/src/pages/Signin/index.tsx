@@ -10,16 +10,6 @@ import { HeadlineH1 } from "../../components/Headline/index";
 import { CommonDiv } from "../../components/CommonDiv/index";
 import { Container } from "../../components/Container/index";
 
-const Desktop: React.FunctionComponent = ({ children }: any) => {
-  const isDesktop = useMediaQuery({ minWidth: 613 });
-  return isDesktop ? children : null;
-};
-
-const Mobile: React.FunctionComponent = ({ children }: any) => {
-  const isMobile = useMediaQuery({ maxWidth: 612 });
-  return isMobile ? children : null;
-};
-
 const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   const [inputs, setInputs] = useState({
     email: "",
@@ -53,7 +43,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
           }
         })
         .catch((error: any) => {
-          setMessage(error.response.data.error);
+          setMessage(error.response);
         });
     } else {
       alert("Email and password both required");
@@ -61,137 +51,66 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
   };
 
   return (
-    <>
-      <Mobile>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Container>
-            <img src={Logo} width="200px" height="200px"></img>
-            <HeadlineH1>SIGN IN</HeadlineH1>
-            <CommonDiv>
-              <TextField
-                label="Email"
-                name="email"
-                onChange={onChange}
-                value={email}
-                required
-              />
-            </CommonDiv>
-            <CommonDiv>
-              <TextField
-                label="Password"
-                name="password"
-                type="password"
-                onChange={onChange}
-                value={password}
-                required
-              />
-            </CommonDiv>
-            <CommonDiv>
-              {message !== "" ? (
-                <Alert severity="error">{message}</Alert>
-              ) : null}
-            </CommonDiv>
-            <CommonDiv>
-              <div>
-                <Button
-                  style={{ width: "200px" }}
-                  variant="contained"
-                  color="primary"
-                  onClick={onSignIn}
-                >
-                  SIGN IN
-                </Button>
-              </div>
-              <div>
-                <Link
-                  style={{ color: "inherit", textDecoration: "none" }}
-                  to="/signup"
-                >
-                  <Button
-                    style={{ width: "200px" }}
-                    variant="outlined"
-                    color="primary"
-                  >
-                    CREATE ACCOUNT
-                  </Button>
-                </Link>
-              </div>
-            </CommonDiv>
-          </Container>
-        </div>
-      </Mobile>
-      <Desktop>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            marginTop: "30px",
-          }}
-        >
-          <Container>
-            <img src={Logo} width="200px" height="200px"></img>
-            <HeadlineH1>SIGN IN</HeadlineH1>
-            <CommonDiv>
-              <TextField
-                label="Email"
-                name="email"
-                onChange={onChange}
-                value={email}
-                required
-              />
-            </CommonDiv>
-            <CommonDiv>
-              <TextField
-                label="Password"
-                name="password"
-                type="password"
-                onChange={onChange}
-                value={password}
-                required
-              />
-            </CommonDiv>
-            <CommonDiv>
-              {message !== "" ? (
-                <Alert severity="error">{message}</Alert>
-              ) : null}
-            </CommonDiv>
-            <CommonDiv>
-              <div>
-                <Button
-                  style={{ width: "200px" }}
-                  variant="contained"
-                  color="primary"
-                  onClick={onSignIn}
-                >
-                  SIGN IN
-                </Button>
-              </div>
-              <div>
-                <Link
-                  style={{ color: "inherit", textDecoration: "none" }}
-                  to="/signup"
-                >
-                  <Button
-                    style={{ width: "200px" }}
-                    variant="outlined"
-                    color="primary"
-                  >
-                    CREATE ACCOUNT
-                  </Button>
-                </Link>
-              </div>
-            </CommonDiv>
-          </Container>
-        </div>
-      </Desktop>
-    </>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Container>
+        <img src={Logo} width="200px" height="200px"></img>
+        <HeadlineH1>SIGN IN</HeadlineH1>
+        <CommonDiv>
+          <TextField
+            label="Email"
+            name="email"
+            onChange={onChange}
+            value={email}
+            required
+          />
+        </CommonDiv>
+        <CommonDiv>
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            onChange={onChange}
+            value={password}
+            required
+          />
+        </CommonDiv>
+        <CommonDiv>
+          {message !== "" ? <Alert severity="error">{message}</Alert> : null}
+        </CommonDiv>
+        <CommonDiv>
+          <div>
+            <Button
+              style={{ width: "200px" }}
+              variant="contained"
+              color="primary"
+              onClick={onSignIn}
+            >
+              SIGN IN
+            </Button>
+          </div>
+          <div>
+            <Link
+              style={{ color: "inherit", textDecoration: "none" }}
+              to="/signup"
+            >
+              <Button
+                style={{ width: "200px" }}
+                variant="outlined"
+                color="primary"
+              >
+                CREATE ACCOUNT
+              </Button>
+            </Link>
+          </div>
+        </CommonDiv>
+      </Container>
+    </div>
   );
 };
 

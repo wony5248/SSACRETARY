@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin("*")
 public class UserController {
 
     private final UserRepository userRepository;
@@ -57,7 +57,7 @@ public class UserController {
 
 
     // 회원정보 수정
-    @PutMapping("/editUser")
+    @PutMapping("/")
     @ApiOperation(value = "회원정보 수정")
     public ResponseEntity<UserLoginPostRes> editUser(@RequestHeader(value = "Authorization") String JWT, @RequestBody EditUserReq editUserReq){
         UserLoginPostRes resbody = userServiceImpl.editUser(JWT,editUserReq);
