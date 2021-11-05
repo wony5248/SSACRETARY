@@ -37,7 +37,7 @@ public class UserController {
             return ResponseEntity.ok().body(BaseResponseBody.of(200, "회원가입 성공"));
         }
 
-        return ResponseEntity.status(400).body(BaseResponseBody.of(400, "회원가입 실패패"));
+        return ResponseEntity.status(400).body(BaseResponseBody.of(400, "회원가입 실패"));
    }
 
     // 로그인
@@ -72,9 +72,9 @@ public class UserController {
         boolean resbody = userServiceImpl.deleteUser(JWT, email);
 
         if(resbody){
-            return ResponseEntity.ok().body(BaseResponseBody.of(200, "회원가입 성공"));
+            return ResponseEntity.ok().body(BaseResponseBody.of(200, "회원탈퇴 성공"));
         }
-        return ResponseEntity.status(400).body(BaseResponseBody.of(400, "회원가입 실패패"));
+        return ResponseEntity.status(400).body(BaseResponseBody.of(400, "회원탈퇴 실패"));
     }
 
 //    //로그아웃
