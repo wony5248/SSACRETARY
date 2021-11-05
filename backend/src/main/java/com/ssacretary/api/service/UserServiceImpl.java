@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -82,6 +84,8 @@ public class UserServiceImpl implements UserService{
     public boolean deleteUser(String jwt, String userEmail){
         try{
             String email = jwtTokenProvider.getUserInfo(jwt);
+            System.out.println(email);
+            System.out.println(userEmail);
             if(!email.equals(userEmail)) return false;
             userRepository.deleteByEmail(email);
             return true;
