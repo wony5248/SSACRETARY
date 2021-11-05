@@ -50,6 +50,12 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
     }
   };
 
+  const onKeyPress = function (event: React.KeyboardEvent) {
+    if (event.key === "Enter") {
+      onSignIn();
+    }
+  };
+
   return (
     <div
       style={{
@@ -76,6 +82,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
             name="password"
             type="password"
             onChange={onChange}
+            onKeyPress={onKeyPress}
             value={password}
             required
           />
