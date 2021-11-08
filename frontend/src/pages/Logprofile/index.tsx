@@ -111,7 +111,7 @@ const Logprofile = () => {
               <Grid item xs={6} style={{paddingTop:"0px", display:"flex", justifyContent:"center", alignItems:"center"}}>
                 <Carddiv1 style={{padding:"16px 0"}}>
                   <Carddiv2>
-                    <div>{item.title}</div>
+                    <div style={{fontSize:"24px", fontFamily:"Black Han Sans",fontWeight:600}}>{item.title}</div>
                     <div>{item.url}</div>
                     <div>{item.keyword1}</div>
                     <div>{item.keyword2}</div>

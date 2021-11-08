@@ -18,6 +18,7 @@ export const Styledlabel = styled.div`
 `;
 export const Keworddiv = styled.div`
   display: flex;
+  z-index: 1;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -40,21 +41,21 @@ export const Formdiv1 = styled.div`
 `;
 export const Alarmdiv = styled.div`
   width: 62%;
-  display:flex;
+  display: flex;
   height: 56px;
-  justify-content:flex-start;
+  justify-content: flex-start;
   padding: 0 4%;
-  align-items:center;
-  background-color:#E6E6E6;
+  align-items: center;
+  background-color: #e6e6e6;
 `;
 export const Addbtn = styled.button`
   border-radius: 8px;
   width: 113px;
-  cursor:pointer;
+  cursor: pointer;
   color: white;
   border: none;
   display: flex;
-  margin-bottom:24px;
+  margin-bottom: 24px;
   justify-content: center;
   align-items: center;
   align-self: flex-start;
@@ -65,7 +66,7 @@ export const Removebtn = styled.button`
   border-radius: 100px;
   width: 56px;
   color: white;
-  cursor:pointer;
+  cursor: pointer;
   border: none;
   height: 56px;
   background-color: #d62b4b;
@@ -82,4 +83,25 @@ export const Styledbtn1 = styled.button`
   &:hover {
     background-color: #a3cca3;
   }
+`;
+
+export const Tagdiv = styled.div`
+  width: 40%;
+  height: 200px;
+  z-index: 10;
+  margin-top: 72px;
+  border: 1px solid #d8d8d8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+`;
+
+export const Exitbtn = styled.button`
+  align-self:flex-end;
+  border: none;
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
 `;
