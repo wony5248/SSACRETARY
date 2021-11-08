@@ -1,3 +1,4 @@
+import { Email } from "@mui/icons-material";
 import axios from "axios";
 import { BASE_URL } from "./statics";
 
@@ -55,6 +56,7 @@ export const axiosOnSignUp = function (
 
 export const axiosOnChangeProfile = function (
   jwt: string,
+  email: string,
   nickname: string,
   phone: string
 ) {
@@ -65,18 +67,22 @@ export const axiosOnChangeProfile = function (
       Authorization: jwt,
     },
     data: {
+      email: email,
       nickname: nickname,
       phoneNum: phone,
     },
   });
 };
 
-export const axiosOnWithdrawl = function (jwt: string) {
+export const axiosOnWithdrawl = function (jwt: string, email: string) {
   return axios({
     method: "DELETE",
     url: BASE_URL + "/user/",
     headers: {
       Authorization: jwt,
+    },
+    data: {
+      email: email,
     },
   });
 };

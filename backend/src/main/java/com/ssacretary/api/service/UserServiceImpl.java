@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService{
     public UserLoginPostRes editUser(String jwt, EditUserReq editUserReq){
         try{
             String email = jwtTokenProvider.getUserInfo(jwt);
+            if(!email.equals(editUserReq.getEmail())) throw new Exception();
             User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
             user.updateUserProfile(editUserReq);
             userRepository.save(user);
@@ -74,6 +75,19 @@ public class UserServiceImpl implements UserService{
             resbody.setJwt(jwt);
             resbody.setEmail("");
             return resbody;
+        }
+    }
+
+    @Override
+    public boolean deleteUser(String jwt, String userEmail){
+        try{
+            String email = jwtTokenProvider.getUserInfo(jwt);
+            if(!email.equals(userEmail)) return false;
+            userRepository.deleteByEmail(email);
+            return true;
+        }catch (Exception e){
+            System.out.println(e);
+            return false;
         }
     }
 

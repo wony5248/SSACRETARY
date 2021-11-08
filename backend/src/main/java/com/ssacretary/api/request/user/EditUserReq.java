@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 @ApiModel("EditUserReq")
 public class EditUserReq {
+    @ApiModelProperty("email")
+    String email;
     @ApiModelProperty("phoneNum")
     String phoneNum;
     @ApiModelProperty("nickname")
