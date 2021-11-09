@@ -60,13 +60,13 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
 
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
+      style={
+        isMobile
+          ? { height: "100vh", display: "flex", justifyContent: "center", alignItems:"center" }
+          : { height: "100vh", display: "flex", justifyContent: "center", alignItems:"center" }
+      }
     >
-      <Container style={isMobile ? {} : { marginTop: "30px" }}>
+      <Container>
         <img src={Logo} width="200px" height="200px"></img>
         <HeadlineH1>SIGN IN</HeadlineH1>
         <CommonDiv>

@@ -139,7 +139,7 @@ const ChangeCrawl = () => {
           <Userprofilediv1 style={{ fontSize: "24px" }}>
             Change Crawling
           </Userprofilediv1>
-          <Formdiv1 style={{ height: "900px" }}>
+          <Formdiv1 style={{ height: "900px", boxShadow: "5px 5px 5px 5px grey" }}>
             <div style={{ width: "100%" }}>
               <TextField
                 label="URL"
@@ -262,10 +262,10 @@ const ChangeCrawl = () => {
                   label="Age"
                   onChange={timeChange}
                 >
-                  <MenuItem value={5}>5분</MenuItem>
-                  <MenuItem value={10}>10분</MenuItem>
-                  <MenuItem value={30}>30분</MenuItem>
                   <MenuItem value={60}>1시간</MenuItem>
+                  <MenuItem value={120}>2시간</MenuItem>
+                  <MenuItem value={180}>3시간</MenuItem>
+                  <MenuItem value={240}>4시간</MenuItem>
                   <MenuItem value={360}>6시간</MenuItem>
                   <MenuItem value={720}>12시간</MenuItem>
                   <MenuItem value={1440}>24시간</MenuItem>

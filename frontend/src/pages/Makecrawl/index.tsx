@@ -126,7 +126,7 @@ const MakeCrawl = () => {
           <Userprofilediv1 style={{ fontSize: "24px" }}>
             Make Crawling
           </Userprofilediv1>
-          <Formdiv1 style={{ height: "900px" }}>
+          <Formdiv1 style={{ height: "900px", boxShadow: "5px 5px 5px 5px grey" }}>
             <div style={{ width: "100%" }}>
               <TextField
                 label="URL"
@@ -249,10 +249,10 @@ const MakeCrawl = () => {
                   label="Age"
                   onChange={timeChange}
                 >
-                  <MenuItem value={5}>5분</MenuItem>
-                  <MenuItem value={10}>10분</MenuItem>
-                  <MenuItem value={30}>30분</MenuItem>
                   <MenuItem value={60}>1시간</MenuItem>
+                  <MenuItem value={120}>2시간</MenuItem>
+                  <MenuItem value={180}>3시간</MenuItem>
+                  <MenuItem value={240}>4시간</MenuItem>
                   <MenuItem value={360}>6시간</MenuItem>
                   <MenuItem value={720}>12시간</MenuItem>
                   <MenuItem value={1440}>24시간</MenuItem>
@@ -286,7 +286,7 @@ const MakeCrawl = () => {
             </Keworddiv>
           </Formdiv1>
           <Btn
-            style={{ width: "90%", marginTop: "72px" }}
+            style={{ width: "90%", marginTop: "72px"}}
             name="MAKE CRAWL"
             onClick={() => console.log("Change")}
           ></Btn>

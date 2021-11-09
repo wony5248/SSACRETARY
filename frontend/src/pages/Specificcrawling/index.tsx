@@ -149,8 +149,10 @@ const SettingProfile: React.FunctionComponent = () => {
                   style={{
                     height: "100%",
                     display: "flex",
+                    boxShadow: "5px 5px 5px 5px grey",
                     flexDirection: "column",
                     justifyContent: "center",
+                    margin: "0 12px",
                   }}
                   variant="outlined"
                 >
@@ -160,11 +162,13 @@ const SettingProfile: React.FunctionComponent = () => {
               <Grid style={{ height: "45%" }} item xs={6}>
                 <Card
                   title="최근 크롤링에서 내가 설정한 키워드 비율"
-                  style={{
+                  sx={{
                     height: "100%",
                     display: "flex",
+                    boxShadow: "5px 5px 5px 5px grey",
                     flexDirection: "column",
                     justifyContent: "center",
+                    margin: "0 12px",
                   }}
                   variant="outlined"
                 >
@@ -177,8 +181,10 @@ const SettingProfile: React.FunctionComponent = () => {
                   style={{
                     height: "100%",
                     display: "flex",
+                    boxShadow: "5px 5px 5px 5px grey",
                     flexDirection: "column",
                     justifyContent: "center",
+                    margin: "0 12px",
                   }}
                   variant="outlined"
                 >
@@ -207,17 +213,41 @@ const SettingProfile: React.FunctionComponent = () => {
           <Carddiv style={{ height: "550px" }}>
             <Grid style={{ height: "100%" }} container spacing={2}>
               <Grid style={{ height: "45%" }} item xs={6}>
-                <Card style={{ height: "100%" }} variant="outlined">
+                <Card
+                  style={{
+                    height: "100%",
+                    boxShadow: "0px 5px 5px 2px grey",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                  variant="outlined"
+                >
                   {card1}
                 </Card>
               </Grid>
               <Grid style={{ height: "45%" }} item xs={6}>
-                <Card style={{ height: "100%" }} variant="outlined">
+                <Card
+                  style={{
+                    height: "100%",
+                    boxShadow: "0px 5px 5px 2px grey",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                  variant="outlined"
+                >
                   {card2}
                 </Card>
               </Grid>
               <Grid style={{ height: "45%" }} item xs={12}>
-                <Card style={{ height: "100%" }} variant="outlined">
+                <Card
+                  style={{
+                    height: "100%",
+                    boxShadow: "0px 5px 5px 2px grey",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                  variant="outlined"
+                >
                   {card3}
                 </Card>
               </Grid>
@@ -228,7 +258,11 @@ const SettingProfile: React.FunctionComponent = () => {
             onClick={Click}
             name="Go to Detail"
           ></Btn>
-          <Btn style={{marginBottom:"24px"}} onClick={Click} name="Make Crawl"></Btn>
+          <Btn
+            style={{ marginBottom: "24px" }}
+            onClick={Click}
+            name="Make Crawl"
+          ></Btn>
         </div>
       </Mobile>
     </div>

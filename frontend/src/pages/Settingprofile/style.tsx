@@ -10,6 +10,7 @@ export const Bodydiv = styled.div`
     display : flex;
     flex-direction: column;
     align-items:center;
+
     height: 500px;
     width: 90%;
     overflow: auto;
@@ -18,9 +19,10 @@ export const Bodydiv = styled.div`
     color: #424242;
 `;
 export const Settingdiv = styled.div`
-    border: 1px solid rgba(98, 0, 238, 0.2);
+    border: 1px solid #D8D8D8;
     width: 360px;
     border-radius: 8px;
+    box-shadow: 1px 5px 5px 2px grey;
     margin-top:12px;
     margin-bottom: 12px;
     min-height: 88px;
@@ -34,6 +36,7 @@ export const Settingtitlediv = styled.div`
 `;
 export const Settingtagdiv = styled.div`
     border-radius: 8px;
+    
     display: flex;
     padding-left:4px;
     justify-content:flex-start
