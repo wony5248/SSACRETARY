@@ -123,9 +123,8 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
         <CommonDiv>
           <div>
             <Button
-              style={{ width: "200px" }}
+              sx={{ width: "200px", backgroundColor: "#404040" }}
               variant="contained"
-              color="primary"
               onClick={onSignIn}
             >
               SIGN IN
