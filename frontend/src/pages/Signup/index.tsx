@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { TextField, Button, Alert } from "@mui/material";
 import { useMediaQuery } from "react-responsive";
@@ -16,13 +16,6 @@ import {
 import { onEmailRegexCheck, onPhoneRegexCheck } from "../../utils/regex";
 
 const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
-  useEffect(() => {
-    const isLogin = localStorage.getItem("jwt") !== null ? true : false;
-    if (isLogin) {
-      props.history.push("/settingprofile");
-    }
-  });
-
   var _ = require("lodash");
 
   const isMobile = useMediaQuery({ maxWidth: 612 });
@@ -302,13 +295,23 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
 
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
+      style={
+        isMobile
+          ? {
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }
+          : {
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }
+      }
     >
-      <Container style={isMobile ? {} : { marginTop: "30px" }}>
+      <Container>
         <HeadlineH1>SIGN UP</HeadlineH1>
         <CommonDiv>
           <div style={{ display: "flex" }}>
