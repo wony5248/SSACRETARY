@@ -252,7 +252,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={email}
                 required
-                style={{ width: "100%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "100%"}}
               ></TextField>
             </div>
             <div
@@ -270,7 +270,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={nickname}
                 required
-                style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "70%"}}
                 helperText={
                   nicknameCheck === "not available"
                     ? "Your nickname isn't available"
@@ -307,7 +307,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={phone}
                 required
-                style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "70%"}}
                 helperText={phoneMessage}
               ></TextField>
               <Button
@@ -354,7 +354,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={email}
                 required
-                style={{ width: "100%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "100%"}}
               ></TextField>
             </div>
             <div
@@ -372,7 +372,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={nickname}
                 required
-                style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "70%"}}
                 helperText={
                   nicknameCheck === "not available"
                     ? "Your nickname isn't available"
@@ -404,7 +404,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={phone}
                 required
-                style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "70%"}}
                 helperText={
                   phoneCheck === "not available"
                     ? "Your phone number isn't available"

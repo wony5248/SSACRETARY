@@ -147,7 +147,7 @@ const ChangeCrawl = () => {
                 onChange={onChange}
                 value={url}
                 required
-                style={{ width: "100%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "100%" }}
               ></TextField>
             </div>
             <div
@@ -182,7 +182,6 @@ const ChangeCrawl = () => {
                     required
                     style={{
                       width: "70%",
-                      backgroundColor: "#E6E6E6",
                     }}
                   ></TextField>
                   <Addbtn
@@ -221,7 +220,7 @@ const ChangeCrawl = () => {
                             onChange={onChange}
                             value={item.keyword}
                             required
-                            style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                            style={{ width: "70%" }}
                           ></TextField>
                           <Removebtn onClick={() => console.log("remove")}>
                             <RemoveIcon />
@@ -332,7 +331,7 @@ const ChangeCrawl = () => {
                 onChange={onChange}
                 value={url}
                 required
-                style={{ width: "100%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "100%" }}
               ></TextField>
             </div>
             <div
@@ -374,7 +373,6 @@ const ChangeCrawl = () => {
                     required
                     style={{
                       width: "70%",
-                      backgroundColor: "#E6E6E6",
                       margin: "24px 0",
                     }}
                   ></TextField>
@@ -406,7 +404,7 @@ const ChangeCrawl = () => {
                             onChange={onChange}
                             value={item.keyword}
                             required
-                            style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                            style={{ width: "70%"}}
                           ></TextField>
                           <Removebtn onClick={() => console.log("remove")}>
                             <RemoveIcon />

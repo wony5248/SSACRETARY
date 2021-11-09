@@ -26,6 +26,7 @@ export const Keworddiv = styled.div`
   width: 100%;
   overflow: auto;
   border: 1px solid #d8d8d8;
+  border-radius: 8px;
   margin-bottom: 24px;
 `;
 export const Formdiv1 = styled.div`
@@ -43,10 +44,11 @@ export const Alarmdiv = styled.div`
   width: 62%;
   display: flex;
   height: 56px;
+  font-family: Black Han Sans;
   justify-content: flex-start;
   padding: 0 4%;
   align-items: center;
-  background-color: #e6e6e6;
+  border: 1px solid #e6e6e6;
 `;
 export const Addbtn = styled.button`
   border-radius: 8px;
@@ -85,23 +87,6 @@ export const Styledbtn1 = styled.button`
   }
 `;
 
-export const Tagdiv = styled.div`
-  width: 40%;
-  height: 200px;
-  z-index: 10;
-  margin-top: 72px;
-  border: 1px solid #d8d8d8;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 8px;
-`;
 
-export const Exitbtn = styled.button`
-  align-self:flex-end;
-  border: none;
-  border-radius: 8px;
-  background-color: white;
-  cursor: pointer;
-`;
+
+

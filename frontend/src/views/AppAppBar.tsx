@@ -24,7 +24,7 @@ const StyledMenu = styled.nav`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  background: #404040;
+  background: #e6f5ff;
   transform: ${(props: ITest) =>
     props.open ? "translateX(0)" : "translateX(-100%)"};
   height: 100vh;
@@ -45,7 +45,7 @@ const StyledMenu = styled.nav`
     padding: 2rem 0;
     font-weight: bold;
     letter-spacing: 0.5rem;
-    color: #ffffff;
+    color: #0d0c1d;
     text-decoration: none;
     transition: color 0.3s linear;
 
@@ -55,7 +55,7 @@ const StyledMenu = styled.nav`
     }
 
     &:hover {
-      color: #737b80;
+      color: #343078;
     }
   }
 `;
@@ -165,7 +165,7 @@ function AppAppBar() {
   // const node = React.useRef();
   return (
     <div>
-      <AppBar position="fixed" sx={{ backgroundColor: "#404040" }}>
+      <AppBar position="fixed">
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Box
             sx={{ flex: 1 }}
