@@ -139,7 +139,7 @@ const ChangeCrawl = () => {
           <Userprofilediv1 style={{ fontSize: "24px" }}>
             Change Crawling
           </Userprofilediv1>
-          <Formdiv1 style={{ height: "900px", boxShadow: "5px 5px 5px 5px grey" }}>
+          <Formdiv1 style={{ height: "900px", maxWidth:"1000px",boxShadow: "5px 5px 5px 5px grey" }}>
             <div style={{ width: "100%" }}>
               <TextField
                 label="URL"
@@ -299,7 +299,7 @@ const ChangeCrawl = () => {
             </Keworddiv>
           </Formdiv1>
           <Btn
-            style={{ width: "90%" }}
+            style={{ width: "93%", maxWidth:"1032px"}}
             name="UPDATE CRAWL"
             onClick={() => console.log("UPDATE")}
           ></Btn>
@@ -307,7 +307,8 @@ const ChangeCrawl = () => {
             style={{
               marginBottom: "24px",
               backgroundColor: "#d62b4b",
-              width: "90%",
+              width: "93%",
+              maxWidth:"1032px"
             }}
             name="DELETE CRAWL"
             onClick={() => console.log("DELETE")}

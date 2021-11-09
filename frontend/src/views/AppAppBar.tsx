@@ -124,7 +124,7 @@ const Menu = (props: any) => {
         <span role="img" aria-label="about us">
           ⚙️
         </span>
-        Setting Crawl
+        My Crawling
       </a>
       <a href="/specificcrawling">
         <span role="img" aria-label="control">
@@ -136,7 +136,7 @@ const Menu = (props: any) => {
         <span role="img" aria-label="control">
           🔨
         </span>
-        Crawl Log
+        Crawling Log
       </a>
     </StyledMenu>
   );

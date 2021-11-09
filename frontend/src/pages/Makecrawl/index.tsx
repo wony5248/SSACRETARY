@@ -126,7 +126,7 @@ const MakeCrawl = () => {
           <Userprofilediv1 style={{ fontSize: "24px" }}>
             Make Crawling
           </Userprofilediv1>
-          <Formdiv1 style={{ height: "900px", boxShadow: "5px 5px 5px 5px grey" }}>
+          <Formdiv1 style={{ height: "900px", maxWidth:"1000px",boxShadow: "5px 5px 5px 5px grey" }}>
             <div style={{ width: "100%" }}>
               <TextField
                 label="URL"
@@ -286,7 +286,7 @@ const MakeCrawl = () => {
             </Keworddiv>
           </Formdiv1>
           <Btn
-            style={{ width: "90%", marginTop: "72px"}}
+            style={{ width: "93%", marginTop: "72px",maxWidth:"1032px"}}
             name="MAKE CRAWL"
             onClick={() => console.log("Change")}
           ></Btn>
