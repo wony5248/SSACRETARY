@@ -345,10 +345,23 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             />
             <Button
               disabled={emailRegexCheck === "available" ? false : true}
-              style={{ marginLeft: "10px", height: "55px" }}
+              style={
+                emailCheck === "available"
+                  ? {
+                      marginLeft: "10px",
+                      height: "55px",
+                      backgroundColor: "green",
+                      color: "#fffff",
+                    }
+                  : {
+                      marginLeft: "10px",
+                      height: "55px",
+                      backgroundColor: "#404040",
+                      color: "#ffffff",
+                    }
+              }
               variant="contained"
               size="small"
-              color={emailCheck === "available" ? "success" : "primary"}
               onClick={onEmailCheck}
             >
               AVAILITY
@@ -375,10 +388,23 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
                 }
               />
               <Button
-                style={{ marginLeft: "10px", height: "55px" }}
+                style={
+                  emailValidCheck === "available"
+                    ? {
+                        marginLeft: "10px",
+                        height: "55px",
+                        backgroundColor: "green",
+                        color: "#fffff",
+                      }
+                    : {
+                        marginLeft: "10px",
+                        height: "55px",
+                        backgroundColor: "#404040",
+                        color: "#fffff",
+                      }
+                }
                 variant="contained"
                 size="small"
-                color={emailValidCheck === "available" ? "success" : "primary"}
                 onClick={onEmailValidation}
               >
                 Valid
@@ -407,9 +433,22 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             <Button
               name="nickname"
               variant="contained"
-              style={{ marginLeft: "10px", height: "55px" }}
+              style={
+                nicknameCheck === "available"
+                  ? {
+                      marginLeft: "10px",
+                      height: "55px",
+                      backgroundColor: "green",
+                      color: "#fffff",
+                    }
+                  : {
+                      marginLeft: "10px",
+                      height: "55px",
+                      backgroundColor: "#404040",
+                      color: "#fffff",
+                    }
+              }
               size="small"
-              color={nicknameCheck === "available" ? "success" : "primary"}
               onClick={onNicknameCheck}
             >
               AVAILITY
@@ -468,8 +507,21 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               disabled={phoneRegexCheck === "available" ? false : true}
               variant="contained"
               size="small"
-              style={{ marginLeft: "10px", height: "55px" }}
-              color={phoneCheck === "available" ? "success" : "primary"}
+              style={
+                phoneCheck === "available"
+                  ? {
+                      marginLeft: "10px",
+                      height: "55px",
+                      backgroundColor: "green",
+                      color: "#ffffff",
+                    }
+                  : {
+                      marginLeft: "10px",
+                      height: "55px",
+                      backgroundColor: "#404040",
+                      color: "#ffffff",
+                    }
+              }
               onClick={onPhoneCheck}
             >
               AVAILITY
