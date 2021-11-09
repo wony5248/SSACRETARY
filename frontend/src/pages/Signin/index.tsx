@@ -11,6 +11,8 @@ import { CommonDiv } from "../../components/CommonDiv/index";
 import { Container } from "../../components/Container/index";
 
 const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
+  const isMobile = useMediaQuery({ maxWidth: 612 });
+
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -64,7 +66,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
         alignItems: "center",
       }}
     >
-      <Container>
+      <Container style={isMobile ? {} : { marginTop: "30px" }}>
         <img src={Logo} width="200px" height="200px"></img>
         <HeadlineH1>SIGN IN</HeadlineH1>
         <CommonDiv>
