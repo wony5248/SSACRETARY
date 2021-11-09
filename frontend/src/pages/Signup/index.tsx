@@ -311,7 +311,18 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             }
       }
     >
-      <Container>
+      <Container
+        style={
+          isMobile
+            ? {}
+            : {
+                boxShadow: "5px 5px 5px 5px grey",
+                border: "solid",
+                borderWidth: "thin",
+                borderRadius: "0.5rem",
+              }
+        }
+      >
         <HeadlineH1>SIGN UP</HeadlineH1>
         <CommonDiv>
           <div style={{ display: "flex" }}>

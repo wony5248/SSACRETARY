@@ -242,6 +242,10 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
               width: "500px",
               height: "500px",
               justifyContent: "space-evenly",
+              boxShadow: "5px 5px 5px 5px grey",
+              border: "solid",
+              borderWidth: "thin",
+              borderRadius: "0.5rem",
             }}
           >
             <div style={{ width: "100%" }}>
@@ -252,7 +256,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={email}
                 required
-                style={{ width: "100%"}}
+                style={{ width: "100%" }}
               ></TextField>
             </div>
             <div
@@ -270,7 +274,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={nickname}
                 required
-                style={{ width: "70%"}}
+                style={{ width: "70%" }}
                 helperText={
                   nicknameCheck === "not available"
                     ? "Your nickname isn't available"
@@ -307,7 +311,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={phone}
                 required
-                style={{ width: "70%"}}
+                style={{ width: "70%" }}
                 helperText={phoneMessage}
               ></TextField>
               <Button
@@ -354,7 +358,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={email}
                 required
-                style={{ width: "100%"}}
+                style={{ width: "100%" }}
               ></TextField>
             </div>
             <div
@@ -372,7 +376,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={nickname}
                 required
-                style={{ width: "70%"}}
+                style={{ width: "70%" }}
                 helperText={
                   nicknameCheck === "not available"
                     ? "Your nickname isn't available"
@@ -404,7 +408,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={phone}
                 required
-                style={{ width: "70%"}}
+                style={{ width: "70%" }}
                 helperText={
                   phoneCheck === "not available"
                     ? "Your phone number isn't available"
