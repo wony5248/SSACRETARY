@@ -54,7 +54,7 @@ public class CrawlingController {
         GetSettingDetailRes resbody = crawlingService.getSettingDetail(JWT, baseCrawlingReq);
 
 //        if(resbody.get)
-        return ResponseEntity.status(401).body(GetSettingDetailRes.of(401, "Failed",-1,null,null,null,-1,false,false,null,null,null,null));
+        return ResponseEntity.status(401).body(GetSettingDetailRes.of(401, "Failed",-1,null,null,-1,false,false,null,null,null,null));
     }
 
     @PutMapping("/{crawlingId}")

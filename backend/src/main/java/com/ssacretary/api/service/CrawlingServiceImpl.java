@@ -106,30 +106,38 @@ public class CrawlingServiceImpl implements CrawlingService{
 
             //세팅 아이디로 세팅 찾기
             Setting setting = settingRepository.findBySettingId(baseCrawlingReq.getSettingId());
-            //세팅 아이디로 키워드 찾기
-            List<SettingKeyword> sk = settingKeywordRepository.findBySetting_SettingId(baseCrawlingReq.getSettingId());
-            List<String> keywords = new ArrayList<>();
-            for(int j=0;j<sk.size();j++){
-                keywords.add(sk.get(j).getKeyword().getKeyword());
-            }
 
             //로그
             List<Log> logList = logRepository.findBySetting_SettingId(baseCrawlingReq.getSettingId());
-//            Count
             List<AllLogsData> allLogsData = new ArrayList<>();
+            //세팅 아이디로 키워드, 카운트 횟수 찾기
+            List<SettingKeyword> sk = settingKeywordRepository.findBySetting_SettingId(baseCrawlingReq.getSettingId());
+            List<String> keywords = new ArrayList<>();
+            List<Integer> counts = new ArrayList<>();
+            List<String> sentences = new ArrayList<>();
 
             AllLogsData allLogs = new AllLogsData();
+            allLogs.setMatchCounts(counts);
+            allLogs.setMatchSentences(sentences);
+
             for(int i=0;i<logList.size();i++) {
                 allLogs.setDate(logList.get(i).getDate());
-                allLogs.setMatchCounts(logList);
-                allLogs.setMatchSentences();
-                allLogs.
+                //로그아이디로 키워드아이디 찾기
+                //키워드아이디로 키워드 찾아서 map에 넣어주기
+                for(int j=0;j<sk.size();j++){
+                    Keyword kw = sk.get(j).getKeyword();
+                    keywords.add(kw.getKeyword());
+                    int keyId = keywordRepository.findByKeyword(kw.getKeyword()).getKeywordId();
+                    Count cnt = countRepository.findByKeyword_KeywordId(keyId);
+                    Sentence sentence = sentenceRepository.findByKeyword_KeywordId(keyId);
+                    counts.add(cnt.getCount());
+                    sentences.add(sentence.getMatchSentence());
+                }
             }
 
 
             GetSettingDetailRes resbody = new GetSettingDetailRes();
             resbody.setSettingId(baseCrawlingReq.getSettingId());
-            resbody.setKeywords(keywords);
             resbody.setUrl(setting.getUrl());
             resbody.setType(setting.getType());
             resbody.setPeriod(setting.getPeriod());
