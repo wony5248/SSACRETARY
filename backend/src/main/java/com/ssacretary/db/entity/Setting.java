@@ -36,6 +36,9 @@ public class Setting {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "period")
+    private int period;
+
     @Column(name = "alarm")
     private Boolean alarm;
 

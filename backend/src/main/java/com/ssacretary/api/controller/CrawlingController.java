@@ -1,12 +1,13 @@
 package com.ssacretary.api.controller;
 
 import com.ssacretary.api.request.crawling.AddSettingReq;
+import com.ssacretary.api.request.crawling.GetAllSettingReq;
+import com.ssacretary.api.request.crawling.BaseCrawlingReq;
 import com.ssacretary.api.response.crawling.GetAllLogsRes;
 import com.ssacretary.api.response.crawling.GetAllSettingsRes;
 import com.ssacretary.api.response.crawling.GetSettingDetailRes;
 import com.ssacretary.api.service.CrawlingService;
 import com.ssacretary.common.response.BaseResponseBody;
-import com.ssacretary.config.JwtTokenProvider;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -38,21 +39,22 @@ public class CrawlingController {
 
     @GetMapping("/")
     @ApiOperation(value = "나의 모든 크롤링 정보 가져오기")
-    public ResponseEntity<GetAllSettingsRes> getAllSettings(@RequestHeader("Authorization") String JWT) {
+    public ResponseEntity<GetAllSettingsRes> getAllSettings(@RequestHeader("Authorization") String JWT, @RequestBody GetAllSettingReq getAllSettingReq) {
         //jwt로 본인확인후 가져옴
 
-        GetAllSettingsRes getAllSettingsRes = crawlingService.getAllSettings(JWT);
+        GetAllSettingsRes getAllSettingsRes = crawlingService.getAllSettings(JWT, getAllSettingReq);
 
         return ResponseEntity.status(401).body(GetAllSettingsRes.of(401, "Failed",null));
     }
 
-    @GetMapping("/{crawlingId}")
+    @GetMapping("/detail")
     @ApiOperation(value = "크롤링 세팅 하나의 정보 가져오기")
-    public ResponseEntity<GetSettingDetailRes> getSettingDetail(@RequestHeader("Authorization") String JWT, @PathVariable("crawlingId") String crawlingId){
+    public ResponseEntity<GetSettingDetailRes> getSettingDetail(@RequestHeader("Authorization") String JWT, @RequestBody BaseCrawlingReq baseCrawlingReq){
         //jwt로 본인확인
-        GetSettingDetailRes getSettingDetailRes = crawlingService.getSettingDetail(JWT, crawlingId);
+        GetSettingDetailRes resbody = crawlingService.getSettingDetail(JWT, baseCrawlingReq);
 
-        return ResponseEntity.status(401).body(GetSettingDetailRes.of(401, "Failed",null,null,null,null,0,false,false,null));
+//        if(resbody.get)
+        return ResponseEntity.status(401).body(GetSettingDetailRes.of(401, "Failed",-1,null,null,null,-1,false,false,null,null,null,null));
     }
 
     @PutMapping("/{crawlingId}")
@@ -69,9 +71,9 @@ public class CrawlingController {
 
     @DeleteMapping("/{crawlingId}")
     @ApiOperation(value = "크롤링 세팅 삭제")
-    public ResponseEntity<BaseResponseBody> deleteSetting(@RequestHeader("Authorization") String JWT, @PathVariable("crawlingId") String crawlingId){
+    public ResponseEntity<BaseResponseBody> deleteSetting(@RequestHeader("Authorization") String JWT, @RequestBody BaseCrawlingReq baseCrawlingReq){
         //jwt로 본인확인후 가져옴
-        boolean resbody = crawlingService.deleteSetting(JWT, crawlingId);
+        boolean resbody = crawlingService.deleteSetting(JWT, baseCrawlingReq);
 
         if(resbody){
             return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));

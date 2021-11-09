@@ -1,6 +1,7 @@
 package com.ssacretary.db.entity;
 
 import lombok.*;
+import org.checkerframework.checker.units.qual.C;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -36,5 +37,11 @@ public class Log {
 
     @Column(name = "date")
     private LocalDateTime date;
+
+    @Column(name = "htmlSuccess")
+    private boolean htmlSuccess;
+
+    @Column(name = "htmlSource",columnDefinition = "TEXT")
+    private String htmlSource;
 
 }
