@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Alert, Button, TextField } from "@mui/material";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
@@ -11,6 +11,13 @@ import { CommonDiv } from "../../components/CommonDiv/index";
 import { Container } from "../../components/Container/index";
 
 const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
+  useEffect(() => {
+    const isLogin = localStorage.getItem("jwt") !== null ? true : false;
+    if (isLogin) {
+      props.history.push("/settingprofile");
+    }
+  });
+
   const isMobile = useMediaQuery({ maxWidth: 612 });
 
   const [inputs, setInputs] = useState({
