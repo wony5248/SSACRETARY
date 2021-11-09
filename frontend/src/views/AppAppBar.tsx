@@ -24,7 +24,7 @@ const StyledMenu = styled.nav`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  background: #e6f5ff;
+  background: #404040;
   transform: ${(props: ITest) =>
     props.open ? "translateX(0)" : "translateX(-100%)"};
   height: 100vh;
@@ -45,7 +45,7 @@ const StyledMenu = styled.nav`
     padding: 2rem 0;
     font-weight: bold;
     letter-spacing: 0.5rem;
-    color: #0d0c1d;
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.3s linear;
 
@@ -55,7 +55,7 @@ const StyledMenu = styled.nav`
     }
 
     &:hover {
-      color: #343078;
+      color: #737b80;
     }
   }
 `;
@@ -165,7 +165,7 @@ function AppAppBar() {
   // const node = React.useRef();
   return (
     <div>
-      <AppBar  position="fixed">
+      <AppBar position="fixed" sx={{ backgroundColor: "#404040" }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Box
             sx={{ flex: 1 }}
@@ -174,11 +174,7 @@ function AppAppBar() {
             <Burger open={open} setOpen={setOpen} />
             <Menu open={open} setOpen={setOpen} />
           </Box>
-          <Typography
-            sx={{ fontSize: 24 }}
-          >
-            {"SSACRETARY"}
-          </Typography>
+          <Typography sx={{ fontSize: 24 }}>{"SSACRETARY"}</Typography>
           <React.Fragment>
             <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
               <Tooltip title="Account settings">
