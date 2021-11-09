@@ -536,7 +536,11 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
         <CommonDiv>
           <Button
             variant="contained"
-            style={{ width: "200px" }}
+            style={{
+              width: "200px",
+              backgroundColor: "#404040",
+              color: "#ffffff",
+            }}
             onClick={onSignUp}
           >
             SIGN UP
