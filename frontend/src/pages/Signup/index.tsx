@@ -15,18 +15,11 @@ import {
 } from "../../utils/axios";
 import { onEmailRegexCheck, onPhoneRegexCheck } from "../../utils/regex";
 
-const Desktop: React.FunctionComponent = ({ children }: any) => {
-  const isDesktop = useMediaQuery({ minWidth: 613 });
-  return isDesktop ? children : null;
-};
-
-const Mobile: React.FunctionComponent = ({ children }: any) => {
-  const isMobile = useMediaQuery({ maxWidth: 612 });
-  return isMobile ? children : null;
-};
-
 const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   var _ = require("lodash");
+
+  const isMobile = useMediaQuery({ maxWidth: 612 });
+
   const [inputs, setInputs] = useState({
     email: "",
     emailInputNum: "",
@@ -308,7 +301,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
         alignItems: "center",
       }}
     >
-      <Container>
+      <Container style={isMobile ? {} : { marginTop: "30px" }}>
         <HeadlineH1>SIGN UP</HeadlineH1>
         <CommonDiv>
           <div style={{ display: "flex" }}>
