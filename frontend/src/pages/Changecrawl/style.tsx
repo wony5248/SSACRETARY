@@ -25,6 +25,7 @@ export const Keworddiv = styled.div`
   width: 100%;
   overflow: auto;
   border: 1px solid #d8d8d8;
+  border-radius: 8px;
   margin-bottom: 24px;
 `;
 export const Formdiv1 = styled.div`
@@ -45,7 +46,7 @@ export const Alarmdiv = styled.div`
   justify-content:flex-start;
   padding: 0 4%;
   align-items:center;
-  background-color:#E6E6E6;
+  border: 1px solid #d8d8d8;
 `;
 export const Addbtn = styled.button`
   border-radius: 8px;
