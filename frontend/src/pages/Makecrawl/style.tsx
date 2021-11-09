@@ -62,7 +62,7 @@ export const Addbtn = styled.button`
   align-items: center;
   align-self: flex-start;
   height: 36px;
-  background-color: #6200ee;
+  background-color: #404040;
 `;
 export const Removebtn = styled.button`
   border-radius: 100px;

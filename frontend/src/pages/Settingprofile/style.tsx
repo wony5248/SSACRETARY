@@ -43,7 +43,7 @@ export const Settingtagdiv = styled.div`
     
 `;
 export const Settingtag = styled.div`
-    background-color: rgba(98, 0, 238, 0.2);
+    background-color: #404040;
     color: white;
     padding: 0 4px;
     display:flex;

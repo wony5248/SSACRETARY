@@ -165,8 +165,8 @@ const ChangeCrawl = () => {
                 name="row-radio-buttons-group"
                 onChange={radioChange}
               >
-                <FormControlLabel value="and" control={<Radio />} label="AND" />
-                <FormControlLabel value="or" control={<Radio />} label="OR" />
+                <FormControlLabel value="and" control={<Radio color="default"/>} label="AND" />
+                <FormControlLabel value="or" control={<Radio color="default"/>} label="OR" />
               </RadioGroup>
             </div>
             <Keworddiv style={{ height: "400px" }}>
@@ -283,7 +283,7 @@ const ChangeCrawl = () => {
               >
                 <Alarmdiv>MAIL Alarm</Alarmdiv>
 
-                <Switch checked={checked} onChange={handleChange} />
+                <Switch color="default" checked={checked} onChange={handleChange} />
               </div>
               <div
                 style={{
@@ -294,7 +294,7 @@ const ChangeCrawl = () => {
                 }}
               >
                 <Alarmdiv>SMS Alarm</Alarmdiv>
-                <Switch checked={checked2} onChange={handleChange2} />
+                <Switch color="default" checked={checked2} onChange={handleChange2} />
               </div>
             </Keworddiv>
           </Formdiv1>
@@ -350,8 +350,8 @@ const ChangeCrawl = () => {
                 name="row-radio-buttons-group"
                 onChange={radioChange}
               >
-                <FormControlLabel value="and" control={<Radio />} label="AND" />
-                <FormControlLabel value="or" control={<Radio />} label="OR" />
+                <FormControlLabel value="and" control={<Radio color="default"/>} label="AND" />
+                <FormControlLabel value="or" control={<Radio color="default"/>} label="OR" />
               </RadioGroup>
             </div>
             <Keworddiv style={{}}>
@@ -467,7 +467,7 @@ const ChangeCrawl = () => {
               >
                 <Alarmdiv>MAIL Alarm</Alarmdiv>
 
-                <Switch checked={checked} onChange={handleChange} />
+                <Switch color="default" checked={checked} onChange={handleChange} />
               </div>
               <div
                 style={{
@@ -478,7 +478,7 @@ const ChangeCrawl = () => {
                 }}
               >
                 <Alarmdiv>SMS Alarm</Alarmdiv>
-                <Switch checked={checked2} onChange={handleChange2} />
+                <Switch color="default" checked={checked2} onChange={handleChange2} />
               </div>
             </Keworddiv>
           </Formdiv1>
