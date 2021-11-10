@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -59,7 +61,7 @@ public class UserServiceImpl implements UserService{
         try{
             String email = jwtTokenProvider.getUserInfo(jwt);
             if(!email.equals(editUserReq.getEmail())) throw new Exception();
-            User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
+            User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
             user.updateUserProfile(editUserReq);
             userRepository.save(user);
 
@@ -82,6 +84,8 @@ public class UserServiceImpl implements UserService{
     public boolean deleteUser(String jwt, String userEmail){
         try{
             String email = jwtTokenProvider.getUserInfo(jwt);
+            System.out.println(email);
+            System.out.println(userEmail);
             if(!email.equals(userEmail)) return false;
             userRepository.deleteByEmail(email);
             return true;
