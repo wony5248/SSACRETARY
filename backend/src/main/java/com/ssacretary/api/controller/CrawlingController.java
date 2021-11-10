@@ -81,11 +81,11 @@ public class CrawlingController {
         return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failed"));
     }
 
-    @GetMapping("/log")
+    @GetMapping("/log/{email}")
     @ApiOperation(value = "나의 모든 크롤링 로그 조회")
-    public ResponseEntity<GetAllLogsRes> getAllLog(@RequestHeader("Authorization") String JWT){
+    public ResponseEntity<GetAllLogsRes> getAllLog(@RequestHeader("Authorization") String JWT, @RequestParam String email){
         //jwt로 본인확인후 가져옴
-        GetAllLogsRes getAllLogsRes = crawlingService.getAllLog(JWT);
+        GetAllLogsRes getAllLogsRes = crawlingService.getAllLog(JWT,email);
 
         return ResponseEntity.status(401).body(GetAllLogsRes.of(401, "Failed",null));
     }

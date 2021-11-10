@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface LogRepository extends JpaRepository<Log,Integer> {
     List<Log> findBySetting_SettingId(int settingId);
+
+    List<Log> findBySetting_User_Email(String email);
 }

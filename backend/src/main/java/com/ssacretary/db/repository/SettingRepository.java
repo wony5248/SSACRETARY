@@ -10,5 +10,7 @@ public interface SettingRepository extends JpaRepository<Setting,Integer> {
 
     List<Setting> findByUser_Email(String email);
 
+    long deleteBySettingId(int settingId);
+
 
 }
