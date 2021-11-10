@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class AllSettingData {
-    String crawlingId;
+    int settingId;
     List<String> keywords;
     String url;
 }
