@@ -1,6 +1,7 @@
 package com.ssacretary.api.service;
 
 import com.ssacretary.api.request.crawling.AddSettingReq;
+import com.ssacretary.api.request.crawling.EditSettingReq;
 import com.ssacretary.api.request.crawling.GetAllSettingReq;
 import com.ssacretary.api.request.crawling.BaseCrawlingReq;
 import com.ssacretary.api.response.crawling.GetAllLogsRes;
@@ -16,7 +17,7 @@ public interface CrawlingService {
 
     public GetSettingDetailRes getSettingDetail(String jwt, BaseCrawlingReq baseCrawlingReq);
 
-    public boolean editSetting(String jwt, String crawlingId);
+    public boolean editSetting(String jwt, EditSettingReq editSettingReq);
 
     public boolean deleteSetting(String jwt, BaseCrawlingReq baseCrawlingReq);
 

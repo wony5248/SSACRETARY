@@ -1,5 +1,7 @@
 package com.ssacretary.db.entity;
 
+import com.ssacretary.api.request.crawling.EditSettingReq;
+import com.ssacretary.api.request.user.EditUserReq;
 import lombok.*;
 
 import javax.persistence.*;
@@ -53,5 +55,17 @@ public class Setting {
 
     @Column(name = "updated_at")
     private LocalDateTime  updatedAt;
+
+    public void updateSetting(EditSettingReq editSettingReq){
+        //키워드는 어떡하냐
+        this.url=editSettingReq.getUrl();
+        this.type=editSettingReq.getType();
+        this.period= editSettingReq.getPeriod();
+        this.alarm=editSettingReq.isMailAlarm();
+        this.sms = editSettingReq.isSmsAlarm();
+        this.name= editSettingReq.getName();
+        LocalDateTime dateTime = LocalDateTime.now();
+        this.updatedAt=dateTime;
+    }
 
 }
