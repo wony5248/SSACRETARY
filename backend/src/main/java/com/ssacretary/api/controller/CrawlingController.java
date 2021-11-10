@@ -1,6 +1,7 @@
 package com.ssacretary.api.controller;
 
 import com.ssacretary.api.request.crawling.AddSettingReq;
+import com.ssacretary.api.request.crawling.EditSettingReq;
 import com.ssacretary.api.request.crawling.GetAllSettingReq;
 import com.ssacretary.api.request.crawling.BaseCrawlingReq;
 import com.ssacretary.api.response.crawling.GetAllLogsRes;
@@ -59,9 +60,9 @@ public class CrawlingController {
 
     @PutMapping("/{crawlingId}")
     @ApiOperation(value = "크롤링 세팅 수정")
-    public ResponseEntity<BaseResponseBody> editSetting(@RequestHeader("Authorization") String JWT, @PathVariable("crawlingId") String crawlingId){
+    public ResponseEntity<BaseResponseBody> editSetting(@RequestHeader("Authorization") String JWT, @RequestBody EditSettingReq editSettingReq){
         //jwt로 본인확인후 가져옴
-        boolean resbody = crawlingService.editSetting(JWT, crawlingId);
+        boolean resbody = crawlingService.editSetting(JWT, editSettingReq);
 
         if(resbody){
             return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
