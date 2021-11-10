@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CrawlingServiceImpl implements CrawlingService{
@@ -45,6 +47,7 @@ public class CrawlingServiceImpl implements CrawlingService{
             List<String> keyList = new ArrayList<>();
             for(int i=0;i<addSettingReq.getKeywords().size();i++){
                 Keyword keyId = keywordRepository.findByKeyword(keyList.get(i));
+                //키워드가 존재하지 않으면
                 if(keyId==null){
                     keywordRepository.save(Keyword.builder().keyword(keyList.get(i)).build());
                 }
@@ -107,34 +110,38 @@ public class CrawlingServiceImpl implements CrawlingService{
             //세팅 아이디로 세팅 찾기
             Setting setting = settingRepository.findBySettingId(baseCrawlingReq.getSettingId());
 
-            //로그
+            //세팅아이디로 로그 찾기
             List<Log> logList = logRepository.findBySetting_SettingId(baseCrawlingReq.getSettingId());
-            List<AllLogsData> allLogsData = new ArrayList<>();
-            //세팅 아이디로 키워드, 카운트 횟수 찾기
-            List<SettingKeyword> sk = settingKeywordRepository.findBySetting_SettingId(baseCrawlingReq.getSettingId());
-            List<String> keywords = new ArrayList<>();
-            List<Integer> counts = new ArrayList<>();
-            List<String> sentences = new ArrayList<>();
 
-            AllLogsData allLogs = new AllLogsData();
-            allLogs.setMatchCounts(counts);
-            allLogs.setMatchSentences(sentences);
+            List<AllLogsData> allLogsData = new ArrayList<>();
 
             for(int i=0;i<logList.size();i++) {
+                List<Map<String,Integer>> keywordCounts = new ArrayList<Map<String,Integer>>();
+                List<String> sentences = new ArrayList<>();
+                AllLogsData allLogs = new AllLogsData();
                 allLogs.setDate(logList.get(i).getDate());
-                //로그아이디로 키워드아이디 찾기
-                //키워드아이디로 키워드 찾아서 map에 넣어주기
-                for(int j=0;j<sk.size();j++){
-                    Keyword kw = sk.get(j).getKeyword();
-                    keywords.add(kw.getKeyword());
-                    int keyId = keywordRepository.findByKeyword(kw.getKeyword()).getKeywordId();
-                    Count cnt = countRepository.findByKeyword_KeywordId(keyId);
-                    Sentence sentence = sentenceRepository.findByKeyword_KeywordId(keyId);
-                    counts.add(cnt.getCount());
-                    sentences.add(sentence.getMatchSentence());
-                }
-            }
+                allLogs.setHtmlSuccess(logList.get(i).isHtmlSuccess());
+                allLogs.setHtmlSource(logList.get(i).getHtmlSource());
 
+                //로그 아이디로 카운트 찾고 해당 카운트의 키워드아이디로 키워드 찾기
+                List<Count> count = countRepository.findByLog_LogId(logList.get(i).getLogId());
+                for(int j=0;j<count.size();j++){
+                    Keyword keyword = keywordRepository.findByKeywordId(count.get(j).getKeyword().getKeywordId());
+                    List<Sentence> sentence = sentenceRepository.findByLog_LogIdAndKeyword_KeywordId(logList.get(i).getLogId(),keyword.getKeywordId());
+                    Map<String, Integer> map = new HashMap<String, Integer>();
+
+                    map.put(keyword.getKeyword(),count.get(j).getCount());
+
+                    //sentecne는 키워드 쌍 없이 몽땅 저장하기
+                    for(int k=0;k<sentence.size();k++){
+                        sentences.add(sentence.get(k).getMatchSentence());
+                    }
+                    keywordCounts.add(map);
+                }
+                allLogs.setKeywordCount(keywordCounts);
+                allLogs.setMatchSentences(sentences);
+                allLogsData.add(allLogs);
+            }
 
             GetSettingDetailRes resbody = new GetSettingDetailRes();
             resbody.setSettingId(baseCrawlingReq.getSettingId());
@@ -146,8 +153,7 @@ public class CrawlingServiceImpl implements CrawlingService{
             resbody.setName(setting.getName());
             resbody.setCreatedAt(setting.getCreatedAt());
             resbody.setUpdatedAt(setting.getUpdatedAt());
-//            resbody.setLogs();
-
+            resbody.setLogs(allLogsData);
             return resbody;
         }catch (Exception e){
             System.out.println(e);
