@@ -20,5 +20,5 @@ public interface CrawlingService {
 
     public boolean deleteSetting(String jwt, BaseCrawlingReq baseCrawlingReq);
 
-    public GetAllLogsRes getAllLog(String jwt);
+    public GetAllLogsRes getAllLog(String jwt, String email);
 }
