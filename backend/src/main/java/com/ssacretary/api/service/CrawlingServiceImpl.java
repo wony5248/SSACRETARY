@@ -1,6 +1,7 @@
 package com.ssacretary.api.service;
 
 import com.ssacretary.api.request.crawling.AddSettingReq;
+import com.ssacretary.api.request.crawling.EditSettingReq;
 import com.ssacretary.api.request.crawling.GetAllSettingReq;
 import com.ssacretary.api.request.crawling.BaseCrawlingReq;
 import com.ssacretary.api.response.crawling.*;
@@ -9,12 +10,10 @@ import com.ssacretary.db.entity.*;
 import com.ssacretary.db.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class CrawlingServiceImpl implements CrawlingService{
@@ -163,9 +162,24 @@ public class CrawlingServiceImpl implements CrawlingService{
         }
     };
     @Override
-    public boolean editSetting(String jwt, String crawlingId){
+    public boolean editSetting(String jwt, EditSettingReq editSettingReq){
+        try{
+            //jwt로 본인확인후
+            String email = jwtTokenProvider.getUserInfo(jwt);
+            if(!email.equals(editSettingReq.getEmail())) throw new Exception();
 
-        return false;
+            Setting setting = settingRepository.findBySettingId(editSettingReq.getSettingId());
+
+            //키워드 저장 구현 필요
+
+            setting.updateSetting(editSettingReq);
+            settingRepository.save(setting);
+
+            return true;
+        }catch (Exception e){
+            System.out.println(e);
+            return false;
+        }
     };
     @Override
     public boolean deleteSetting(String jwt, BaseCrawlingReq baseCrawlingReq){
