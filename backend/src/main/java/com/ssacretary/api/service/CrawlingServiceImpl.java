@@ -50,7 +50,6 @@ public class CrawlingServiceImpl implements CrawlingService{
                     //db에 저장
                     keywordRepository.save(Keyword.builder().keyword(addSettingReq.getKeywords().get(i)).build());
                 }
-
             }
 
             User user = userRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 이메일입니다."));
@@ -179,7 +178,21 @@ public class CrawlingServiceImpl implements CrawlingService{
 
             Setting setting = settingRepository.findBySettingId(editSettingReq.getSettingId());
 
-            //키워드 저장 구현 필요
+            //키워드가 있는지를 검사
+            for(int i=0;i<editSettingReq.getKeywords().size();i++){
+                Keyword keyId = keywordRepository.findByKeyword(editSettingReq.getKeywords().get(i));
+                //키워드가 존재하지 않으면
+                if(keyId==null){
+                    //db에 저장
+                    keywordRepository.save(Keyword.builder().keyword(editSettingReq.getKeywords().get(i)).build());
+                }
+            }
+
+            //세팅키워드 테이블에 저장
+            for(int i=0;i<editSettingReq.getKeywords().size();i++){
+                Keyword keyword = keywordRepository.findByKeyword(editSettingReq.getKeywords().get(i));
+                settingKeywordRepository.save(SettingKeyword.builder().keyword(keyword).setting(setting).build());
+            }
 
             setting.updateSetting(editSettingReq);
             settingRepository.save(setting);
