@@ -43,20 +43,29 @@ public class CrawlingServiceImpl implements CrawlingService{
             if(!email.equals(addSettingReq.getEmail())) throw new Exception();
 
             //키워드가 있는지를 검사
-            List<String> keyList = new ArrayList<>();
             for(int i=0;i<addSettingReq.getKeywords().size();i++){
-                Keyword keyId = keywordRepository.findByKeyword(keyList.get(i));
+                Keyword keyId = keywordRepository.findByKeyword(addSettingReq.getKeywords().get(i));
                 //키워드가 존재하지 않으면
                 if(keyId==null){
-                    keywordRepository.save(Keyword.builder().keyword(keyList.get(i)).build());
+                    //db에 저장
+                    keywordRepository.save(Keyword.builder().keyword(addSettingReq.getKeywords().get(i)).build());
                 }
 
             }
+
             User user = userRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 이메일입니다."));
             LocalDateTime dateTime = LocalDateTime.now();
-            settingRepository.save(Setting.builder()
-            .user(user).url(addSettingReq.getUrl()).type(addSettingReq.getType()).alarm(addSettingReq.isMailAlarm()).sms(addSettingReq.isSmsAlarm())
-            .name(addSettingReq.getName()).createdAt(dateTime).updatedAt(dateTime).build());
+            Setting sets = settingRepository.save(Setting.builder()
+                    .user(user).url(addSettingReq.getUrl()).type(addSettingReq.getType()).alarm(addSettingReq.isMailAlarm()).sms(addSettingReq.isSmsAlarm())
+                    .name(addSettingReq.getName()).createdAt(dateTime).updatedAt(dateTime).build());
+
+            //세팅키워드 테이블에 저장
+            Setting setting = settingRepository.findBySettingId(sets.getSettingId());
+            for(int i=0;i<addSettingReq.getKeywords().size();i++){
+                Keyword keyword = keywordRepository.findByKeyword(addSettingReq.getKeywords().get(i));
+                settingKeywordRepository.save(SettingKeyword.builder().keyword(keyword).setting(setting).build());
+            }
+
             return true;
         }catch (Exception e){
             System.out.println(e);
