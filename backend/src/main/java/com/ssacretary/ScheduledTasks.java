@@ -1,7 +1,10 @@
 package com.ssacretary;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,8 +33,53 @@ public class ScheduledTasks {
 //        System.out.println("hihi");
         final String password = "hjvqhqcmqjjyhenj";
         StringBuffer contents = new StringBuffer();
-        final String stockList = "https://www.daangn.com/hot_articles";
-//        final String stockList = "https://finance.naver.com/sise/sise_market_sum.nhn?&page=1";
+//        final String stockList = "https://www.daangn.com/hot_articles";
+        final String stockList = "https://finance.naver.com/sise/sise_market_sum.nhn?&page=1";
+        final String URL = "https://www.google.com/search";
+//        String[] array = stockList.split("/");
+//        ArrayList<String> list = new ArrayList();
+//        for (int i=0;i<3;i++) {
+//            list.add(array[i]);
+//        }
+//        final String ROBOT = "robots.txt";
+//        list.add(ROBOT);
+//        String robotURL = String.join("/",list);
+        ArrayList<String> disallows = new ArrayList();
+
+        try(BufferedReader in = new BufferedReader(
+                new InputStreamReader(new URL("https://google.com/robots.txt").openStream()))) {
+            String line = null;
+            Boolean target = false;
+            while((line = in.readLine()) != null) {
+                if (target == false) {
+                    if (line.equals("User-agent: *")) {
+                        target = true;
+                    }
+                } else {
+                    if (line == " " || line.startsWith("User-agent:")) {
+                        target = false;
+                        break;
+                    } else {
+                        if (line.startsWith("Disallow:")) {
+                            String[] disallow = line.split(" ");
+                            disallows.add(disallow[1]);
+                            System.out.println(disallow[1]);
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Boolean usable = true;
+        for (int i=0;i<disallows.size();i++) {
+            if (URL.contains(disallows.get(i))) {
+                System.out.println(disallows.get(i));
+                usable = false;
+                break;
+            };
+        }
+
         Connection conn = Jsoup.connect(stockList);
         List<String> arr = new ArrayList<String>();
         List<String> arr2 = new ArrayList<String>();

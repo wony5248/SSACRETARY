@@ -18,6 +18,7 @@ export const Styledlabel = styled.div`
 `;
 export const Keworddiv = styled.div`
   display: flex;
+  z-index: 1;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -25,6 +26,7 @@ export const Keworddiv = styled.div`
   width: 100%;
   overflow: auto;
   border: 1px solid #d8d8d8;
+  border-radius: 8px;
   margin-bottom: 24px;
 `;
 export const Formdiv1 = styled.div`
@@ -40,32 +42,33 @@ export const Formdiv1 = styled.div`
 `;
 export const Alarmdiv = styled.div`
   width: 62%;
-  display:flex;
+  display: flex;
   height: 56px;
-  justify-content:flex-start;
+  font-family: Black Han Sans;
+  justify-content: flex-start;
   padding: 0 4%;
-  align-items:center;
-  background-color:#E6E6E6;
+  align-items: center;
+  border: 1px solid #e6e6e6;
 `;
 export const Addbtn = styled.button`
   border-radius: 8px;
   width: 113px;
-  cursor:pointer;
+  cursor: pointer;
   color: white;
   border: none;
   display: flex;
-  margin-bottom:24px;
+  margin-bottom: 24px;
   justify-content: center;
   align-items: center;
   align-self: flex-start;
   height: 36px;
-  background-color: #6200ee;
+  background-color: #404040;
 `;
 export const Removebtn = styled.button`
   border-radius: 100px;
   width: 56px;
   color: white;
-  cursor:pointer;
+  cursor: pointer;
   border: none;
   height: 56px;
   background-color: #d62b4b;
@@ -83,3 +86,7 @@ export const Styledbtn1 = styled.button`
     background-color: #a3cca3;
   }
 `;
+
+
+
+

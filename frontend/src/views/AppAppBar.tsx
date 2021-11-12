@@ -24,7 +24,7 @@ const StyledMenu = styled.nav`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  background: #e6f5ff;
+  background: #404040;
   transform: ${(props: ITest) =>
     props.open ? "translateX(0)" : "translateX(-100%)"};
   height: 100vh;
@@ -45,7 +45,7 @@ const StyledMenu = styled.nav`
     padding: 2rem 0;
     font-weight: bold;
     letter-spacing: 0.5rem;
-    color: #0d0c1d;
+    color: #FFFFFF;
     text-decoration: none;
     transition: color 0.3s linear;
 
@@ -55,7 +55,7 @@ const StyledMenu = styled.nav`
     }
 
     &:hover {
-      color: #343078;
+      color: #808080;
     }
   }
 `;
@@ -69,6 +69,7 @@ const StyledBurger = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
+  color: #ffffff;
   padding: 0;
   z-index: 10;
 
@@ -79,7 +80,7 @@ const StyledBurger = styled.button`
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${(props: ITest) => (props.open ? "#0D0C1D" : "#EFFFFA")};
+    background: ${(props: ITest) => (props.open ? "#FFFFFF" : "#EFFFFA")};
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;
@@ -123,7 +124,7 @@ const Menu = (props: any) => {
         <span role="img" aria-label="about us">
           ⚙️
         </span>
-        Setting Crawl
+        My Crawling
       </a>
       <a href="/specificcrawling">
         <span role="img" aria-label="control">
@@ -135,7 +136,7 @@ const Menu = (props: any) => {
         <span role="img" aria-label="control">
           🔨
         </span>
-        Crawl Log
+        Crawling Log
       </a>
     </StyledMenu>
   );
@@ -165,7 +166,7 @@ function AppAppBar() {
   // const node = React.useRef();
   return (
     <div>
-      <AppBar  position="fixed">
+      <AppBar sx = {{backgroundColor: "#404040"}}position="fixed">
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Box
             sx={{ flex: 1 }}
@@ -174,11 +175,7 @@ function AppAppBar() {
             <Burger open={open} setOpen={setOpen} />
             <Menu open={open} setOpen={setOpen} />
           </Box>
-          <Typography
-            sx={{ fontSize: 24 }}
-          >
-            {"SSACRETARY"}
-          </Typography>
+          <Typography sx={{ fontSize: 24 }}>{"SSACRETARY"}</Typography>
           <React.Fragment>
             <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
               <Tooltip title="Account settings">

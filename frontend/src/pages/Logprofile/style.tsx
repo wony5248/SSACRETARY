@@ -34,9 +34,10 @@ export const Carddiv1 = styled.div`
   align-items: center;
   algin-self: center;
   margin-bottom: 32px;
+  box-shadow: 5px 5px 5px 5px grey;
   width: 90%;
   height:300px;
-  background-color: rgba(98, 0, 238, 0.08);
+  background-color: #404040;
   opaciry:0.08;
 `;
 export const Carddiv2 = styled.div`

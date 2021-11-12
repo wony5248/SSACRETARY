@@ -82,7 +82,7 @@ const SettingProfile: React.FunctionComponent = () => {
           }}
         >
           <Headerdiv style={{fontSize:"24px"}}>Crawlings</Headerdiv>
-          <Bodydiv style={{height: "1000px", display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
+          <Bodydiv style={{height: "1000px", maxWidth:"1000px",display:"flex", flexDirection:"column", boxShadow:"5px 5px 5px 5px grey",justifyContent:"space-between"}}>
             {data.map((item, index) => (
               <Settingdiv onClick={() => console.log(index)} style={{width:"60%"}} key={index}>
                 <Settingtitlediv>{item.title}</Settingtitlediv>
@@ -95,7 +95,7 @@ const SettingProfile: React.FunctionComponent = () => {
               </Settingdiv>
             ))}
           </Bodydiv>
-          <Btn style={{marginTop:"48px", width:"90%"}} onClick={Click} name="Make Crawl"></Btn>
+          <Btn style={{marginTop:"48px", width:"90%", maxWidth:"1000px"}} onClick={Click} name="Make Crawl"></Btn>
         </div>
       </Desktop>
       <Mobile>
@@ -120,7 +120,7 @@ const SettingProfile: React.FunctionComponent = () => {
               </Settingdiv>
             ))}
           </Bodydiv>
-          <Btn onClick={Click} name="Make Crawl"></Btn>
+          <Btn  onClick={Click} name="Make Crawl"></Btn>
         </div>
       </Mobile>
     </div>

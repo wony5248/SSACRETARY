@@ -242,6 +242,10 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
               width: "500px",
               height: "500px",
               justifyContent: "space-evenly",
+              boxShadow: "5px 5px 5px 5px grey",
+              border: "solid",
+              borderWidth: "thin",
+              borderRadius: "0.5rem",
             }}
           >
             <div style={{ width: "100%" }}>
@@ -252,7 +256,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={email}
                 required
-                style={{ width: "100%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "100%" }}
               ></TextField>
             </div>
             <div
@@ -270,7 +274,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={nickname}
                 required
-                style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "70%" }}
                 helperText={
                   nicknameCheck === "not available"
                     ? "Your nickname isn't available"
@@ -280,8 +284,21 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
               <Button
                 variant="contained"
                 size="small"
-                style={{ marginLeft: "10px", height: "55px" }}
-                color={nicknameCheck === "available" ? "success" : "primary"}
+                style={
+                  nicknameCheck === "available"
+                    ? {
+                        marginLeft: "10px",
+                        height: "55px",
+                        backgroundColor: "green",
+                        color: "#ffffff",
+                      }
+                    : {
+                        marginLeft: "10px",
+                        height: "55px",
+                        backgroundColor: "#404040",
+                        color: "#ffffff",
+                      }
+                }
                 onClick={onNicknameCheck}
               >
                 AVAILITY
@@ -307,14 +324,28 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={phone}
                 required
-                style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "70%" }}
                 helperText={phoneMessage}
               ></TextField>
               <Button
                 variant="contained"
                 size="small"
                 disabled={phoneRegexCheck === "available" ? false : true}
-                style={{ marginLeft: "10px", height: "55px" }}
+                style={
+                  phoneCheck === "available"
+                    ? {
+                        marginLeft: "10px",
+                        height: "55px",
+                        backgroundColor: "green",
+                        color: "#ffffff",
+                      }
+                    : {
+                        marginLeft: "10px",
+                        height: "55px",
+                        backgroundColor: "#404040",
+                        color: "#ffffff",
+                      }
+                }
                 color={phoneCheck === "available" ? "success" : "primary"}
                 onClick={onPhoneCheck}
               >
@@ -326,7 +357,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             <Alert severity="error">{message}</Alert>
           ) : null}
           <Btn
-            style={{ width: "500px" }}
+            style={{ width: "500px", backgroundColor: "#404040" }}
             name="CHANGE PROFILE"
             onClick={onChangeProfile}
           ></Btn>
@@ -354,7 +385,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={email}
                 required
-                style={{ width: "100%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "100%" }}
               ></TextField>
             </div>
             <div
@@ -372,7 +403,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={nickname}
                 required
-                style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "70%" }}
                 helperText={
                   nicknameCheck === "not available"
                     ? "Your nickname isn't available"
@@ -382,8 +413,21 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
               <Button
                 variant="contained"
                 size="small"
-                style={{ marginLeft: "10px", height: "55px" }}
-                color={nicknameCheck === "available" ? "success" : "primary"}
+                style={
+                  nicknameCheck === "available"
+                    ? {
+                        marginLeft: "10px",
+                        height: "55px",
+                        backgroundColor: "green",
+                        color: "#ffffff",
+                      }
+                    : {
+                        marginLeft: "10px",
+                        height: "55px",
+                        backgroundColor: "#404040",
+                        color: "#ffffff",
+                      }
+                }
                 onClick={onNicknameCheck}
               >
                 AVAILITY
@@ -404,7 +448,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 onChange={onChange}
                 value={phone}
                 required
-                style={{ width: "70%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "70%" }}
                 helperText={
                   phoneCheck === "not available"
                     ? "Your phone number isn't available"
@@ -415,8 +459,21 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 variant="contained"
                 disabled={phoneRegexCheck === "available" ? false : true}
                 size="small"
-                style={{ marginLeft: "10px", height: "55px" }}
-                color={phoneCheck === "available" ? "success" : "primary"}
+                style={
+                  phoneCheck === "available"
+                    ? {
+                        marginLeft: "10px",
+                        height: "55px",
+                        backgroundColor: "green",
+                        color: "#ffffff",
+                      }
+                    : {
+                        marginLeft: "10px",
+                        height: "55px",
+                        backgroundColor: "#404040",
+                        color: "#ffffff",
+                      }
+                }
                 onClick={onPhoneCheck}
               >
                 AVAILITY
@@ -426,7 +483,11 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
           {message.trim() !== "" ? (
             <Alert severity="error">{message}</Alert>
           ) : null}
-          <Btn name="CHANGE PROFILE" onClick={onChangeProfile}></Btn>
+          <Btn
+            style={{ backgroundColor: "#404040" }}
+            name="CHANGE PROFILE"
+            onClick={onChangeProfile}
+          ></Btn>
           <Btn
             style={{ backgroundColor: "#D62B4B" }}
             name="WITHDRAWL"

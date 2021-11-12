@@ -15,18 +15,11 @@ import {
 } from "../../utils/axios";
 import { onEmailRegexCheck, onPhoneRegexCheck } from "../../utils/regex";
 
-const Desktop: React.FunctionComponent = ({ children }: any) => {
-  const isDesktop = useMediaQuery({ minWidth: 613 });
-  return isDesktop ? children : null;
-};
-
-const Mobile: React.FunctionComponent = ({ children }: any) => {
-  const isMobile = useMediaQuery({ maxWidth: 612 });
-  return isMobile ? children : null;
-};
-
 const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
   var _ = require("lodash");
+
+  const isMobile = useMediaQuery({ maxWidth: 612 });
+
   const [inputs, setInputs] = useState({
     email: "",
     emailInputNum: "",
@@ -302,13 +295,34 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
 
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
+      style={
+        isMobile
+          ? {
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }
+          : {
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }
+      }
     >
-      <Container>
+      <Container
+        style={
+          isMobile
+            ? {}
+            : {
+                boxShadow: "5px 5px 5px 5px grey",
+                border: "solid",
+                borderWidth: "thin",
+                borderRadius: "0.5rem",
+              }
+        }
+      >
         <HeadlineH1>SIGN UP</HeadlineH1>
         <CommonDiv>
           <div style={{ display: "flex" }}>
@@ -331,10 +345,23 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             />
             <Button
               disabled={emailRegexCheck === "available" ? false : true}
-              style={{ marginLeft: "10px", height: "55px" }}
+              style={
+                emailCheck === "available"
+                  ? {
+                      marginLeft: "10px",
+                      height: "55px",
+                      backgroundColor: "green",
+                      color: "#fffff",
+                    }
+                  : {
+                      marginLeft: "10px",
+                      height: "55px",
+                      backgroundColor: "#404040",
+                      color: "#ffffff",
+                    }
+              }
               variant="contained"
               size="small"
-              color={emailCheck === "available" ? "success" : "primary"}
               onClick={onEmailCheck}
             >
               AVAILITY
@@ -361,10 +388,23 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
                 }
               />
               <Button
-                style={{ marginLeft: "10px", height: "55px" }}
+                style={
+                  emailValidCheck === "available"
+                    ? {
+                        marginLeft: "10px",
+                        height: "55px",
+                        backgroundColor: "green",
+                        color: "#fffff",
+                      }
+                    : {
+                        marginLeft: "10px",
+                        height: "55px",
+                        backgroundColor: "#404040",
+                        color: "#fffff",
+                      }
+                }
                 variant="contained"
                 size="small"
-                color={emailValidCheck === "available" ? "success" : "primary"}
                 onClick={onEmailValidation}
               >
                 Valid
@@ -393,9 +433,22 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             <Button
               name="nickname"
               variant="contained"
-              style={{ marginLeft: "10px", height: "55px" }}
+              style={
+                nicknameCheck === "available"
+                  ? {
+                      marginLeft: "10px",
+                      height: "55px",
+                      backgroundColor: "green",
+                      color: "#fffff",
+                    }
+                  : {
+                      marginLeft: "10px",
+                      height: "55px",
+                      backgroundColor: "#404040",
+                      color: "#fffff",
+                    }
+              }
               size="small"
-              color={nicknameCheck === "available" ? "success" : "primary"}
               onClick={onNicknameCheck}
             >
               AVAILITY
@@ -454,8 +507,21 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               disabled={phoneRegexCheck === "available" ? false : true}
               variant="contained"
               size="small"
-              style={{ marginLeft: "10px", height: "55px" }}
-              color={phoneCheck === "available" ? "success" : "primary"}
+              style={
+                phoneCheck === "available"
+                  ? {
+                      marginLeft: "10px",
+                      height: "55px",
+                      backgroundColor: "green",
+                      color: "#ffffff",
+                    }
+                  : {
+                      marginLeft: "10px",
+                      height: "55px",
+                      backgroundColor: "#404040",
+                      color: "#ffffff",
+                    }
+              }
               onClick={onPhoneCheck}
             >
               AVAILITY
@@ -470,7 +536,11 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
         <CommonDiv>
           <Button
             variant="contained"
-            style={{ width: "200px" }}
+            style={{
+              width: "200px",
+              backgroundColor: "#404040",
+              color: "#ffffff",
+            }}
             onClick={onSignUp}
           >
             SIGN UP

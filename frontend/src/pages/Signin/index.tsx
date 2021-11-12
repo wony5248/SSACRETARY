@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Alert, Button, TextField } from "@mui/material";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
@@ -11,6 +11,15 @@ import { CommonDiv } from "../../components/CommonDiv/index";
 import { Container } from "../../components/Container/index";
 
 const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
+  useEffect(() => {
+    const isLogin = localStorage.getItem("jwt") !== null ? true : false;
+    if (isLogin) {
+      props.history.push("/settingprofile");
+    }
+  });
+
+  const isMobile = useMediaQuery({ maxWidth: 612 });
+
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -58,13 +67,34 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
 
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
+      style={
+        isMobile
+          ? {
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }
+          : {
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }
+      }
     >
-      <Container>
+      <Container
+        style={
+          isMobile
+            ? {}
+            : {
+                boxShadow: "5px 5px 5px 5px grey",
+                border: "solid",
+                borderWidth: "thin",
+                borderRadius: "0.5rem",
+              }
+        }
+      >
         <img src={Logo} width="200px" height="200px"></img>
         <HeadlineH1>SIGN IN</HeadlineH1>
         <CommonDiv>
@@ -93,9 +123,8 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
         <CommonDiv>
           <div>
             <Button
-              style={{ width: "200px" }}
+              sx={{ width: "200px", backgroundColor: "#404040" }}
               variant="contained"
-              color="primary"
               onClick={onSignIn}
             >
               SIGN IN
