@@ -95,7 +95,7 @@ const SettingProfile: React.FunctionComponent = () => {
               </Settingdiv>
             ))}
           </Bodydiv>
-          <Btn style={{marginTop:"48px", width:"90%", maxWidth:"1000px"}} onClick={Click} name="Make Crawl"></Btn>
+          <Btn style={{marginBottom: "48px",marginTop:"48px", width:"90%", maxWidth:"1000px"}} onClick={Click} name="Make Crawl"></Btn>
         </div>
       </Desktop>
       <Mobile>

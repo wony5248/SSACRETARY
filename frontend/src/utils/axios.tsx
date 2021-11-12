@@ -86,3 +86,100 @@ export const axiosOnWithdrawl = function (jwt: string, email: string) {
     },
   });
 };
+
+export const crawlAPI = {
+  addSetting : async (jwt: string, email: string, type: string, keyword: string[], url: string, period:number, mailAlarm: boolean, smsAlarm: boolean, name: string) => {
+    return await axios({
+      method: "POST",
+      url: BASE_URL + "/crawling/",
+      headers: {
+        Authorization: jwt,
+      },
+      data:{
+        email:email,
+        type: type,
+        keyword:keyword,
+        url: url,
+        period:period,
+        mailAlarm:mailAlarm,
+        smsAlarm: smsAlarm,
+        name: name,
+
+      }
+    })
+  },
+  getAllSettings : async (jwt: string, email:string) => {
+    return await axios({
+      method: "GET",
+      url: BASE_URL + "/crawling/",
+      headers: {
+        Authorization: jwt,
+      },
+      data:{
+        email:email,
+      }
+      }
+    )
+  },
+  getSettingDetail : async (jwt: string, email:string, settingId:string) => {
+    return await axios({
+      method: "GET",
+      url: BASE_URL + "/crawling/detail/",
+      headers: {
+        Authorization: jwt,
+      },
+      data:{
+        email:email,
+        settingId:settingId,
+      }
+      }
+    )
+  },
+  editSetting : async (crawlingID:number,jwt:string,settingId:string, email:string, type:string, keywords:string[], url:string, period:number, mailAlarm:boolean, smsAlarm:boolean, name:string) => {
+    return await axios({
+      method: "PUT",
+      url: BASE_URL + `/crawling/${crawlingID}/`,
+      headers: {
+        Authorization: jwt,
+      },
+      data:{
+        settingId:settingId,
+        email:email,
+        type:type,
+        keywords:keywords,
+        url:url,
+        period:period,
+        mailAlarm:mailAlarm,
+        smsAlarm:smsAlarm,
+        name:name
+      }
+      }
+    )
+  },
+  deleteSetting : async (crawlingID:number,jwt:string, email:string) => {
+    return await axios({
+      method: "DELETE",
+      url: BASE_URL + `/crawling/${crawlingID}/`,
+      headers: {
+        Authorization: jwt,
+      },
+      data:{
+        email:email,
+      }
+      }
+    )
+  },
+  getAllLog : async (jwt:string, email:string) => {
+    return await axios({
+      method: "DELETE",
+      url: BASE_URL + "/crawling/log/",
+      headers: {
+        Authorization: jwt,
+      },
+      data:{
+        email:email,
+      }
+      }
+    )
+  },
+}

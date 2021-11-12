@@ -48,7 +48,9 @@ const MakeCrawl = () => {
   const [tag, setTag] = React.useState("");
   const [value, setValue] = React.useState("and");
   const [time, setTime] = React.useState(60);
-  const data: any = [];
+  const [data, setData] = React.useState([
+    "keyword1", "keyword2", "keyword3", "keyword4", "keyword5"
+  ]);
   const [inputs, setInputs] = useState({
     url: "",
     keyword1: "",
@@ -56,61 +58,64 @@ const MakeCrawl = () => {
     keyword3: "",
     keyword4: "",
     keyword5: "",
-    keyword6: "",
-    keyword7: "",
-    keyword8: "",
   });
   const {
     url,
-    // keyword1,
-    // keyword2,
-    // keyword3,
-    // keyword4,
-    // keyword5,
+    keyword1,
+    keyword2,
+    keyword3,
+    keyword4,
+    keyword5,
     // keyword6,
     // keyword7,
     // keyword8,
   } = inputs;
   const radioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
   const tagChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTag(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
+    console.log(value)
+    // console.log(name)
+    console.log(inputs)
     setInputs({
       ...inputs,
       [name]: value,
     });
   };
   const handleAdd = () => {
-    if (data.length >= 5) {
-      window.alert("크롤링 키워드는 5개이상 등록하실 수 없습니다.");
-    } else {
-      setIsopen(true);
-    }
-
-    console.log(isopen);
+      if (data.length >= 5) {
+        window.alert("크롤링 키워드는 5개이상 등록하실 수 없습니다.");
+      } else {
+        setIsopen(true);
+      }
+    // console.log(isopen);
   };
   const handleExit = () => {
     setIsopen(false);
-    console.log(isopen);
+    // console.log(isopen);
   };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
-    console.log(event.target.checked);
+    // console.log(event.target.checked);
   };
   const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked2(event.target.checked);
-    console.log(event.target.checked);
+    // console.log(event.target.checked);
   };
   const timeChange = (event: any) => {
     setTime(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
+  const tagAdd = () => {
+    // data.push({keyword:tag})
+    console.log(data)
+  }
   return (
     <div>
       {/* {isMobile ? <AppAppBar /> : undefined} */}
@@ -174,7 +179,7 @@ const MakeCrawl = () => {
                   ></TextField>
                   <Addbtn
                     style={{ alignSelf: "center" }}
-                    onClick={() => console.log("add")}
+                    onClick={tagAdd}
                   >
                     <AddIcon />
                     ADD
@@ -182,7 +187,7 @@ const MakeCrawl = () => {
                 </Tagdiv>
               ) : (
                 <div style={{ height: "100%", width: "100%" }}>
-                  {data.length ? (
+                  {data ? (
                     <div
                       style={{
                         height: "100%",
@@ -203,21 +208,22 @@ const MakeCrawl = () => {
                           }}
                         >
                           <TextField
-                            label={`Keyword${key}`}
-                            name="keyword1"
+                            label={`Keyword${key+1}`}
+                            name={`keyword${key+1}`}
                             onChange={onChange}
-                            value={item.keyword}
+                            value={`${item}`}
                             required
                             style={{ width: "70%" }}
                           ></TextField>
-                          <Removebtn onClick={() => console.log("remove")}>
+                          {/* <Removebtn onClick={() => console.log("remove")}>
                             <RemoveIcon />
-                          </Removebtn>
+                          </Removebtn> */}
                         </div>
                       ))}
                     </div>
                   ) : (
                     <div
+                    onClick= {() => console.log(data)}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -232,10 +238,10 @@ const MakeCrawl = () => {
                 </div>
               )}
             </Keworddiv>
-            <Addbtn onClick={handleAdd}>
+            {/* <Addbtn onClick={handleAdd}>
               <AddIcon />
               ADD
-            </Addbtn>
+            </Addbtn> */}
             <Box
               style={{ alignSelf: "flex-end", marginBottom: "24px" }}
               sx={{ minWidth: 120 }}
@@ -377,16 +383,16 @@ const MakeCrawl = () => {
                           }}
                         >
                           <TextField
-                            label={`Keyword${key}`}
-                            name="keyword1"
+                            label={`Keyword${key+1}`}
+                            name={`keyword${key+1}`}
                             onChange={onChange}
-                            value={item.keyword}
+                            value={item}
                             required
                             style={{ width: "70%"}}
                           ></TextField>
-                          <Removebtn onClick={() => console.log("remove")}>
+                          {/* <Removebtn onClick={() => console.log("remove")}>
                             <RemoveIcon />
-                          </Removebtn>
+                          </Removebtn> */}
                         </div>
                       ))}
                     </div>
@@ -406,10 +412,10 @@ const MakeCrawl = () => {
                 </div>
               )}
             </Keworddiv>
-            <Addbtn onClick={handleAdd}>
+            {/* <Addbtn onClick={handleAdd}>
               <AddIcon />
               ADD
-            </Addbtn>
+            </Addbtn> */}
             <Box
               style={{ alignSelf: "flex-end", marginBottom: "24px" }}
               sx={{ minWidth: 120 }}

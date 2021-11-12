@@ -13,6 +13,11 @@ import notFound from "./pages/404";
 import "./App.css";
 
 function App() {
+  let arr:any = [];
+  // arr.map((item) => data.push(item))
+  localStorage.setItem("tagarr", JSON.stringify(arr));
+  console.log(localStorage.getItem("tagarr"));
+  // console.log(JSON.parse(localStorage.getItem("tagarr")));
   return (
     <BrowserRouter>
       <Switch>

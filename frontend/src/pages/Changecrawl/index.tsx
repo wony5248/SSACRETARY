@@ -49,12 +49,8 @@ const ChangeCrawl = () => {
   const [tag, setTag] = React.useState("");
   const [value, setValue] = React.useState("and");
   const [time, setTime] = React.useState(60);
-  const [data, setData] = React.useState([
-    { keyword: "React" },
-    { keyword: "Vue" },
-    { keyword: "MySQL" },
-    { keyword: "Spring" },
-    { keyword: "Node.js" },
+  const [keyword, setKeyword] = React.useState([
+    "React", "Vue", "Electron", "Node.js", "Express"
   ]);
   const [inputs, setInputs] = useState({
     url: "",
@@ -63,9 +59,6 @@ const ChangeCrawl = () => {
     keyword3: "",
     keyword4: "",
     keyword5: "",
-    keyword6: "",
-    keyword7: "",
-    keyword8: "",
   });
   const {
     url,
@@ -80,13 +73,14 @@ const ChangeCrawl = () => {
   } = inputs;
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
+    console.log(inputs)
     setInputs({
       ...inputs,
       [name]: value,
     });
   };
   const handleAdd = () => {
-    if (data.length >= 5) {
+    if (keyword.length >= 5) {
       window.alert("크롤링 키워드는 5개이상 등록하실 수 없습니다.");
     } else {
       setIsopen(true);
@@ -100,8 +94,7 @@ const ChangeCrawl = () => {
   };
 
   const addTag = () => {
-    data.push({ keyword: "JBJ" });
-    console.log(data);
+    console.log(keyword);
     console.log("jbj");
   };
   const tagChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -194,7 +187,7 @@ const ChangeCrawl = () => {
                 </Tagdiv>
               ) : (
                 <div style={{ height: "100%", width: "100%" }}>
-                  {data.length ? (
+                  {keyword.length ? (
                     <div
                       style={{
                         height: "100%",
@@ -204,7 +197,7 @@ const ChangeCrawl = () => {
                         justifyContent: "space-between",
                       }}
                     >
-                      {data.map((item, key) => (
+                      {keyword.map((item, key) => (
                         <div
                           key={key}
                           style={{
@@ -215,11 +208,10 @@ const ChangeCrawl = () => {
                           }}
                         >
                           <TextField
-                            label={`Keyword${key}`}
-                            name="keyword"
+                            label={`Keyword${key+1}`}
+                            name={`keyword${key+1}`}
                             onChange={onChange}
-                            value={item.keyword}
-                            required
+                            value={item}
                             style={{ width: "70%" }}
                           ></TextField>
                           <Removebtn onClick={() => console.log("remove")}>
@@ -387,9 +379,9 @@ const ChangeCrawl = () => {
                 </Tagdiv>
               ) : (
                 <div>
-                  {data.length ? (
+                  {keyword.length ? (
                     <div style={{ width: "100%" }}>
-                      {data.map((item, key) => (
+                      {keyword.map((item, key) => (
                         <div
                           key={key}
                           style={{
@@ -401,10 +393,9 @@ const ChangeCrawl = () => {
                         >
                           <TextField
                             label={`Keyword${key + 1}`}
-                            name="keyword"
+                            name={`keyword${key+1}`}
                             onChange={onChange}
-                            value={item.keyword}
-                            required
+                            value={item}
                             style={{ width: "70%"}}
                           ></TextField>
                           <Removebtn onClick={() => console.log("remove")}>
