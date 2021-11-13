@@ -88,7 +88,7 @@ export const axiosOnWithdrawl = function (jwt: string, email: string) {
 };
 
 export const crawlAPI = {
-  addSetting : async (jwt: string, email: string, type: string, keyword: string[], url: string, period:number, mailAlarm: boolean, smsAlarm: boolean, name: string) => {
+  addSetting : async (jwt: any, email: any, type: string, keyword: string[], url: string, period:number, mailAlarm: boolean, smsAlarm: boolean, name: string) => {
     return await axios({
       method: "POST",
       url: BASE_URL + "/crawling/",
@@ -97,13 +97,14 @@ export const crawlAPI = {
       },
       data:{
         email:email,
-        type: type,
-        keyword:keyword,
-        url: url,
-        period:period,
+        keywords:keyword,
         mailAlarm:mailAlarm,
-        smsAlarm: smsAlarm,
         name: name,
+        period:period,
+        smsAlarm: smsAlarm,
+        type: type,
+        url: url,
+        
 
       }
     })

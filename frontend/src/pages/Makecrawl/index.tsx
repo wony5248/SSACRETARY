@@ -50,7 +50,7 @@ const MakeCrawl = () => {
   const [type, setType] = React.useState("and")
   const [time, setTime] = React.useState(60);
   const [data, setData] = React.useState(["", "", "", "", ""]);
-  let keywords = [];
+  let keywords:any[] = [];
   const [inputs, setInputs] = useState({
     url: "",
     name: "",
@@ -82,22 +82,25 @@ const MakeCrawl = () => {
   };
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
-    console.log(value);
+    // console.log(value);
     // console.log(name)
-    console.log(inputs);
+    // console.log(inputs);
     setInputs({
       ...inputs,
       [name]: value,
     });
   };
   const makeCrawl = async () => {
-    jwt=localStorage.getItem("jwt")
+    const jwt=localStorage.getItem("jwt")
+    const email = localStorage.getItem("email")
     keywords.push(keyword1);
     keywords.push(keyword2);
     keywords.push(keyword3);
     keywords.push(keyword4);
     keywords.push(keyword5);
-    await crawlAPI.addSetting();
+    console.log(keywords)
+    console.log(jwt, email, type, url, time, checked, checked2, name)
+    await crawlAPI.addSetting(jwt, email, type, keywords, url, time, checked, checked2, name);
   };
   const handleExit = () => {
     setIsopen(false);
