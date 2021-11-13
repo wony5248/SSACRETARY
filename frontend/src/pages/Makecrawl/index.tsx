@@ -7,6 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Tagdiv } from "../../components/Tagdiv";
 import { Exitbtn } from "../../components/Exitbtn";
+import { crawlAPI } from "../../utils/axios";
 import {
   Userprofilediv1,
   Formdiv1,
@@ -46,13 +47,13 @@ const MakeCrawl = () => {
   const [isopen, setIsopen] = React.useState(false);
   const [checked2, setChecked2] = React.useState(false);
   const [tag, setTag] = React.useState("");
-  const [value, setValue] = React.useState("and");
+  const [type, setType] = React.useState("and")
   const [time, setTime] = React.useState(60);
-  const [data, setData] = React.useState([
-    "keyword1", "keyword2", "keyword3", "keyword4", "keyword5"
-  ]);
+  const [data, setData] = React.useState(["", "", "", "", ""]);
+  let keywords = [];
   const [inputs, setInputs] = useState({
     url: "",
+    name: "",
     keyword1: "",
     keyword2: "",
     keyword3: "",
@@ -61,6 +62,7 @@ const MakeCrawl = () => {
   });
   const {
     url,
+    name,
     keyword1,
     keyword2,
     keyword3,
@@ -71,7 +73,7 @@ const MakeCrawl = () => {
     // keyword8,
   } = inputs;
   const radioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    setType(event.target.value);
     // console.log(event.target.value);
   };
   const tagChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,21 +82,22 @@ const MakeCrawl = () => {
   };
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
-    console.log(value)
+    console.log(value);
     // console.log(name)
-    console.log(inputs)
+    console.log(inputs);
     setInputs({
       ...inputs,
       [name]: value,
     });
   };
-  const handleAdd = () => {
-      if (data.length >= 5) {
-        window.alert("크롤링 키워드는 5개이상 등록하실 수 없습니다.");
-      } else {
-        setIsopen(true);
-      }
-    // console.log(isopen);
+  const makeCrawl = async () => {
+    jwt=localStorage.getItem("jwt")
+    keywords.push(keyword1);
+    keywords.push(keyword2);
+    keywords.push(keyword3);
+    keywords.push(keyword4);
+    keywords.push(keyword5);
+    await crawlAPI.addSetting();
   };
   const handleExit = () => {
     setIsopen(false);
@@ -114,8 +117,8 @@ const MakeCrawl = () => {
   };
   const tagAdd = () => {
     // data.push({keyword:tag})
-    console.log(data)
-  }
+    console.log(data);
+  };
   return (
     <div>
       {/* {isMobile ? <AppAppBar /> : undefined} */}
@@ -131,7 +134,13 @@ const MakeCrawl = () => {
           <Userprofilediv1 style={{ fontSize: "24px" }}>
             Make Crawling
           </Userprofilediv1>
-          <Formdiv1 style={{ height: "900px", maxWidth:"1000px",boxShadow: "5px 5px 5px 5px grey" }}>
+          <Formdiv1
+            style={{
+              height: "900px",
+              maxWidth: "1000px",
+              boxShadow: "5px 5px 5px 5px grey",
+            }}
+          >
             <div style={{ width: "100%" }}>
               <TextField
                 label="URL"
@@ -139,7 +148,17 @@ const MakeCrawl = () => {
                 onChange={onChange}
                 value={url}
                 required
-                style={{ width: "100%"}}
+                style={{ width: "100%" }}
+              ></TextField>
+            </div>
+            <div style={{ width: "100%" }}>
+              <TextField
+                label="NAME"
+                name="name"
+                onChange={onChange}
+                value={name}
+                required
+                style={{ width: "100%" }}
               ></TextField>
             </div>
             <div
@@ -157,8 +176,16 @@ const MakeCrawl = () => {
                 name="row-radio-buttons-group"
                 onChange={radioChange}
               >
-                <FormControlLabel value="and" control={<Radio color="default"/>} label="AND" />
-                <FormControlLabel value="or" control={<Radio color="default"/>} label="OR" />
+                <FormControlLabel
+                  value="and"
+                  control={<Radio color="default" />}
+                  label="AND"
+                />
+                <FormControlLabel
+                  value="or"
+                  control={<Radio color="default" />}
+                  label="OR"
+                />
               </RadioGroup>
             </div>
 
@@ -177,10 +204,7 @@ const MakeCrawl = () => {
                       width: "70%",
                     }}
                   ></TextField>
-                  <Addbtn
-                    style={{ alignSelf: "center" }}
-                    onClick={tagAdd}
-                  >
+                  <Addbtn style={{ alignSelf: "center" }} onClick={tagAdd}>
                     <AddIcon />
                     ADD
                   </Addbtn>
@@ -203,15 +227,14 @@ const MakeCrawl = () => {
                           style={{
                             width: "100%",
                             display: "flex",
-                            justifyContent: "space-between",
+                            justifyContent: "center",
                             margin: "8px 0",
                           }}
                         >
                           <TextField
-                            label={`Keyword${key+1}`}
-                            name={`keyword${key+1}`}
+                            label={`Keyword${key + 1}`}
+                            name={`keyword${key + 1}`}
                             onChange={onChange}
-                            value={`${item}`}
                             required
                             style={{ width: "70%" }}
                           ></TextField>
@@ -223,7 +246,7 @@ const MakeCrawl = () => {
                     </div>
                   ) : (
                     <div
-                    onClick= {() => console.log(data)}
+                      onClick={() => console.log(data)}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -276,7 +299,11 @@ const MakeCrawl = () => {
               >
                 <Alarmdiv>MAIL Alarm</Alarmdiv>
 
-                <Switch color="default" checked={checked} onChange={handleChange} />
+                <Switch
+                  color="default"
+                  checked={checked}
+                  onChange={handleChange}
+                />
               </div>
               <div
                 style={{
@@ -287,14 +314,23 @@ const MakeCrawl = () => {
                 }}
               >
                 <Alarmdiv>SMS Alarm</Alarmdiv>
-                <Switch color="default" checked={checked2} onChange={handleChange2} />
+                <Switch
+                  color="default"
+                  checked={checked2}
+                  onChange={handleChange2}
+                />
               </div>
             </Keworddiv>
           </Formdiv1>
           <Btn
-            style={{ width: "93%", marginTop: "72px",maxWidth:"1032px"}}
+            style={{
+              width: "93%",
+              marginBottom: "48px",
+              marginTop: "72px",
+              maxWidth: "1032px",
+            }}
             name="MAKE CRAWL"
-            onClick={() => console.log("Change")}
+            onClick={makeCrawl}
           ></Btn>
         </div>
       </Desktop>
@@ -315,7 +351,7 @@ const MakeCrawl = () => {
                 onChange={onChange}
                 value={url}
                 required
-                style={{ width: "100%"}}
+                style={{ width: "100%" }}
               ></TextField>
             </div>
             <div
@@ -333,8 +369,16 @@ const MakeCrawl = () => {
                 name="row-radio-buttons-group"
                 onChange={radioChange}
               >
-                <FormControlLabel value="and" control={<Radio color="default"/>} label="AND" />
-                <FormControlLabel value="or" control={<Radio color="default"/>} label="OR" />
+                <FormControlLabel
+                  value="and"
+                  control={<Radio color="default" />}
+                  label="AND"
+                />
+                <FormControlLabel
+                  value="or"
+                  control={<Radio color="default" />}
+                  label="OR"
+                />
               </RadioGroup>
             </div>
             <Keworddiv style={{}}>
@@ -383,12 +427,12 @@ const MakeCrawl = () => {
                           }}
                         >
                           <TextField
-                            label={`Keyword${key+1}`}
-                            name={`keyword${key+1}`}
+                            label={`Keyword${key + 1}`}
+                            name={`keyword${key + 1}`}
                             onChange={onChange}
                             value={item}
                             required
-                            style={{ width: "70%"}}
+                            style={{ width: "70%" }}
                           ></TextField>
                           {/* <Removebtn onClick={() => console.log("remove")}>
                             <RemoveIcon />
@@ -450,7 +494,11 @@ const MakeCrawl = () => {
               >
                 <Alarmdiv>MAIL Alarm</Alarmdiv>
 
-                <Switch color="default" checked={checked} onChange={handleChange} />
+                <Switch
+                  color="default"
+                  checked={checked}
+                  onChange={handleChange}
+                />
               </div>
               <div
                 style={{
@@ -461,7 +509,11 @@ const MakeCrawl = () => {
                 }}
               >
                 <Alarmdiv>SMS Alarm</Alarmdiv>
-                <Switch color="default" checked={checked2} onChange={handleChange2} />
+                <Switch
+                  color="default"
+                  checked={checked2}
+                  onChange={handleChange2}
+                />
               </div>
             </Keworddiv>
           </Formdiv1>
