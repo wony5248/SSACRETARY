@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import AppAppBar from "../../views/AppAppBar";
 import {
@@ -10,6 +11,7 @@ import {
   Settingtag,
 } from "./style";
 import Btn from "../../components/Button";
+import { crawlAPI } from "../../utils/axios";
 const Desktop = ({ children }: any) => {
   const isDesktop = useMediaQuery({ minWidth: 613 });
   return isDesktop ? children : null;
@@ -67,6 +69,20 @@ const data = [
   },
 ];
 const SettingProfile: React.FunctionComponent = () => {
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    const email = localStorage.getItem("email");
+
+    const getCrawl = async () => {
+      await crawlAPI.getAllSettings(jwt, email).then(({data}) => {
+        console.log(data)
+      }).catch((e) => console.log(e))
+
+      
+    };
+
+    getCrawl();
+  }, []);
   const Click = () => {
     console.log("clicked");
   };
@@ -81,10 +97,23 @@ const SettingProfile: React.FunctionComponent = () => {
             alignItems: "center",
           }}
         >
-          <Headerdiv style={{fontSize:"24px"}}>Crawlings</Headerdiv>
-          <Bodydiv style={{height: "1000px", maxWidth:"1000px",display:"flex", flexDirection:"column", boxShadow:"5px 5px 5px 5px grey",justifyContent:"space-between"}}>
+          <Headerdiv style={{ fontSize: "24px" }}>Crawlings</Headerdiv>
+          <Bodydiv
+            style={{
+              height: "1000px",
+              maxWidth: "1000px",
+              display: "flex",
+              flexDirection: "column",
+              boxShadow: "5px 5px 5px 5px grey",
+              justifyContent: "space-between",
+            }}
+          >
             {data.map((item, index) => (
-              <Settingdiv onClick={() => console.log(index)} style={{width:"60%"}} key={index}>
+              <Settingdiv
+                onClick={() => console.log(index)}
+                style={{ width: "60%" }}
+                key={index}
+              >
                 <Settingtitlediv>{item.title}</Settingtitlediv>
                 <Settingtagdiv>
                   <Settingtag>#️{item.tag1}</Settingtag>
@@ -95,7 +124,16 @@ const SettingProfile: React.FunctionComponent = () => {
               </Settingdiv>
             ))}
           </Bodydiv>
-          <Btn style={{marginBottom: "48px",marginTop:"48px", width:"90%", maxWidth:"1000px"}} onClick={Click} name="Make Crawl"></Btn>
+          <Btn
+            style={{
+              marginBottom: "48px",
+              marginTop: "48px",
+              width: "90%",
+              maxWidth: "1000px",
+            }}
+            onClick={Click}
+            name="Make Crawl"
+          ></Btn>
         </div>
       </Desktop>
       <Mobile>
@@ -120,7 +158,7 @@ const SettingProfile: React.FunctionComponent = () => {
               </Settingdiv>
             ))}
           </Bodydiv>
-          <Btn  onClick={Click} name="Make Crawl"></Btn>
+          <Btn onClick={Click} name="Make Crawl"></Btn>
         </div>
       </Mobile>
     </div>

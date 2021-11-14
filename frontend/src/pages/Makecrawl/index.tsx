@@ -100,7 +100,7 @@ const MakeCrawl = () => {
     keywords.push(keyword5);
     console.log(keywords)
     console.log(jwt, email, type, url, time, checked, checked2, name)
-    await crawlAPI.addSetting(jwt, email, type, keywords, url, time, checked, checked2, name);
+    await crawlAPI.addSetting(jwt, email, type, keywords, url, time, checked, checked2, name).then(() => {window.location.href="/settingprofile"});
   };
   const handleExit = () => {
     setIsopen(false);

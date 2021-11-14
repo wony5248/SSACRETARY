@@ -109,7 +109,7 @@ export const crawlAPI = {
       }
     })
   },
-  getAllSettings : async (jwt: string, email:string) => {
+  getAllSettings : async (jwt: any, email:any) => {
     return await axios({
       method: "GET",
       url: BASE_URL + "/crawling/",
@@ -117,7 +117,7 @@ export const crawlAPI = {
         Authorization: jwt,
       },
       data:{
-        email:email,
+        email:email
       }
       }
     )
@@ -170,16 +170,13 @@ export const crawlAPI = {
       }
     )
   },
-  getAllLog : async (jwt:string, email:string) => {
+  getAllLog : async (jwt:any, email:any) => {
     return await axios({
-      method: "DELETE",
-      url: BASE_URL + "/crawling/log/",
+      method: "GET",
+      url: BASE_URL + `/crawling/log/${email}`,
       headers: {
         Authorization: jwt,
       },
-      data:{
-        email:email,
-      }
       }
     )
   },
