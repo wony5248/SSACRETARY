@@ -80,8 +80,8 @@ public class CrawlingServiceImpl implements CrawlingService{
 
             //모든 세팅 목록 불러오기
             List<AllSettingData> allList = new ArrayList<>();
-            AllSettingData allset = new AllSettingData();
             for (int i =0;i<setting.size();i++){
+                AllSettingData allset = new AllSettingData();
                 allset.setSettingId(setting.get(i).getSettingId());
 
                 List<SettingKeyword> sk = settingKeywordRepository.findBySetting_SettingId(setting.get(i).getSettingId());
