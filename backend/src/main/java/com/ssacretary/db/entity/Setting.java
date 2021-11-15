@@ -1,7 +1,6 @@
 package com.ssacretary.db.entity;
 
 import com.ssacretary.api.request.crawling.EditSettingReq;
-import com.ssacretary.api.request.user.EditUserReq;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,10 +25,10 @@ public class Setting {
     @JoinColumn(name = "email")
     private User user;
 
-    @OneToMany(mappedBy = "setting")
+    @OneToMany(mappedBy = "setting", cascade = CascadeType.ALL)
     private List<SettingKeyword> settingKeywordList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "setting")
+    @OneToMany(mappedBy = "setting", cascade = CascadeType.ALL)
     private List<Log> logList = new ArrayList<>();
 
     @Column(name = "url")

@@ -29,10 +29,10 @@ public class Log {
     @JoinColumn(name = "email")
     private User user;
 
-    @OneToMany(mappedBy = "log")
+    @OneToMany(mappedBy = "log", cascade = CascadeType.ALL)
     private List<Count> countList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "log")
+    @OneToMany(mappedBy = "log", cascade = CascadeType.ALL)
     private List<Sentence> sentenceList = new ArrayList<>();
 
     @Column(name = "date")
