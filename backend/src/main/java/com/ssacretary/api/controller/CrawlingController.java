@@ -55,9 +55,9 @@ public class CrawlingController {
 
         if(resbody.getSettingId()>0){
             return ResponseEntity.ok(GetSettingDetailRes.of(200, "조회 성공",resbody.getSettingId(), resbody.getUrl(), resbody.getType(), resbody.getPeriod(),
-                    resbody.isMailAlarm(), resbody.isSmsAlarm(), resbody.getName(), resbody.getCreatedAt(), resbody.getUpdatedAt(), resbody.getLogs()));
+                    resbody.isMailAlarm(), resbody.isSmsAlarm(), resbody.getName(), resbody.getCreatedAt(), resbody.getUpdatedAt(),resbody.getKeywords(), resbody.getLogs()));
         }
-        return ResponseEntity.status(401).body(GetSettingDetailRes.of(401, "조회 실패",-1,null,null,-1,false,false,null,null,null,null));
+        return ResponseEntity.status(401).body(GetSettingDetailRes.of(401, "조회 실패",-1,null,null,-1,false,false,null,null,null,null,null));
     }
 
     @PutMapping("/{crawlingId}")

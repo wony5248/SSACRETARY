@@ -27,6 +27,8 @@ public class GetSettingDetailRes extends BaseResponseBody {
     boolean smsAlarm;
     @ApiModelProperty(name = "name",example = "크롤링세팅1")
     String name;
+    @ApiModelProperty(name = "keywords",example = "['keywords',keywordd']")
+    List<String> keywords;
     @ApiModelProperty(name = "createdAt",example = "localdatetime")
     LocalDateTime createdAt;
     @ApiModelProperty(name = "updatedAt",example = "localdatetime")
@@ -34,7 +36,7 @@ public class GetSettingDetailRes extends BaseResponseBody {
     List<AllLogsData> logs;
 
     public static GetSettingDetailRes of(Integer statusCode,String message, int settingId, String url, String type,
-                                         int period, boolean mailAlarm, boolean smsAlarm, String name, LocalDateTime createdAt, LocalDateTime updatedAt, List<AllLogsData> logs){
+                                         int period, boolean mailAlarm, boolean smsAlarm, String name, LocalDateTime createdAt, LocalDateTime updatedAt, List<String> keywords, List<AllLogsData> logs){
         GetSettingDetailRes body = new GetSettingDetailRes();
         body.setStatusCode(statusCode);
         body.setMessage(message);
@@ -45,6 +47,9 @@ public class GetSettingDetailRes extends BaseResponseBody {
         body.setMailAlarm(mailAlarm);
         body.setSmsAlarm(smsAlarm);
         body.setName(name);
+        body.setCreatedAt(createdAt);
+        body.setUpdatedAt(updatedAt);
+        body.setKeywords(keywords);
         body.setLogs(logs);
         return body;
     }

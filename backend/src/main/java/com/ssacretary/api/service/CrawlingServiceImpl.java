@@ -118,6 +118,12 @@ public class CrawlingServiceImpl implements CrawlingService{
 
             List<AllLogsData> allLogsData = new ArrayList<>();
 
+            List<SettingKeyword> sk = settingKeywordRepository.findBySetting_SettingId(settingId);
+            List<String> kw = new ArrayList<>();
+            for(int i=0;i<sk.size();i++){
+                kw.add(sk.get(i).getKeyword().getKeyword());
+            }
+
             for(int i=0;i<logList.size();i++) {
                 List<Map<String,Integer>> keywordCounts = new ArrayList<Map<String,Integer>>();
                 List<String> sentences = new ArrayList<>();
@@ -156,6 +162,7 @@ public class CrawlingServiceImpl implements CrawlingService{
             resbody.setName(setting.getName());
             resbody.setCreatedAt(setting.getCreatedAt());
             resbody.setUpdatedAt(setting.getUpdatedAt());
+            resbody.setKeywords(kw);
             resbody.setLogs(allLogsData);
             return resbody;
         }catch (Exception e){

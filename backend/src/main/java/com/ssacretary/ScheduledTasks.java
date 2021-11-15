@@ -1,10 +1,6 @@
 package com.ssacretary;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,29 +8,19 @@ import java.util.regex.Pattern;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
 
 @Component
 public class ScheduledTasks {
     @Scheduled(fixedRate = 60000)
     public void getStockPriceList() {
         final String useremail = "wony5248@gmail.com";
-//        System.out.println("hihi");
         final String password = "hjvqhqcmqjjyhenj";
         StringBuffer contents = new StringBuffer();
-//        final String stockList = "https://www.daangn.com/hot_articles";
-        final String stockList = "https://finance.naver.com/sise/sise_market_sum.nhn?&page=1";
+        final String stockList = "https://www.daangn.com/hot_articles";
+//        final String stockList = "https://finance.naver.com/sise/sise_market_sum.nhn?&page=1";
         final String URL = "https://www.google.com/search";
 //        String[] array = stockList.split("/");
 //        ArrayList<String> list = new ArrayList();
@@ -84,17 +70,11 @@ public class ScheduledTasks {
         List<String> arr = new ArrayList<String>();
         List<String> arr2 = new ArrayList<String>();
         List<String> result = new ArrayList<String>();
-//        arr2.add("이터널스 개봉 기념! 영화 예매권 획득 이벤트 결과 발표");
-//        arr2.add("이터널스 개봉 기념 이벤트");
-//        arr2.add("이터널스 개인 후기 (스포없음)");
-//        arr2.add("뇌피셜) 다음 이터널스 업뎃 때 태생 3티 나올 거 같음");
 
-//        System.out.println(str1 == str2);
-//        System.out.println(str1.equals(str2));
         try {
             Document document = conn.get();
             String doctext = document.html();
-            Pattern pattern = Pattern.compile("인치");
+            Pattern pattern = Pattern.compile("냉장고");
 
 
             Matcher matcher = pattern.matcher(doctext);
@@ -198,7 +178,7 @@ public class ScheduledTasks {
 //
 
 //            System.out.println(tbody);
-
+            System.out.println(result);
 
         } catch (IOException ignored) {
         }
