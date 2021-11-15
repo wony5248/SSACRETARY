@@ -1,10 +1,12 @@
 import * as React from "react";
+
+import { useHistory } from "react-router";
+
+import styled from "styled-components";
+
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
-import AppBar from "../components/AppBar";
-import Toolbar from "../components/ToolBar";
 import Avatar from "@mui/material/Avatar";
-import styled from "styled-components";
 import Menubar from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -15,6 +17,10 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { deepOrange } from "@mui/material/colors";
 import { Typography } from "@mui/material";
+
+import AppBar from "../components/AppBar";
+import Toolbar from "../components/ToolBar";
+
 interface ITest {
   open: any;
 }
@@ -45,7 +51,7 @@ const StyledMenu = styled.nav`
     padding: 2rem 0;
     font-weight: bold;
     letter-spacing: 0.5rem;
-    color: #FFFFFF;
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.3s linear;
 
@@ -59,6 +65,7 @@ const StyledMenu = styled.nav`
     }
   }
 `;
+
 const StyledBurger = styled.button`
   left: 2rem;
   display: flex;
@@ -103,6 +110,7 @@ const StyledBurger = styled.button`
     }
   }
 `;
+
 const Menu = (props: any) => {
   const { open } = props;
 
@@ -141,6 +149,7 @@ const Menu = (props: any) => {
     </StyledMenu>
   );
 };
+
 const Burger = (props: any) => {
   const { open, setOpen } = props;
   return (
@@ -151,10 +160,12 @@ const Burger = (props: any) => {
     </StyledBurger>
   );
 };
+
 function AppAppBar() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const opened = Boolean(anchorEl);
+  const history = useHistory();
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     console.log("open");
@@ -162,11 +173,15 @@ function AppAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const onLogout = function () {
+    localStorage.clear();
+    history.push("/");
+  };
   // const [islogin, setIslogin] = React.useState(false)
   // const node = React.useRef();
   return (
     <div>
-      <AppBar sx = {{backgroundColor: "#404040"}}position="fixed">
+      <AppBar sx={{ backgroundColor: "#404040" }} position="fixed">
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Box
             sx={{ flex: 1 }}
@@ -232,7 +247,7 @@ function AppAppBar() {
                 My Settings
               </MenuItem>
 
-              <MenuItem onClick={() => (window.location.href = "/")}>
+              <MenuItem onClick={onLogout}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>
