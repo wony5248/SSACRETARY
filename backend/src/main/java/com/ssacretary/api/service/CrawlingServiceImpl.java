@@ -147,7 +147,7 @@ public class CrawlingServiceImpl implements CrawlingService{
             }
 
             GetSettingDetailRes resbody = new GetSettingDetailRes();
-            resbody.setSettingId(baseCrawlingReq.getSettingId());
+            resbody.setSettingId(settingId);
             resbody.setUrl(setting.getUrl());
             resbody.setType(setting.getType());
             resbody.setPeriod(setting.getPeriod());
