@@ -2,7 +2,6 @@ package com.ssacretary.api.service;
 
 import com.ssacretary.api.request.crawling.AddSettingReq;
 import com.ssacretary.api.request.crawling.EditSettingReq;
-import com.ssacretary.api.request.crawling.GetAllSettingReq;
 import com.ssacretary.api.request.crawling.BaseCrawlingReq;
 import com.ssacretary.api.response.crawling.GetAllLogsRes;
 import com.ssacretary.api.response.crawling.GetAllSettingsRes;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
 public interface CrawlingService {
     public boolean addSetting(String jwt, AddSettingReq addSettingReq);
 
-    public GetAllSettingsRes getAllSettings(String jwt, GetAllSettingReq getAllSettingReq);
+    public GetAllSettingsRes getAllSettings(String jwt);
 
     public GetSettingDetailRes getSettingDetail(String jwt, BaseCrawlingReq baseCrawlingReq);
 
@@ -21,5 +20,5 @@ public interface CrawlingService {
 
     public boolean deleteSetting(String jwt, BaseCrawlingReq baseCrawlingReq);
 
-    public GetAllLogsRes getAllLog(String jwt, String email);
+    public GetAllLogsRes getAllLog(String jwt);
 }
