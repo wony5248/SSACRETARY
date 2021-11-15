@@ -53,7 +53,7 @@ public class CrawlingServiceImpl implements CrawlingService{
             User user = userRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 이메일입니다."));
             LocalDateTime dateTime = LocalDateTime.now();
             Setting sets = settingRepository.save(Setting.builder()
-                    .user(user).url(addSettingReq.getUrl()).type(addSettingReq.getType()).alarm(addSettingReq.isMailAlarm()).sms(addSettingReq.isSmsAlarm())
+                    .user(user).period(addSettingReq.getPeriod()).url(addSettingReq.getUrl()).type(addSettingReq.getType()).alarm(addSettingReq.isMailAlarm()).sms(addSettingReq.isSmsAlarm())
                     .name(addSettingReq.getName()).createdAt(dateTime).updatedAt(dateTime).build());
 
             //세팅키워드 테이블에 저장
