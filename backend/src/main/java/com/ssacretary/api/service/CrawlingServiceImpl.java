@@ -207,12 +207,12 @@ public class CrawlingServiceImpl implements CrawlingService{
         }
     };
     @Override
-    public boolean deleteSetting(String jwt, BaseCrawlingReq baseCrawlingReq){
+    public boolean deleteSetting(String jwt, int settingId){
         try {
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
-            if(!email.equals(baseCrawlingReq.getEmail())) throw new Exception();
-            settingRepository.deleteBySettingId(baseCrawlingReq.getSettingId());
+            if (email==null) throw new Exception();
+            settingRepository.deleteBySettingId(settingId);
             return true;
         }catch (Exception e){
             System.out.println(e);

@@ -60,7 +60,7 @@ public class CrawlingController {
         return ResponseEntity.status(401).body(GetSettingDetailRes.of(401, "조회 실패",-1,null,null,-1,false,false,null,null,null,null,null));
     }
 
-    @PutMapping("/{crawlingId}")
+    @PutMapping("/{settingId}")
     @ApiOperation(value = "크롤링 세팅 수정")
     public ResponseEntity<BaseResponseBody> editSetting(@RequestHeader("Authorization") String JWT, @RequestBody EditSettingReq editSettingReq){
         //jwt로 본인확인후 가져옴
@@ -72,11 +72,11 @@ public class CrawlingController {
         return ResponseEntity.status(401).body(BaseResponseBody.of(401, "수정 실패"));
     }
 
-    @DeleteMapping("/{crawlingId}")
+    @DeleteMapping("/{settingId}")
     @ApiOperation(value = "크롤링 세팅 삭제")
-    public ResponseEntity<BaseResponseBody> deleteSetting(@RequestHeader("Authorization") String JWT, @RequestBody BaseCrawlingReq baseCrawlingReq){
+    public ResponseEntity<BaseResponseBody> deleteSetting(@RequestHeader("Authorization") String JWT, @RequestParam int settingId){
         //jwt로 본인확인후 가져옴
-        boolean resbody = crawlingService.deleteSetting(JWT, baseCrawlingReq);
+        boolean resbody = crawlingService.deleteSetting(JWT, settingId);
 
         if(resbody){
             return ResponseEntity.ok(BaseResponseBody.of(200, "삭제 성공"));
