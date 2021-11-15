@@ -122,7 +122,7 @@ export const crawlAPI = {
   getSettingDetail : async (jwt: any, settingId:string) => {
     return await axios({
       method: "GET",
-      url: BASE_URL + `/crawling/detail?settingId=${settingId}`,
+      url: BASE_URL + `/crawling/detail/${settingId}`,
       headers: {
         Authorization: jwt,
       },
@@ -132,7 +132,7 @@ export const crawlAPI = {
   editSetting : async (crawlingID:number,jwt:any, email:any, keywords:string[], mailAlarm:boolean, name:string, period:number, smsAlarm:boolean, type:string, url:string) => {
     return await axios({
       method: "PUT",
-      url: BASE_URL + `/crawling/${crawlingID}/`,
+      url: BASE_URL + `/crawling/`,
       headers: {
         Authorization: jwt,
       },
