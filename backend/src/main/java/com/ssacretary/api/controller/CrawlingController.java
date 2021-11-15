@@ -48,9 +48,9 @@ public class CrawlingController {
         return ResponseEntity.status(401).body(GetAllSettingsRes.of(401, "조회 실패",null));
     }
 
-    @GetMapping("/detail")
+    @GetMapping("/detail/{settingId}")
     @ApiOperation(value = "크롤링 세팅 하나의 정보 가져오기")
-    public ResponseEntity<GetSettingDetailRes> getSettingDetail(@RequestHeader("Authorization") String JWT, @RequestParam int settingId){
+    public ResponseEntity<GetSettingDetailRes> getSettingDetail(@RequestHeader("Authorization") String JWT, @PathVariable int settingId){
         GetSettingDetailRes resbody = crawlingService.getSettingDetail(JWT, settingId);
 
         if(resbody.getSettingId()>0){
@@ -60,7 +60,7 @@ public class CrawlingController {
         return ResponseEntity.status(401).body(GetSettingDetailRes.of(401, "조회 실패",-1,null,null,-1,false,false,null,null,null,null,null));
     }
 
-    @PutMapping("/{settingId}")
+    @PutMapping("/")
     @ApiOperation(value = "크롤링 세팅 수정")
     public ResponseEntity<BaseResponseBody> editSetting(@RequestHeader("Authorization") String JWT, @RequestBody EditSettingReq editSettingReq){
         //jwt로 본인확인후 가져옴
@@ -74,7 +74,7 @@ public class CrawlingController {
 
     @DeleteMapping("/{settingId}")
     @ApiOperation(value = "크롤링 세팅 삭제")
-    public ResponseEntity<BaseResponseBody> deleteSetting(@RequestHeader("Authorization") String JWT, @RequestParam int settingId){
+    public ResponseEntity<BaseResponseBody> deleteSetting(@RequestHeader("Authorization") String JWT, @PathVariable int settingId){
         //jwt로 본인확인후 가져옴
         boolean resbody = crawlingService.deleteSetting(JWT, settingId);
 
