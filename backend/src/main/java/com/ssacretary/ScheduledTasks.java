@@ -49,9 +49,9 @@ public class ScheduledTasks {
         try(BufferedReader in = new BufferedReader(
                 new InputStreamReader(new URL("https://google.com/robots.txt").openStream()))) {
             String line = null;
-            Boolean target = false;
+            boolean target = false;
             while((line = in.readLine()) != null) {
-                if (target == false) {
+                if (!target) {
                     if (line.equals("User-agent: *")) {
                         target = true;
                     }
@@ -71,7 +71,7 @@ public class ScheduledTasks {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Boolean usable = true;
+        boolean usable = true;
         for (int i=0;i<disallows.size();i++) {
             if (URL.contains(disallows.get(i))) {
                 System.out.println(disallows.get(i));
@@ -203,6 +203,4 @@ public class ScheduledTasks {
         } catch (IOException ignored) {
         }
     }
-
-
 }
