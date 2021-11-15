@@ -44,41 +44,41 @@ public class ScheduledTasks {
 //        final String ROBOT = "robots.txt";
 //        list.add(ROBOT);
 //        String robotURL = String.join("/",list);
-        ArrayList<String> disallows = new ArrayList();
+//        ArrayList<String> disallows = new ArrayList();
 
-        try(BufferedReader in = new BufferedReader(
-                new InputStreamReader(new URL("https://google.com/robots.txt").openStream()))) {
-            String line = null;
-            boolean target = false;
-            while((line = in.readLine()) != null) {
-                if (!target) {
-                    if (line.equals("User-agent: *")) {
-                        target = true;
-                    }
-                } else {
-                    if (line == " " || line.startsWith("User-agent:")) {
-                        target = false;
-                        break;
-                    } else {
-                        if (line.startsWith("Disallow:")) {
-                            String[] disallow = line.split(" ");
-                            disallows.add(disallow[1]);
-                            System.out.println(disallow[1]);
-                        }
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        boolean usable = true;
-        for (int i=0;i<disallows.size();i++) {
-            if (URL.contains(disallows.get(i))) {
-                System.out.println(disallows.get(i));
-                usable = false;
-                break;
-            };
-        }
+//        try(BufferedReader in = new BufferedReader(
+//                new InputStreamReader(new URL("https://google.com/robots.txt").openStream()))) {
+//            String line = null;
+//            boolean target = false;
+//            while((line = in.readLine()) != null) {
+//                if (!target) {
+//                    if (line.equals("User-agent: *")) {
+//                        target = true;
+//                    }
+//                } else {
+//                    if (line == " " || line.startsWith("User-agent:")) {
+//                        target = false;
+//                        break;
+//                    } else {
+//                        if (line.startsWith("Disallow:")) {
+//                            String[] disallow = line.split(" ");
+//                            disallows.add(disallow[1]);
+//                            System.out.println(disallow[1]);
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        boolean usable = true;
+//        for (int i=0;i<disallows.size();i++) {
+//            if (URL.contains(disallows.get(i))) {
+//                System.out.println(disallows.get(i));
+//                usable = false;
+//                break;
+//            };
+//        }
 
         Connection conn = Jsoup.connect(stockList);
         List<String> arr = new ArrayList<String>();
