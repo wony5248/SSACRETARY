@@ -125,9 +125,11 @@ const card3 = (
   </React.Fragment>
 );
 
-const SettingProfile: React.FunctionComponent = () => {
+const SettingProfile: React.FunctionComponent = ({ match }: any) => {
+  const { id } = match.params;
+  console.log(id);
   const Click = () => {
-    console.log("clicked");
+    window.location.href = `/changecrawl/${id}`;
   };
   return (
     <div>
@@ -141,7 +143,7 @@ const SettingProfile: React.FunctionComponent = () => {
           }}
         >
           <Urldiv style={{ fontSize: "24px" }}>URL</Urldiv>
-          <Carddiv style={{ height: "900px", maxWidth:"1200px" }}>
+          <Carddiv style={{ height: "900px", maxWidth: "1200px" }}>
             <Grid style={{ height: "100%" }} container spacing={2}>
               <Grid style={{ height: "45%" }} item xs={6}>
                 <Card
@@ -194,11 +196,17 @@ const SettingProfile: React.FunctionComponent = () => {
             </Grid>
           </Carddiv>
           <Btn
-            style={{ width: "90%", maxWidth:"1200px" }}
+            style={{ width: "90%", maxWidth: "1200px" }}
             onClick={Click}
             name="Go to Detail"
           ></Btn>
-          <Btn style={{ width: "90%", maxWidth:"1200px" }} onClick={Click} name="Make Crawl"></Btn>
+          <Btn
+            style={{ width: "90%", maxWidth: "1200px" }}
+            onClick={() => {
+              window.location.href = "/makecrawl";
+            }}
+            name="Make Crawl"
+          ></Btn>
         </div>
       </Desktop>
       <Mobile>
@@ -260,7 +268,9 @@ const SettingProfile: React.FunctionComponent = () => {
           ></Btn>
           <Btn
             style={{ marginBottom: "24px" }}
-            onClick={Click}
+            onClick={() => {
+              window.location.href = "/makecrawl";
+            }}
             name="Make Crawl"
           ></Btn>
         </div>

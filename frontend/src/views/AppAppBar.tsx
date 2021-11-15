@@ -122,23 +122,11 @@ const Menu = (props: any) => {
         </span>
         Make Crawl
       </a>
-      <a href="/changecrawl">
-        <span role="img" aria-label="about us">
-          🔧
-        </span>
-        Change Crawl
-      </a>
       <a href="/settingprofile">
         <span role="img" aria-label="about us">
           ⚙️
         </span>
         My Crawling
-      </a>
-      <a href="/specificcrawling">
-        <span role="img" aria-label="control">
-          📌
-        </span>
-        Specific Crawl
       </a>
       <a href="/log">
         <span role="img" aria-label="control">

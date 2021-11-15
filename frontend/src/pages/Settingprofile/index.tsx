@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import AppAppBar from "../../views/AppAppBar";
 import {
@@ -10,6 +11,7 @@ import {
   Settingtag,
 } from "./style";
 import Btn from "../../components/Button";
+import { crawlAPI } from "../../utils/axios";
 const Desktop = ({ children }: any) => {
   const isDesktop = useMediaQuery({ minWidth: 613 });
   return isDesktop ? children : null;
@@ -22,51 +24,23 @@ const Mobile = ({ children }: any) => {
   const isMobile = useMediaQuery({ maxWidth: 612 });
   return isMobile ? children : null;
 };
-const data = [
-  {
-    title: "제목1",
-    tag1: "MySQL",
-    tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰",
-  },
-  {
-    title: "제목2",
-    tag1: "MySQL",
-    tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰",
-  },
-  {
-    title: "제목3",
-    tag1: "MySQL",
-    tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰",
-  },
-  {
-    title: "제목4",
-    tag1: "MySQL",
-    tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰",
-  },
-  {
-    title: "제목5",
-    tag1: "MySQL",
-    tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰",
-  },
-  {
-    title: "제목1",
-    tag1: "MySQL",
-    tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰",
-  },
-];
+
 const SettingProfile: React.FunctionComponent = () => {
+  const [data, setData] = useState([])
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+
+    const getCrawl = async () => {
+      await crawlAPI.getAllSettings(jwt).then(({data}:any) => {
+        console.log(data.allSettingData)
+        setData(data.allSettingData)
+      }).catch((e) => console.log(e))
+
+      
+    };
+
+    getCrawl();
+  }, []);
   const Click = () => {
     console.log("clicked");
   };
@@ -81,21 +55,42 @@ const SettingProfile: React.FunctionComponent = () => {
             alignItems: "center",
           }}
         >
-          <Headerdiv style={{fontSize:"24px"}}>Crawlings</Headerdiv>
-          <Bodydiv style={{height: "1000px", maxWidth:"1000px",display:"flex", flexDirection:"column", boxShadow:"5px 5px 5px 5px grey",justifyContent:"space-between"}}>
-            {data.map((item, index) => (
-              <Settingdiv onClick={() => console.log(index)} style={{width:"60%"}} key={index}>
-                <Settingtitlediv>{item.title}</Settingtitlediv>
+          <Headerdiv style={{ fontSize: "24px" }}>Crawlings</Headerdiv>
+          <Bodydiv
+            style={{
+              height: "1000px",
+              maxWidth: "1000px",
+              display: "flex",
+              flexDirection: "column",
+              boxShadow: "5px 5px 5px 5px grey",
+            }}
+          >
+            {data.map((item :any, index) => (
+              <Settingdiv
+                onClick={() => window.location.href=`/specificcrawling/${item.settingId}`}
+                style={{ width: "60%" }}
+                key={index}
+              >
+                <Settingtitlediv>{item.url}</Settingtitlediv>
                 <Settingtagdiv>
-                  <Settingtag>#️{item.tag1}</Settingtag>
-                  <Settingtag>#️{item.tag2}</Settingtag>
-                  <Settingtag>#️{item.tag3}</Settingtag>
-                  <Settingtag>#️{item.tag4}</Settingtag>
+                  {item.keywords.map((items:any) => (
+                    <Settingtag>#️{items}</Settingtag>
+                  ))}
+                  
                 </Settingtagdiv>
               </Settingdiv>
             ))}
           </Bodydiv>
-          <Btn style={{marginTop:"48px", width:"90%", maxWidth:"1000px"}} onClick={Click} name="Make Crawl"></Btn>
+          <Btn
+            style={{
+              marginBottom: "48px",
+              marginTop: "48px",
+              width: "90%",
+              maxWidth: "1000px",
+            }}
+            onClick={Click}
+            name="Make Crawl"
+          ></Btn>
         </div>
       </Desktop>
       <Mobile>
@@ -108,19 +103,18 @@ const SettingProfile: React.FunctionComponent = () => {
         >
           <Headerdiv>Crawlings</Headerdiv>
           <Bodydiv>
-            {data.map((item, index) => (
-              <Settingdiv onClick={() => console.log(index)} key={index}>
-                <Settingtitlediv>{item.title}</Settingtitlediv>
+            {data.map((item :any, index) => (
+              <Settingdiv onClick={() => window.location.href=`/specificcrawling/${item.settingId}`} key={index}>
+                <Settingtitlediv>{item.url}</Settingtitlediv>
                 <Settingtagdiv>
-                  <Settingtag>#️{item.tag1}</Settingtag>
-                  <Settingtag>#️{item.tag2}</Settingtag>
-                  <Settingtag>#️{item.tag3}</Settingtag>
-                  <Settingtag>#️{item.tag4}</Settingtag>
+                {item.keywords.map((items:any) => (
+                    <Settingtag>#️{items}</Settingtag>
+                  ))}
                 </Settingtagdiv>
               </Settingdiv>
             ))}
           </Bodydiv>
-          <Btn  onClick={Click} name="Make Crawl"></Btn>
+          <Btn onClick={Click} name="Make Crawl"></Btn>
         </div>
       </Mobile>
     </div>

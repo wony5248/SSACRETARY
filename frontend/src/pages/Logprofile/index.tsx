@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
-import React from "react";
-
+import React, {useEffect} from "react";
+import { crawlAPI } from "../../utils/axios";
 import { useMediaQuery } from "react-responsive";
 import AppAppBar from "../../views/AppAppBar";
 
@@ -94,6 +94,20 @@ const Mobile = ({ children }: any) => {
 };
 
 const Logprofile = () => {
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    const email = localStorage.getItem("email");
+
+    const getCrawl = async () => {
+      await crawlAPI.getAllLog(jwt).then(({data}) => {
+        console.log(data)
+      }).catch((e) => console.log(e))
+
+      
+    };
+
+    getCrawl();
+  }, []);
   return (
     <div>
       <AppAppBar />

@@ -13,16 +13,21 @@ import notFound from "./pages/404";
 import "./App.css";
 
 function App() {
+  let arr:any = [];
+  // arr.map((item) => data.push(item))
+  // localStorage.setItem("tagarr", JSON.stringify(arr));
+  // console.log(localStorage.getItem("tagarr"));
+  // console.log(JSON.parse(localStorage.getItem("tagarr")));
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/changecrawl" component={ChangeCrawl} />
+        <Route exact path="/changecrawl/:id" component={ChangeCrawl} />
         <Route exact path="/makecrawl" component={MakeCrawl} />
         <Route exact path="/log" component={Log} />
         <Route exact path="/settingprofile" component={SettingProfile} />
-        <Route exact path="/specificcrawling" component={Specificcrawling} />
+        <Route exact path="/specificcrawling/:id" component={Specificcrawling} />
         <Route exact path="/userprofile" component={UserProfile} />
         <Route path="*" component={notFound} />
       </Switch>

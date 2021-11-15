@@ -23,6 +23,7 @@ export const Settingdiv = styled.div`
     width: 360px;
     border-radius: 8px;
     box-shadow: 1px 5px 5px 2px grey;
+    background-color:#404040;
     margin-top:12px;
     margin-bottom: 12px;
     min-height: 88px;
@@ -31,6 +32,7 @@ export const Settingtitlediv = styled.div`
     width: 100%;
     border-radius: 8px;
     margin-top:4px;
+    color: white;
     padding-left:4px;
     margin-bottom: 12px;
 `;
@@ -43,7 +45,7 @@ export const Settingtagdiv = styled.div`
     
 `;
 export const Settingtag = styled.div`
-    background-color: #404040;
+    background-color: #8C8C8C;
     color: white;
     padding: 0 4px;
     display:flex;
