@@ -2,7 +2,6 @@ package com.ssacretary.api.service;
 
 import com.ssacretary.api.request.crawling.AddSettingReq;
 import com.ssacretary.api.request.crawling.EditSettingReq;
-import com.ssacretary.api.request.crawling.GetAllSettingReq;
 import com.ssacretary.api.request.crawling.BaseCrawlingReq;
 import com.ssacretary.api.response.crawling.*;
 import com.ssacretary.config.JwtTokenProvider;
@@ -10,7 +9,6 @@ import com.ssacretary.db.entity.*;
 import com.ssacretary.db.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -43,20 +41,28 @@ public class CrawlingServiceImpl implements CrawlingService{
             if(!email.equals(addSettingReq.getEmail())) throw new Exception();
 
             //키워드가 있는지를 검사
-            List<String> keyList = new ArrayList<>();
             for(int i=0;i<addSettingReq.getKeywords().size();i++){
-                Keyword keyId = keywordRepository.findByKeyword(keyList.get(i));
+                Keyword keyId = keywordRepository.findByKeyword(addSettingReq.getKeywords().get(i));
                 //키워드가 존재하지 않으면
                 if(keyId==null){
-                    keywordRepository.save(Keyword.builder().keyword(keyList.get(i)).build());
+                    //db에 저장
+                    keywordRepository.save(Keyword.builder().keyword(addSettingReq.getKeywords().get(i)).build());
                 }
-
             }
+
             User user = userRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 이메일입니다."));
             LocalDateTime dateTime = LocalDateTime.now();
-            settingRepository.save(Setting.builder()
-            .user(user).url(addSettingReq.getUrl()).type(addSettingReq.getType()).alarm(addSettingReq.isMailAlarm()).sms(addSettingReq.isSmsAlarm())
-            .name(addSettingReq.getName()).createdAt(dateTime).updatedAt(dateTime).build());
+            Setting sets = settingRepository.save(Setting.builder()
+                    .user(user).period(addSettingReq.getPeriod()).url(addSettingReq.getUrl()).type(addSettingReq.getType()).alarm(addSettingReq.isMailAlarm()).sms(addSettingReq.isSmsAlarm())
+                    .name(addSettingReq.getName()).createdAt(dateTime).updatedAt(dateTime).build());
+
+            //세팅키워드 테이블에 저장
+            Setting setting = settingRepository.findBySettingId(sets.getSettingId());
+            for(int i=0;i<addSettingReq.getKeywords().size();i++){
+                Keyword keyword = keywordRepository.findByKeyword(addSettingReq.getKeywords().get(i));
+                settingKeywordRepository.save(SettingKeyword.builder().keyword(keyword).setting(setting).build());
+            }
+
             return true;
         }catch (Exception e){
             System.out.println(e);
@@ -64,19 +70,18 @@ public class CrawlingServiceImpl implements CrawlingService{
         }
     };
     @Override
-    public GetAllSettingsRes getAllSettings(String jwt, GetAllSettingReq getAllSettingReq){
+    public GetAllSettingsRes getAllSettings(String jwt){
         try{
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
-            if(!email.equals(getAllSettingReq.getEmail())) throw new Exception();
 
             //해당 유저의 전체 세팅 찾기
             List<Setting> setting = settingRepository.findByUser_Email(email);
 
             //모든 세팅 목록 불러오기
             List<AllSettingData> allList = new ArrayList<>();
-            AllSettingData allset = new AllSettingData();
             for (int i =0;i<setting.size();i++){
+                AllSettingData allset = new AllSettingData();
                 allset.setSettingId(setting.get(i).getSettingId());
 
                 List<SettingKeyword> sk = settingKeywordRepository.findBySetting_SettingId(setting.get(i).getSettingId());
@@ -100,19 +105,24 @@ public class CrawlingServiceImpl implements CrawlingService{
         }
     };
     @Override
-    public GetSettingDetailRes getSettingDetail(String jwt, BaseCrawlingReq baseCrawlingReq){
+    public GetSettingDetailRes getSettingDetail(String jwt, int settingId){
         try{
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
-            if(!email.equals(baseCrawlingReq.getEmail())) throw new Exception();
 
             //세팅 아이디로 세팅 찾기
-            Setting setting = settingRepository.findBySettingId(baseCrawlingReq.getSettingId());
+            Setting setting = settingRepository.findBySettingId(settingId);
 
             //세팅아이디로 로그 찾기
-            List<Log> logList = logRepository.findBySetting_SettingId(baseCrawlingReq.getSettingId());
+            List<Log> logList = logRepository.findBySetting_SettingId(settingId);
 
             List<AllLogsData> allLogsData = new ArrayList<>();
+
+            List<SettingKeyword> sk = settingKeywordRepository.findBySetting_SettingId(settingId);
+            List<String> kw = new ArrayList<>();
+            for(int i=0;i<sk.size();i++){
+                kw.add(sk.get(i).getKeyword().getKeyword());
+            }
 
             for(int i=0;i<logList.size();i++) {
                 List<Map<String,Integer>> keywordCounts = new ArrayList<Map<String,Integer>>();
@@ -143,7 +153,7 @@ public class CrawlingServiceImpl implements CrawlingService{
             }
 
             GetSettingDetailRes resbody = new GetSettingDetailRes();
-            resbody.setSettingId(baseCrawlingReq.getSettingId());
+            resbody.setSettingId(settingId);
             resbody.setUrl(setting.getUrl());
             resbody.setType(setting.getType());
             resbody.setPeriod(setting.getPeriod());
@@ -152,6 +162,7 @@ public class CrawlingServiceImpl implements CrawlingService{
             resbody.setName(setting.getName());
             resbody.setCreatedAt(setting.getCreatedAt());
             resbody.setUpdatedAt(setting.getUpdatedAt());
+            resbody.setKeywords(kw);
             resbody.setLogs(allLogsData);
             return resbody;
         }catch (Exception e){
@@ -170,7 +181,21 @@ public class CrawlingServiceImpl implements CrawlingService{
 
             Setting setting = settingRepository.findBySettingId(editSettingReq.getSettingId());
 
-            //키워드 저장 구현 필요
+            //키워드가 있는지를 검사
+            for(int i=0;i<editSettingReq.getKeywords().size();i++){
+                Keyword keyId = keywordRepository.findByKeyword(editSettingReq.getKeywords().get(i));
+                //키워드가 존재하지 않으면
+                if(keyId==null){
+                    //db에 저장
+                    keywordRepository.save(Keyword.builder().keyword(editSettingReq.getKeywords().get(i)).build());
+                }
+            }
+
+            //세팅키워드 테이블에 저장
+            for(int i=0;i<editSettingReq.getKeywords().size();i++){
+                Keyword keyword = keywordRepository.findByKeyword(editSettingReq.getKeywords().get(i));
+                settingKeywordRepository.save(SettingKeyword.builder().keyword(keyword).setting(setting).build());
+            }
 
             setting.updateSetting(editSettingReq);
             settingRepository.save(setting);
@@ -182,12 +207,12 @@ public class CrawlingServiceImpl implements CrawlingService{
         }
     };
     @Override
-    public boolean deleteSetting(String jwt, BaseCrawlingReq baseCrawlingReq){
+    public boolean deleteSetting(String jwt, int settingId){
         try {
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
-            if(!email.equals(baseCrawlingReq.getEmail())) throw new Exception();
-            settingRepository.deleteBySettingId(baseCrawlingReq.getSettingId());
+            if (email==null) throw new Exception();
+            settingRepository.deleteBySettingId(settingId);
             return true;
         }catch (Exception e){
             System.out.println(e);
@@ -195,11 +220,10 @@ public class CrawlingServiceImpl implements CrawlingService{
         }
     };
     @Override
-    public GetAllLogsRes getAllLog(String jwt, String userEmail){
+    public GetAllLogsRes getAllLog(String jwt){
         try{
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
-            if(!email.equals(userEmail)) throw new Exception();
 
             //이메일로 로그 찾기
             List<Log> logList = logRepository.findBySetting_User_Email(email);

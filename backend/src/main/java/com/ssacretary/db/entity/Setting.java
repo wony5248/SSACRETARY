@@ -57,7 +57,6 @@ public class Setting {
     private LocalDateTime  updatedAt;
 
     public void updateSetting(EditSettingReq editSettingReq){
-        //키워드는 어떡하냐
         this.url=editSettingReq.getUrl();
         this.type=editSettingReq.getType();
         this.period= editSettingReq.getPeriod();

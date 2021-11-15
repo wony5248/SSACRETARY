@@ -2,7 +2,6 @@ package com.ssacretary.api.controller;
 
 import com.ssacretary.api.request.crawling.AddSettingReq;
 import com.ssacretary.api.request.crawling.EditSettingReq;
-import com.ssacretary.api.request.crawling.GetAllSettingReq;
 import com.ssacretary.api.request.crawling.BaseCrawlingReq;
 import com.ssacretary.api.response.crawling.GetAllLogsRes;
 import com.ssacretary.api.response.crawling.GetAllSettingsRes;
@@ -33,61 +32,68 @@ public class CrawlingController {
         boolean resbody = crawlingService.addSetting(JWT, addSettingReq);
 
         if(resbody){
-            return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
+            return ResponseEntity.ok(BaseResponseBody.of(200, "저장 성공"));
         }
-        return ResponseEntity.status(401).body(BaseResponseBody.of(401,"Failed"));
+        return ResponseEntity.status(401).body(BaseResponseBody.of(401,"저장 실패"));
     }
 
     @GetMapping("/")
-    @ApiOperation(value = "나의 모든 크롤링 정보 가져오기")
-    public ResponseEntity<GetAllSettingsRes> getAllSettings(@RequestHeader("Authorization") String JWT, @RequestBody GetAllSettingReq getAllSettingReq) {
-        //jwt로 본인확인후 가져옴
+    @ApiOperation(value = "나의 모든 세팅 정보 가져오기")
+    public ResponseEntity<GetAllSettingsRes> getAllSettings(@RequestHeader("Authorization") String JWT) {
+        GetAllSettingsRes getAllSettingsRes = crawlingService.getAllSettings(JWT);
 
-        GetAllSettingsRes getAllSettingsRes = crawlingService.getAllSettings(JWT, getAllSettingReq);
-
-        return ResponseEntity.status(401).body(GetAllSettingsRes.of(401, "Failed",null));
+        if(getAllSettingsRes.getAllSettingData()!=null){
+            return ResponseEntity.ok(GetAllSettingsRes.of(200, "조회 성공",getAllSettingsRes.getAllSettingData()));
+        }
+        return ResponseEntity.status(401).body(GetAllSettingsRes.of(401, "조회 실패",null));
     }
 
     @GetMapping("/detail")
     @ApiOperation(value = "크롤링 세팅 하나의 정보 가져오기")
-    public ResponseEntity<GetSettingDetailRes> getSettingDetail(@RequestHeader("Authorization") String JWT, @RequestBody BaseCrawlingReq baseCrawlingReq){
-        //jwt로 본인확인
-        GetSettingDetailRes resbody = crawlingService.getSettingDetail(JWT, baseCrawlingReq);
+    public ResponseEntity<GetSettingDetailRes> getSettingDetail(@RequestHeader("Authorization") String JWT, @RequestParam int settingId){
+        GetSettingDetailRes resbody = crawlingService.getSettingDetail(JWT, settingId);
 
-//        if(resbody.get)
-        return ResponseEntity.status(401).body(GetSettingDetailRes.of(401, "Failed",-1,null,null,-1,false,false,null,null,null,null));
+        if(resbody.getSettingId()>0){
+            return ResponseEntity.ok(GetSettingDetailRes.of(200, "조회 성공",resbody.getSettingId(), resbody.getUrl(), resbody.getType(), resbody.getPeriod(),
+                    resbody.isMailAlarm(), resbody.isSmsAlarm(), resbody.getName(), resbody.getCreatedAt(), resbody.getUpdatedAt(),resbody.getKeywords(), resbody.getLogs()));
+        }
+        return ResponseEntity.status(401).body(GetSettingDetailRes.of(401, "조회 실패",-1,null,null,-1,false,false,null,null,null,null,null));
     }
 
-    @PutMapping("/{crawlingId}")
+    @PutMapping("/{settingId}")
     @ApiOperation(value = "크롤링 세팅 수정")
     public ResponseEntity<BaseResponseBody> editSetting(@RequestHeader("Authorization") String JWT, @RequestBody EditSettingReq editSettingReq){
         //jwt로 본인확인후 가져옴
         boolean resbody = crawlingService.editSetting(JWT, editSettingReq);
 
         if(resbody){
-            return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
+            return ResponseEntity.ok(BaseResponseBody.of(200, "수정 성공"));
         }
-        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failed"));
+        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "수정 실패"));
     }
 
-    @DeleteMapping("/{crawlingId}")
+    @DeleteMapping("/{settingId}")
     @ApiOperation(value = "크롤링 세팅 삭제")
-    public ResponseEntity<BaseResponseBody> deleteSetting(@RequestHeader("Authorization") String JWT, @RequestBody BaseCrawlingReq baseCrawlingReq){
+    public ResponseEntity<BaseResponseBody> deleteSetting(@RequestHeader("Authorization") String JWT, @RequestParam int settingId){
         //jwt로 본인확인후 가져옴
-        boolean resbody = crawlingService.deleteSetting(JWT, baseCrawlingReq);
+        boolean resbody = crawlingService.deleteSetting(JWT, settingId);
 
         if(resbody){
-            return ResponseEntity.ok(BaseResponseBody.of(200, "Success"));
+            return ResponseEntity.ok(BaseResponseBody.of(200, "삭제 성공"));
         }
-        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failed"));
+        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "삭제 실패"));
     }
 
-    @GetMapping("/log/{email}")
+    @GetMapping("/log")
     @ApiOperation(value = "나의 모든 크롤링 로그 조회")
-    public ResponseEntity<GetAllLogsRes> getAllLog(@RequestHeader("Authorization") String JWT, @RequestParam String email){
+    public ResponseEntity<GetAllLogsRes> getAllLog(@RequestHeader("Authorization") String JWT){
         //jwt로 본인확인후 가져옴
-        GetAllLogsRes getAllLogsRes = crawlingService.getAllLog(JWT,email);
+        GetAllLogsRes getAllLogsRes = crawlingService.getAllLog(JWT);
 
-        return ResponseEntity.status(401).body(GetAllLogsRes.of(401, "Failed",null));
+        if (getAllLogsRes.getAllLogsData()!=null){
+            return ResponseEntity.ok(GetAllLogsRes.of(200, "조회 성공",getAllLogsRes.getAllLogsData()));
+        }
+
+        return ResponseEntity.status(401).body(GetAllLogsRes.of(401, "조회 실패",null));
     }
 }

@@ -1,108 +1,158 @@
 package com.ssacretary;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.ssacretary.db.entity.Setting;
+import com.ssacretary.db.entity.SettingKeyword;
+import com.ssacretary.db.repository.KeywordRepository;
+import com.ssacretary.db.repository.SettingKeywordRepository;
+import com.ssacretary.db.repository.SettingRepository;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
 
 @Component
 public class ScheduledTasks {
+    @Autowired
+    SettingRepository settingRepository;
+    @Autowired
+    SettingKeywordRepository settingKeywordRepository;
+
     @Scheduled(fixedRate = 60000)
     public void getStockPriceList() {
         final String useremail = "wony5248@gmail.com";
-//        System.out.println("hihi");
         final String password = "hjvqhqcmqjjyhenj";
         StringBuffer contents = new StringBuffer();
         final String stockList = "https://www.daangn.com/hot_articles";
 //        final String stockList = "https://finance.naver.com/sise/sise_market_sum.nhn?&page=1";
+        final String URL = "https://www.google.com/search";
+
+        //주기 가져오기
+        LocalTime now = LocalTime.now();
+        List<Setting> settings = new ArrayList<>();
+        List<Setting> setting = settingRepository.findAll();
+        for(int i=0;i<setting.size();i++){
+            //현재시각을 period로 나눈 나머지가 0일때만 저장
+            if(now.getHour()%setting.get(i).getPeriod()==0)
+                settings.add(setting.get(i));
+        }
+
+//        String[] array = stockList.split("/");
+//        ArrayList<String> list = new ArrayList();
+//        for (int i=0;i<3;i++) {
+//            list.add(array[i]);
+//        }
+//        final String ROBOT = "robots.txt";
+//        list.add(ROBOT);
+//        String robotURL = String.join("/",list);
+//        ArrayList<String> disallows = new ArrayList();
+
+//        try(BufferedReader in = new BufferedReader(
+//                new InputStreamReader(new URL("https://google.com/robots.txt").openStream()))) {
+//            String line = null;
+//            boolean target = false;
+//            while((line = in.readLine()) != null) {
+//                if (!target) {
+//                    if (line.equals("User-agent: *")) {
+//                        target = true;
+//                    }
+//                } else {
+//                    if (line == " " || line.startsWith("User-agent:")) {
+//                        target = false;
+//                        break;
+//                    } else {
+//                        if (line.startsWith("Disallow:")) {
+//                            String[] disallow = line.split(" ");
+//                            disallows.add(disallow[1]);
+//                            System.out.println(disallow[1]);
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        boolean usable = true;
+//        for (int i=0;i<disallows.size();i++) {
+//            if (URL.contains(disallows.get(i))) {
+//                System.out.println(disallows.get(i));
+//                usable = false;
+//                break;
+//            };
+//        }
+
         Connection conn = Jsoup.connect(stockList);
-        List<String> arr = new ArrayList<String>();
-        List<String> arr2 = new ArrayList<String>();
-        List<String> result = new ArrayList<String>();
-//        arr2.add("이터널스 개봉 기념! 영화 예매권 획득 이벤트 결과 발표");
-//        arr2.add("이터널스 개봉 기념 이벤트");
-//        arr2.add("이터널스 개인 후기 (스포없음)");
-//        arr2.add("뇌피셜) 다음 이터널스 업뎃 때 태생 3티 나올 거 같음");
+        List<String> arr = new ArrayList<>();
+        List<String> result = new ArrayList<>();
 
-//        System.out.println(str1 == str2);
-//        System.out.println(str1.equals(str2));
         try {
-            Document document = conn.get();
-            String doctext = document.html();
-            Pattern pattern = Pattern.compile("인치");
+            for(int a=0;a<settings.size();a++){
+                List<SettingKeyword> sk = settingKeywordRepository.findBySetting_SettingId(settings.get(a).getSettingId());
+                List<String> kw = new ArrayList<>();
+                for(int b=0;b<sk.size();b++){
+                    Document document = conn.get();
+                    String doctext = document.html();
+                    //키워드 하나하나...?
+                    Pattern pattern = Pattern.compile(sk.get(b).getKeyword().getKeyword());
 
+                    Matcher matcher = pattern.matcher(doctext);
+                    int cnt = 0;
+                    while (true){
+                        boolean matfind = matcher.find();
+                        if (matfind){
 
-            Matcher matcher = pattern.matcher(doctext);
-            int cnt = 0;
-            while (true){
-                boolean matfind = matcher.find();
-                if (matfind){
-
-                    int i = matcher.start();
-                    int start = 0;
-                    int end = 0;
-                    cnt += 1;
-                    String regx1 = "\"";
-                    String regx2 = ">";
-                    String regx3 = "<";
-                    char c1 = regx1.charAt(0);
-                    char c2 = regx2.charAt(0);
-                    char c3 = regx3.charAt(0);
-                    while(true){
-                        if (doctext.charAt(i) != c1 && doctext.charAt(i) != c2) {
-                            i -= 1;
-                        }
-                        else
-                        {
-                            start = i+1;
-                            break;
-                        }
-                    }
-                    int j = matcher.start();
-                    while(true){
-                        if (doctext.charAt(j) != c1 && doctext.charAt(j) != c3) {
-                            j += 1;
-                        }
-                        else
-                        {
-                            end = j;
-                            break;
-                        }
-                    }
+                            int i = matcher.start();
+                            int start = 0;
+                            int end = 0;
+                            cnt += 1;
+                            String regx1 = "\"";
+                            String regx2 = ">";
+                            String regx3 = "<";
+                            char c1 = regx1.charAt(0);
+                            char c2 = regx2.charAt(0);
+                            char c3 = regx3.charAt(0);
+                            while(true){
+                                if (doctext.charAt(i) != c1 && doctext.charAt(i) != c2) {
+                                    i -= 1;
+                                }
+                                else{
+                                    start = i+1;
+                                    break;
+                                }
+                            }
+                            int j = matcher.start();
+                            while(true){
+                                if (doctext.charAt(j) != c1 && doctext.charAt(j) != c3) {
+                                    j += 1;
+                                }
+                                else{
+                                    end = j;
+                                    break;
+                                }
+                            }
 //                    System.out.println(doctext.substring(start, end));
-                    arr.add(doctext.substring(start, end).trim().replaceAll(" ", ""));
-
-
-                }
-                else{
-                    break;
-                }
-            }
+                            arr.add(doctext.substring(start, end).trim().replaceAll(" ", ""));
+                        }
+                        else{
+                            break;
+                        }
+                    }
 //            System.out.println(document.text());
 
-            for(String items : arr){
+                    for(String items : arr){
 //                System.out.println(items);
-                if(!result.contains(items)){
-                    result.add(items);
-                }
-            }
+                        if(!result.contains(items)){
+                            result.add(items);
+                        }
+                    }
 //            System.out.println(result.size());
 //            System.out.println(result);
 //            System.out.println(arr2);
@@ -150,11 +200,13 @@ public class ScheduledTasks {
 //
 
 //            System.out.println(tbody);
+                    System.out.println(result);
+                }
 
+            }
 
-        } catch (IOException ignored) {
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
-
-
 }
