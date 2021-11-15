@@ -105,17 +105,16 @@ public class CrawlingServiceImpl implements CrawlingService{
         }
     };
     @Override
-    public GetSettingDetailRes getSettingDetail(String jwt, BaseCrawlingReq baseCrawlingReq){
+    public GetSettingDetailRes getSettingDetail(String jwt, int settingId){
         try{
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
-            if(!email.equals(baseCrawlingReq.getEmail())) throw new Exception();
 
             //세팅 아이디로 세팅 찾기
-            Setting setting = settingRepository.findBySettingId(baseCrawlingReq.getSettingId());
+            Setting setting = settingRepository.findBySettingId(settingId);
 
             //세팅아이디로 로그 찾기
-            List<Log> logList = logRepository.findBySetting_SettingId(baseCrawlingReq.getSettingId());
+            List<Log> logList = logRepository.findBySetting_SettingId(settingId);
 
             List<AllLogsData> allLogsData = new ArrayList<>();
 

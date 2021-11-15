@@ -6,7 +6,6 @@ import com.ssacretary.api.request.crawling.BaseCrawlingReq;
 import com.ssacretary.api.response.crawling.GetAllLogsRes;
 import com.ssacretary.api.response.crawling.GetAllSettingsRes;
 import com.ssacretary.api.response.crawling.GetSettingDetailRes;
-import com.ssacretary.api.response.user.UserLoginPostRes;
 import com.ssacretary.api.service.CrawlingService;
 import com.ssacretary.common.response.BaseResponseBody;
 import io.swagger.annotations.Api;
@@ -39,7 +38,7 @@ public class CrawlingController {
     }
 
     @GetMapping("/")
-    @ApiOperation(value = "나의 모든 크롤링 정보 가져오기")
+    @ApiOperation(value = "나의 모든 세팅 정보 가져오기")
     public ResponseEntity<GetAllSettingsRes> getAllSettings(@RequestHeader("Authorization") String JWT) {
         GetAllSettingsRes getAllSettingsRes = crawlingService.getAllSettings(JWT);
 
@@ -51,8 +50,8 @@ public class CrawlingController {
 
     @GetMapping("/detail")
     @ApiOperation(value = "크롤링 세팅 하나의 정보 가져오기")
-    public ResponseEntity<GetSettingDetailRes> getSettingDetail(@RequestHeader("Authorization") String JWT, @RequestBody BaseCrawlingReq baseCrawlingReq){
-        GetSettingDetailRes resbody = crawlingService.getSettingDetail(JWT, baseCrawlingReq);
+    public ResponseEntity<GetSettingDetailRes> getSettingDetail(@RequestHeader("Authorization") String JWT, @RequestParam int settingId){
+        GetSettingDetailRes resbody = crawlingService.getSettingDetail(JWT, settingId);
 
         if(resbody.getSettingId()>0){
             return ResponseEntity.ok(GetSettingDetailRes.of(200, "조회 성공",resbody.getSettingId(), resbody.getUrl(), resbody.getType(), resbody.getPeriod(),
