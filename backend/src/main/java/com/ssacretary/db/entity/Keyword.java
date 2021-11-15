@@ -19,13 +19,13 @@ public class Keyword {
     @Column(name = "keyword_id")
     private int keywordId;
 
-    @OneToMany(mappedBy = "keyword")
+    @OneToMany(mappedBy = "keyword", cascade = CascadeType.ALL)
     private List<SettingKeyword> settingKeywordList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "keyword")
+    @OneToMany(mappedBy = "keyword", cascade = CascadeType.ALL)
     private List<Count> countList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "keyword")
+    @OneToMany(mappedBy = "keyword", cascade = CascadeType.ALL)
     private List<Sentence> sentenceList = new ArrayList<>();
 
     @Column(name = "keyword")
