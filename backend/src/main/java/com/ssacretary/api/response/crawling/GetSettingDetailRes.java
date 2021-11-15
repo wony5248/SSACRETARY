@@ -1,24 +1,35 @@
 package com.ssacretary.api.response.crawling;
 
 import com.ssacretary.common.response.BaseResponseBody;
-import com.ssacretary.db.entity.Log;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
+@Getter
 @ApiModel("GetSettingDetailRes")
 public class GetSettingDetailRes extends BaseResponseBody {
-    long settingId;
+    @ApiModelProperty(name = "settingId",example = "234")
+    int settingId;
+    @ApiModelProperty(name = "url",example = "www.ssacretary.com")
     String url;
+    @ApiModelProperty(name = "type",example = "or/and")
     String type;
+    @ApiModelProperty(name = "period",example = "30000")
     int period;
+    @ApiModelProperty(name = "mailAlarm",example = "true")
     boolean mailAlarm;
+    @ApiModelProperty(name = "smsAlarm",example = "false")
     boolean smsAlarm;
+    @ApiModelProperty(name = "name",example = "크롤링세팅1")
     String name;
+    @ApiModelProperty(name = "createdAt",example = "localdatetime")
     LocalDateTime createdAt;
+    @ApiModelProperty(name = "updatedAt",example = "localdatetime")
     LocalDateTime updatedAt;
     List<AllLogsData> logs;
 

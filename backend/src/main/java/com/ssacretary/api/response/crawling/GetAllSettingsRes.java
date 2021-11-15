@@ -1,11 +1,13 @@
 package com.ssacretary.api.response.crawling;
 
 import com.ssacretary.common.response.BaseResponseBody;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
 @Setter
+@Getter
 public class GetAllSettingsRes extends BaseResponseBody {
     List<AllSettingData> allSettingData;
 

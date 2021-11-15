@@ -2,7 +2,6 @@ package com.ssacretary.api.service;
 
 import com.ssacretary.api.request.crawling.AddSettingReq;
 import com.ssacretary.api.request.crawling.EditSettingReq;
-import com.ssacretary.api.request.crawling.GetAllSettingReq;
 import com.ssacretary.api.request.crawling.BaseCrawlingReq;
 import com.ssacretary.api.response.crawling.*;
 import com.ssacretary.config.JwtTokenProvider;
@@ -10,7 +9,6 @@ import com.ssacretary.db.entity.*;
 import com.ssacretary.db.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -72,11 +70,10 @@ public class CrawlingServiceImpl implements CrawlingService{
         }
     };
     @Override
-    public GetAllSettingsRes getAllSettings(String jwt, GetAllSettingReq getAllSettingReq){
+    public GetAllSettingsRes getAllSettings(String jwt){
         try{
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
-            if(!email.equals(getAllSettingReq.getEmail())) throw new Exception();
 
             //해당 유저의 전체 세팅 찾기
             List<Setting> setting = settingRepository.findByUser_Email(email);
@@ -217,11 +214,10 @@ public class CrawlingServiceImpl implements CrawlingService{
         }
     };
     @Override
-    public GetAllLogsRes getAllLog(String jwt, String userEmail){
+    public GetAllLogsRes getAllLog(String jwt){
         try{
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
-            if(!email.equals(userEmail)) throw new Exception();
 
             //이메일로 로그 찾기
             List<Log> logList = logRepository.findBySetting_User_Email(email);
