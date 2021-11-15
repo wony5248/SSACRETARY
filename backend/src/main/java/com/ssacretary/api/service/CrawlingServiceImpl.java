@@ -181,6 +181,7 @@ public class CrawlingServiceImpl implements CrawlingService{
 
             Setting setting = settingRepository.findBySettingId(editSettingReq.getSettingId());
 
+            //키워드 지워도 리턴됨
             //키워드가 있는지를 검사
             for(int i=0;i<editSettingReq.getKeywords().size();i++){
                 Keyword keyId = keywordRepository.findByKeyword(editSettingReq.getKeywords().get(i));
@@ -211,6 +212,7 @@ public class CrawlingServiceImpl implements CrawlingService{
         try {
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
+            System.out.println(email);
             if (email==null) throw new Exception();
             settingRepository.deleteBySettingId(settingId);
             return true;

@@ -41,8 +41,8 @@ public class ScheduledTasks {
         List<Setting> setting = settingRepository.findAll();
         for(int i=0;i<setting.size();i++){
             //현재시각을 period로 나눈 나머지가 0일때만 저장
-            if(now.getHour()%setting.get(i).getPeriod()==0)
-                settings.add(setting.get(i));
+//            if(now.getHour()%setting.get(i).getPeriod()==0)
+//                settings.add(setting.get(i));
         }
 
 //        String[] array = stockList.split("/");
