@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import AppAppBar from "../../views/AppAppBar";
 import TextField from "@mui/material/TextField";
@@ -7,7 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Tagdiv } from "../../components/Tagdiv";
 import { Exitbtn } from "../../components/Exitbtn";
-
+import { crawlAPI } from "../../utils/axios";
 import {
   Userprofilediv1,
   Formdiv1,
@@ -42,18 +42,20 @@ const Mobile = ({ children }: any) => {
   return isMobile ? children : null;
 };
 
-const ChangeCrawl = () => {
+const ChangeCrawl = ({ match }: any) => {
+  const { id } = match.params;
   const [checked, setChecked] = React.useState(true);
   const [checked2, setChecked2] = React.useState(false);
   const [isopen, setIsopen] = React.useState(false);
   const [tag, setTag] = React.useState("");
-  const [value, setValue] = React.useState("and");
+  const [value, setValue] = React.useState("or");
   const [time, setTime] = React.useState(60);
-  const [keyword, setKeyword] = React.useState([
-    "React", "Vue", "Electron", "Node.js", "Express"
-  ]);
+  const [data, setData] = useState([]);
+  const [keyword, setKeyword] = React.useState([]);
+  const [url, setUrl] = useState("");
+  const [name, setName] = useState("");
+  const keywords: any[] = [];
   const [inputs, setInputs] = useState({
-    url: "",
     keyword1: "",
     keyword2: "",
     keyword3: "",
@@ -61,23 +63,84 @@ const ChangeCrawl = () => {
     keyword5: "",
   });
   const {
-    url,
-    // keyword1,
-    // keyword2,
-    // keyword3,
-    // keyword4,
-    // keyword5,
+    keyword1,
+    keyword2,
+    keyword3,
+    keyword4,
+    keyword5,
     // keyword6,
     // keyword7,
     // keyword8,
   } = inputs;
+  useEffect(() => {
+    const getData = async () => {
+      await crawlAPI
+        .getSettingDetail(jwt, id)
+        .then(({ data }: any) => {
+          console.log(data);
+          setUrl(data.url);
+          setName(data.name);
+          setData(data.allSettingData);
+          setValue(data.type);
+          setTime(data.period);
+          setChecked(data.mailAlarm);
+          setChecked2(data.smsAlarm);
+          setKeyword(data.keywords);
+        })
+        .catch((e) => console.log(e));
+    };
+    const jwt = localStorage.getItem("jwt");
+
+    getData();
+  }, []);
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = event.target;
-    console.log(inputs)
+    const { name, value } = event.target;
+    console.log(value);
     setInputs({
       ...inputs,
       [name]: value,
     });
+  };
+  const deleteCrawl = async () => {
+    const jwt = localStorage.getItem("jwt");
+    const email = localStorage.getItem("email");
+    if(window.confirm("정말 삭제하시겠습니까?")){
+      console.log(id, jwt, email)
+      await crawlAPI.deleteSetting(id, jwt, email).then(() => {
+        window.location.href = "/settingprofile";
+      });
+    }
+  };
+  const updateCrawl = async () => {
+    const jwt = localStorage.getItem("jwt");
+    const email = localStorage.getItem("email");
+    keywords.push(keyword1);
+    keywords.push(keyword2);
+    keywords.push(keyword3);
+    keywords.push(keyword4);
+    keywords.push(keyword5);
+    await crawlAPI
+      .editSetting(
+        id,
+        jwt,
+        email,
+        keywords,
+        checked,
+        name,
+        time,
+        checked2,
+        value,
+        url
+      )
+      .then(() => {
+        window.location.href = "/settingprofile";
+      });
+  };
+  const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+  const onChangeUrl = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUrl(event.target.value);
   };
   const handleAdd = () => {
     if (keyword.length >= 5) {
@@ -93,16 +156,16 @@ const ChangeCrawl = () => {
     console.log(isopen);
   };
 
-  const addTag = () => {
-    console.log(keyword);
-    console.log("jbj");
-  };
+  // const addTag = () => {
+  //   console.log(keyword);
+  //   console.log("jbj");
+  // };
   const tagChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTag(event.target.value);
     console.log(event.target.value);
   };
   const radioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    setValue("or");
     console.log(event.target.value);
   };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,13 +195,29 @@ const ChangeCrawl = () => {
           <Userprofilediv1 style={{ fontSize: "24px" }}>
             Change Crawling
           </Userprofilediv1>
-          <Formdiv1 style={{ height: "900px", maxWidth:"1000px",boxShadow: "5px 5px 5px 5px grey" }}>
+          <Formdiv1
+            style={{
+              height: "900px",
+              maxWidth: "1000px",
+              boxShadow: "5px 5px 5px 5px grey",
+            }}
+          >
             <div style={{ width: "100%" }}>
               <TextField
                 label="URL"
                 name="url"
-                onChange={onChange}
+                onChange={onChangeUrl}
                 value={url}
+                required
+                style={{ width: "100%" }}
+              ></TextField>
+            </div>
+            <div style={{ width: "100%", marginTop: "12px" }}>
+              <TextField
+                label="NAME"
+                name="name"
+                onChange={onChangeName}
+                value={name}
                 required
                 style={{ width: "100%" }}
               ></TextField>
@@ -148,19 +227,32 @@ const ChangeCrawl = () => {
                 display: "flex",
                 justifyContent: "space-around",
                 width: "100%",
+                fontSize: "24px",
+                fontWeight: "bold",
+                fontStyle: "medium",
+                fontFamily: "Roboto",
                 margin: "24px 0",
               }}
             >
-              <RadioGroup
+              {/* <RadioGroup
                 row
                 aria-label="condition"
                 defaultValue="and"
                 name="row-radio-buttons-group"
                 onChange={radioChange}
               >
-                <FormControlLabel value="and" control={<Radio color="default"/>} label="AND" />
-                <FormControlLabel value="or" control={<Radio color="default"/>} label="OR" />
-              </RadioGroup>
+                <FormControlLabel
+                  value="and"
+                  control={<Radio color="default" />}
+                  label="AND"
+                />
+                <FormControlLabel
+                  value="or"
+                  control={<Radio color="default" />}
+                  label="OR"
+                />
+              </RadioGroup> */}
+              Keywords
             </div>
             <Keworddiv style={{ height: "400px" }}>
               {isopen ? (
@@ -208,15 +300,15 @@ const ChangeCrawl = () => {
                           }}
                         >
                           <TextField
-                            label={`Keyword${key+1}`}
-                            name={`keyword${key+1}`}
+                            label={`Keyword${key + 1}`}
+                            name={`keyword${key + 1}`}
+                            defaultValue={item}
                             onChange={onChange}
-                            value={item}
                             style={{ width: "70%" }}
                           ></TextField>
-                          <Removebtn onClick={() => console.log("remove")}>
+                          {/* <Removebtn onClick={() => console.log("remove")}>
                             <RemoveIcon />
-                          </Removebtn>
+                          </Removebtn> */}
                         </div>
                       ))}
                     </div>
@@ -237,10 +329,10 @@ const ChangeCrawl = () => {
               )}
             </Keworddiv>
 
-            <Addbtn onClick={handleAdd}>
+            {/* <Addbtn onClick={handleAdd}>
               <AddIcon />
               ADD
-            </Addbtn>
+            </Addbtn> */}
             <Box
               style={{ alignSelf: "flex-end", marginBottom: "24px" }}
               sx={{ minWidth: 120 }}
@@ -275,7 +367,11 @@ const ChangeCrawl = () => {
               >
                 <Alarmdiv>MAIL Alarm</Alarmdiv>
 
-                <Switch color="default" checked={checked} onChange={handleChange} />
+                <Switch
+                  color="default"
+                  checked={checked}
+                  onChange={handleChange}
+                />
               </div>
               <div
                 style={{
@@ -286,24 +382,28 @@ const ChangeCrawl = () => {
                 }}
               >
                 <Alarmdiv>SMS Alarm</Alarmdiv>
-                <Switch color="default" checked={checked2} onChange={handleChange2} />
+                <Switch
+                  color="default"
+                  checked={checked2}
+                  onChange={handleChange2}
+                />
               </div>
             </Keworddiv>
           </Formdiv1>
           <Btn
-            style={{ width: "93%", maxWidth:"1032px"}}
+            style={{ width: "93%", maxWidth: "1032px" }}
             name="UPDATE CRAWL"
-            onClick={() => console.log("UPDATE")}
+            onClick={updateCrawl}
           ></Btn>
           <Btn
             style={{
               marginBottom: "24px",
               backgroundColor: "#d62b4b",
               width: "93%",
-              maxWidth:"1032px"
+              maxWidth: "1032px",
             }}
             name="DELETE CRAWL"
-            onClick={() => console.log("DELETE")}
+            onClick={deleteCrawl}
           ></Btn>
         </div>
       </Desktop>
@@ -321,8 +421,18 @@ const ChangeCrawl = () => {
               <TextField
                 label="URL"
                 name="url"
-                onChange={onChange}
+                onChange={onChangeUrl}
                 value={url}
+                required
+                style={{ width: "100%" }}
+              ></TextField>
+            </div>
+            <div style={{ width: "100%", marginTop: "12px" }}>
+              <TextField
+                label="NAME"
+                name="name"
+                onChange={onChangeName}
+                value={name}
                 required
                 style={{ width: "100%" }}
               ></TextField>
@@ -332,19 +442,31 @@ const ChangeCrawl = () => {
                 display: "flex",
                 justifyContent: "space-around",
                 width: "100%",
+                fontWeight: "bold",
+                fontStyle: "medium",
+                fontFamily: "Roboto",
                 margin: "24px 0",
               }}
             >
-              <RadioGroup
+              {/* <RadioGroup
                 row
                 aria-label="condition"
                 defaultValue="and"
                 name="row-radio-buttons-group"
                 onChange={radioChange}
               >
-                <FormControlLabel value="and" control={<Radio color="default"/>} label="AND" />
-                <FormControlLabel value="or" control={<Radio color="default"/>} label="OR" />
-              </RadioGroup>
+                <FormControlLabel
+                  value="and"
+                  control={<Radio color="default" />}
+                  label="AND"
+                />
+                <FormControlLabel
+                  value="or"
+                  control={<Radio color="default" />}
+                  label="OR"
+                />
+              </RadioGroup> */}
+              Keywords
             </div>
             <Keworddiv style={{}}>
               {isopen ? (
@@ -393,14 +515,11 @@ const ChangeCrawl = () => {
                         >
                           <TextField
                             label={`Keyword${key + 1}`}
-                            name={`keyword${key+1}`}
+                            name={`keyword${key + 1}`}
+                            defaultValue={item}
                             onChange={onChange}
-                            value={item}
-                            style={{ width: "70%"}}
+                            style={{ width: "100%" }}
                           ></TextField>
-                          <Removebtn onClick={() => console.log("remove")}>
-                            <RemoveIcon />
-                          </Removebtn>
                         </div>
                       ))}
                     </div>
@@ -420,10 +539,6 @@ const ChangeCrawl = () => {
                 </div>
               )}
             </Keworddiv>
-            <Addbtn onClick={handleAdd}>
-              <AddIcon />
-              ADD
-            </Addbtn>
             <Box
               style={{ alignSelf: "flex-end", marginBottom: "24px" }}
               sx={{ minWidth: 120 }}
@@ -458,7 +573,11 @@ const ChangeCrawl = () => {
               >
                 <Alarmdiv>MAIL Alarm</Alarmdiv>
 
-                <Switch color="default" checked={checked} onChange={handleChange} />
+                <Switch
+                  color="default"
+                  checked={checked}
+                  onChange={handleChange}
+                />
               </div>
               <div
                 style={{
@@ -469,15 +588,19 @@ const ChangeCrawl = () => {
                 }}
               >
                 <Alarmdiv>SMS Alarm</Alarmdiv>
-                <Switch color="default" checked={checked2} onChange={handleChange2} />
+                <Switch
+                  color="default"
+                  checked={checked2}
+                  onChange={handleChange2}
+                />
               </div>
             </Keworddiv>
           </Formdiv1>
-          <Btn name="UPDATE CRAWL" onClick={() => console.log("UPDATE")}></Btn>
+          <Btn name="UPDATE CRAWL" onClick={updateCrawl}></Btn>
           <Btn
             style={{ marginBottom: "24px", backgroundColor: "#d62b4b" }}
             name="DELETE CRAWL"
-            onClick={() => console.log("DELETE")}
+            onClick={deleteCrawl}
           ></Btn>
         </div>
       </Mobile>

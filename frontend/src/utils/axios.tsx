@@ -109,34 +109,27 @@ export const crawlAPI = {
       }
     })
   },
-  getAllSettings : async (jwt: any, email:any) => {
+  getAllSettings : async (jwt: any) => {
     return await axios({
       method: "GET",
       url: BASE_URL + "/crawling/",
       headers: {
         Authorization: jwt,
       },
-      data:{
-        email:email
-      }
       }
     )
   },
-  getSettingDetail : async (jwt: string, email:string, settingId:string) => {
+  getSettingDetail : async (jwt: any, settingId:string) => {
     return await axios({
       method: "GET",
-      url: BASE_URL + "/crawling/detail/",
+      url: BASE_URL + `/crawling/detail?settingId=${settingId}`,
       headers: {
         Authorization: jwt,
       },
-      data:{
-        email:email,
-        settingId:settingId,
-      }
       }
     )
   },
-  editSetting : async (crawlingID:number,jwt:string,settingId:string, email:string, type:string, keywords:string[], url:string, period:number, mailAlarm:boolean, smsAlarm:boolean, name:string) => {
+  editSetting : async (crawlingID:number,jwt:any, email:any, keywords:string[], mailAlarm:boolean, name:string, period:number, smsAlarm:boolean, type:string, url:string) => {
     return await axios({
       method: "PUT",
       url: BASE_URL + `/crawling/${crawlingID}/`,
@@ -144,20 +137,20 @@ export const crawlAPI = {
         Authorization: jwt,
       },
       data:{
-        settingId:settingId,
         email:email,
-        type:type,
         keywords:keywords,
-        url:url,
-        period:period,
         mailAlarm:mailAlarm,
+        name:name,
+        period:period,
+        settingId:crawlingID,
         smsAlarm:smsAlarm,
-        name:name
+        type:type,
+        url:url
       }
       }
     )
   },
-  deleteSetting : async (crawlingID:number,jwt:string, email:string) => {
+  deleteSetting : async (crawlingID:number,jwt:any, email:any) => {
     return await axios({
       method: "DELETE",
       url: BASE_URL + `/crawling/${crawlingID}/`,
@@ -166,17 +159,19 @@ export const crawlAPI = {
       },
       data:{
         email:email,
+        settingId:crawlingID
       }
       }
     )
   },
-  getAllLog : async (jwt:any, email:any) => {
+  getAllLog : async (jwt:any) => {
     return await axios({
       method: "GET",
-      url: BASE_URL + `/crawling/log/${email}`,
+      url: BASE_URL + `/crawling/log/`,
       headers: {
         Authorization: jwt,
       },
+
       }
     )
   },

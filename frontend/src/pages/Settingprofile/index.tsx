@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import AppAppBar from "../../views/AppAppBar";
 import {
@@ -24,58 +24,16 @@ const Mobile = ({ children }: any) => {
   const isMobile = useMediaQuery({ maxWidth: 612 });
   return isMobile ? children : null;
 };
-const data = [
-  {
-    title: "제목1",
-    tag1: "MySQL",
-    tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰",
-  },
-  {
-    title: "제목2",
-    tag1: "MySQL",
-    tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰",
-  },
-  {
-    title: "제목3",
-    tag1: "MySQL",
-    tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰",
-  },
-  {
-    title: "제목4",
-    tag1: "MySQL",
-    tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰",
-  },
-  {
-    title: "제목5",
-    tag1: "MySQL",
-    tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰",
-  },
-  {
-    title: "제목1",
-    tag1: "MySQL",
-    tag2: "스프링",
-    tag3: "리액트",
-    tag4: "뷰",
-  },
-];
+
 const SettingProfile: React.FunctionComponent = () => {
+  const [data, setData] = useState([])
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
-    const email = localStorage.getItem("email");
 
     const getCrawl = async () => {
-      await crawlAPI.getAllSettings(jwt, email).then(({data}) => {
-        console.log(data)
+      await crawlAPI.getAllSettings(jwt).then(({data}:any) => {
+        console.log(data.allSettingData)
+        setData(data.allSettingData)
       }).catch((e) => console.log(e))
 
       
@@ -105,21 +63,20 @@ const SettingProfile: React.FunctionComponent = () => {
               display: "flex",
               flexDirection: "column",
               boxShadow: "5px 5px 5px 5px grey",
-              justifyContent: "space-between",
             }}
           >
-            {data.map((item, index) => (
+            {data.map((item :any, index) => (
               <Settingdiv
-                onClick={() => console.log(index)}
+                onClick={() => window.location.href=`/specificcrawling/${item.settingId}`}
                 style={{ width: "60%" }}
                 key={index}
               >
-                <Settingtitlediv>{item.title}</Settingtitlediv>
+                <Settingtitlediv>{item.url}</Settingtitlediv>
                 <Settingtagdiv>
-                  <Settingtag>#️{item.tag1}</Settingtag>
-                  <Settingtag>#️{item.tag2}</Settingtag>
-                  <Settingtag>#️{item.tag3}</Settingtag>
-                  <Settingtag>#️{item.tag4}</Settingtag>
+                  {item.keywords.map((items:any) => (
+                    <Settingtag>#️{items}</Settingtag>
+                  ))}
+                  
                 </Settingtagdiv>
               </Settingdiv>
             ))}
@@ -146,14 +103,13 @@ const SettingProfile: React.FunctionComponent = () => {
         >
           <Headerdiv>Crawlings</Headerdiv>
           <Bodydiv>
-            {data.map((item, index) => (
-              <Settingdiv onClick={() => console.log(index)} key={index}>
-                <Settingtitlediv>{item.title}</Settingtitlediv>
+            {data.map((item :any, index) => (
+              <Settingdiv onClick={() => window.location.href=`/specificcrawling/${item.settingId}`} key={index}>
+                <Settingtitlediv>{item.url}</Settingtitlediv>
                 <Settingtagdiv>
-                  <Settingtag>#️{item.tag1}</Settingtag>
-                  <Settingtag>#️{item.tag2}</Settingtag>
-                  <Settingtag>#️{item.tag3}</Settingtag>
-                  <Settingtag>#️{item.tag4}</Settingtag>
+                {item.keywords.map((items:any) => (
+                    <Settingtag>#️{items}</Settingtag>
+                  ))}
                 </Settingtagdiv>
               </Settingdiv>
             ))}

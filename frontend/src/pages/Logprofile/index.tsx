@@ -99,7 +99,7 @@ const Logprofile = () => {
     const email = localStorage.getItem("email");
 
     const getCrawl = async () => {
-      await crawlAPI.getAllLog(jwt, email).then(({data}) => {
+      await crawlAPI.getAllLog(jwt).then(({data}) => {
         console.log(data)
       }).catch((e) => console.log(e))
 

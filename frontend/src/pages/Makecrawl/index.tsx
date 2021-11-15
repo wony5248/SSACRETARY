@@ -47,7 +47,7 @@ const MakeCrawl = () => {
   const [isopen, setIsopen] = React.useState(false);
   const [checked2, setChecked2] = React.useState(false);
   const [tag, setTag] = React.useState("");
-  const [type, setType] = React.useState("and")
+  const [type, setType] = React.useState("or")
   const [time, setTime] = React.useState(60);
   const [data, setData] = React.useState(["", "", "", "", ""]);
   let keywords:any[] = [];
@@ -169,10 +169,14 @@ const MakeCrawl = () => {
                 display: "flex",
                 justifyContent: "space-around",
                 width: "100%",
+                fontSize: "24px",
+                fontWeight: "bold",
+                fontStyle: "medium",
+                fontFamily: "Roboto",
                 margin: "24px 0",
               }}
             >
-              <RadioGroup
+              {/* <RadioGroup
                 row
                 aria-label="condition"
                 defaultValue="and"
@@ -189,7 +193,8 @@ const MakeCrawl = () => {
                   control={<Radio color="default" />}
                   label="OR"
                 />
-              </RadioGroup>
+              </RadioGroup> */}
+              Keywords
             </div>
 
             <Keworddiv style={{ height: "400px" }}>
@@ -357,15 +362,28 @@ const MakeCrawl = () => {
                 style={{ width: "100%" }}
               ></TextField>
             </div>
+            <div style={{ width: "100%", marginTop:"12px" }}>
+              <TextField
+                label="NAME"
+                name="name"
+                onChange={onChange}
+                value={name}
+                required
+                style={{ width: "100%" }}
+              ></TextField>
+            </div>
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-around",
                 width: "100%",
+                fontWeight: "bold",
+                fontStyle: "medium",
+                fontFamily: "Roboto",
                 margin: "24px 0",
               }}
             >
-              <RadioGroup
+              {/* <RadioGroup
                 row
                 aria-label="condition"
                 defaultValue="and"
@@ -382,7 +400,8 @@ const MakeCrawl = () => {
                   control={<Radio color="default" />}
                   label="OR"
                 />
-              </RadioGroup>
+              </RadioGroup> */}
+              Keywords
             </div>
             <Keworddiv style={{}}>
               {isopen ? (
