@@ -14,7 +14,7 @@ public interface CrawlingService {
 
     public GetAllSettingsRes getAllSettings(String jwt);
 
-    public GetSettingDetailRes getSettingDetail(String jwt, BaseCrawlingReq baseCrawlingReq);
+    public GetSettingDetailRes getSettingDetail(String jwt, int settingId);
 
     public boolean editSetting(String jwt, EditSettingReq editSettingReq);
 
