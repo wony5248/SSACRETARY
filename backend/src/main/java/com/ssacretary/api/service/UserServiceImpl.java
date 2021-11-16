@@ -81,10 +81,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean deleteUser(String jwt, String userEmail){
+    public boolean deleteUser(String jwt){
         try{
             String email = jwtTokenProvider.getUserInfo(jwt);
-            if(!email.equals(userEmail)) return false;
+            System.out.println(email);
+            if(email==null) return false;
             userRepository.deleteByEmail(email);
             return true;
         }catch (Exception e){

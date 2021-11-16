@@ -16,7 +16,7 @@ public interface UserService {
 
     public UserLoginPostRes editUser(String jwt, EditUserReq editUserReq);
 
-    public boolean deleteUser(String jwt, String userEmail);
+    public boolean deleteUser(String jwt);
 
 //    public UserLoginPostRes getProfile(String token);
 }
