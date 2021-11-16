@@ -26,7 +26,7 @@ public class ScheduledTasks {
     @Autowired
     SettingKeywordRepository settingKeywordRepository;
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(cron = "0 0 1/0 * * *")
     public void getStockPriceList() {
         final String useremail = "wony5248@gmail.com";
         final String password = "hjvqhqcmqjjyhenj";
