@@ -20,7 +20,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Setting> settingList = new ArrayList<>();
 
     @Column(name = "nickname")
