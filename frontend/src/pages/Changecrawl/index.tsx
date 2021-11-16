@@ -44,12 +44,13 @@ const Mobile = ({ children }: any) => {
 
 const ChangeCrawl = ({ match }: any) => {
   const { id } = match.params;
+  const jwt = localStorage.getItem("jwt");
   const [checked, setChecked] = React.useState(true);
   const [checked2, setChecked2] = React.useState(false);
   const [isopen, setIsopen] = React.useState(false);
   const [tag, setTag] = React.useState("");
   const [value, setValue] = React.useState("or");
-  const [time, setTime] = React.useState(60);
+  const [time, setTime] = React.useState(1);
   const [data, setData] = useState([]);
   const [keyword, setKeyword] = React.useState([]);
   const [url, setUrl] = useState("");
@@ -82,7 +83,7 @@ const ChangeCrawl = ({ match }: any) => {
       await crawlAPI
         .getSettingDetail(jwt, id)
         .then(({ data }: any) => {
-          console.log(data.keywords);
+          console.log(data);
           setUrl(data.url);
           setName(data.name);
           setData(data.allSettingData);
@@ -102,7 +103,7 @@ const ChangeCrawl = ({ match }: any) => {
           })
         .catch((e) => console.log(e));
     };
-    const jwt = localStorage.getItem("jwt");
+    
 
     getData();
   }, []);
@@ -200,7 +201,7 @@ const ChangeCrawl = ({ match }: any) => {
           }}
         >
           <Userprofilediv1 style={{ fontSize: "24px" }}>
-            Change Crawling
+            크롤링 변경
           </Userprofilediv1>
           <Formdiv1
             style={{
@@ -259,7 +260,7 @@ const ChangeCrawl = ({ match }: any) => {
                   label="OR"
                 />
               </RadioGroup> */}
-              Keywords
+              키워드
             </div>
             <Keworddiv style={{ height: "400px" }}>
               {isopen ? (
@@ -372,7 +373,7 @@ const ChangeCrawl = ({ match }: any) => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>MAIL 알람</Alarmdiv>
+                <Alarmdiv>메일 알람</Alarmdiv>
 
                 <Switch
                   color="default"

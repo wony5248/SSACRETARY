@@ -10,6 +10,7 @@ import "react-mui-charts/dist/index.css";
 import Typography from "@mui/material/Typography";
 import { Urldiv, Carddiv } from "./style";
 import Btn from "../../components/Button";
+import { crawlAPI } from "../../utils/axios";
 import { Grid } from "@mui/material";
 const Desktop = ({ children }: any) => {
   const isDesktop = useMediaQuery({ minWidth: 613 });
@@ -127,6 +128,36 @@ const card3 = (
 
 const SettingProfile: React.FunctionComponent = ({ match }: any) => {
   const { id } = match.params;
+  const jwt:any = localStorage.getItem("jwt")
+  useEffect(() => {
+    const getData = async () => {
+      await crawlAPI
+        .getSettingDetail(jwt, id)
+        .then(({ data }: any) => {
+          console.log(data.logs);
+          // setUrl(data.url);
+          // setName(data.name);
+          // setData(data.allSettingData);
+          // setValue(data.type);
+          // setTime(data.period);
+          // setChecked(data.mailAlarm);
+          // setChecked2(data.smsAlarm);
+          // setKeyword(data.keywords);
+          // setInputs({
+          //   ["keyword1"]: data.keywords[0],
+          //   ["keyword2"]: data.keywords[1],
+          //   ["keyword3"]: data.keywords[2],
+          //   ["keyword4"]: data.keywords[3],
+          //   ["keyword5"]: data.keywords[4]
+          // });
+          
+          })
+        .catch((e) => console.log(e));
+    };
+    
+
+    getData();
+  }, []);
   console.log(id);
   const Click = () => {
     window.location.href = `/changecrawl/${id}`;
