@@ -187,7 +187,6 @@ public class CrawlingServiceImpl implements CrawlingService{
                 settingKeywordRepository.deleteBySkId(i.getSkId());
             }
 
-            //키워드 지워도 리턴됨
             //키워드가 있는지를 검사
             for(int i=0;i<editSettingReq.getKeywords().size();i++){
                 Keyword key = keywordRepository.findByKeyword(editSettingReq.getKeywords().get(i));
@@ -198,11 +197,6 @@ public class CrawlingServiceImpl implements CrawlingService{
                 }
                 settingKeywordRepository.save(SettingKeyword.builder().keyword(key).setting(setting).build());
             }
-
-//            //세팅키워드 테이블에 저장
-//            for(int i=0;i<editSettingReq.getKeywords().size();i++){
-//                Keyword keyword = keywordRepository.findByKeyword(editSettingReq.getKeywords().get(i));
-//            }
 
             setting.updateSetting(editSettingReq);
             settingRepository.save(setting);
