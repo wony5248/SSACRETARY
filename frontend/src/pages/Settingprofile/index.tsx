@@ -32,7 +32,7 @@ const SettingProfile: React.FunctionComponent = () => {
 
     const getCrawl = async () => {
       await crawlAPI.getAllSettings(jwt).then(({data}:any) => {
-        console.log(data.allSettingData)
+        console.log(data)
         setData(data.allSettingData)
       }).catch((e) => console.log(e))
 
@@ -42,7 +42,7 @@ const SettingProfile: React.FunctionComponent = () => {
     getCrawl();
   }, []);
   const Click = () => {
-    console.log("clicked");
+    window.location.href="/makecrawl"
   };
   return (
     <div>

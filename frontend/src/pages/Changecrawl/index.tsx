@@ -86,7 +86,14 @@ const ChangeCrawl = ({ match }: any) => {
           setChecked(data.mailAlarm);
           setChecked2(data.smsAlarm);
           setKeyword(data.keywords);
-        })
+          for(let i = 0; i < 5; i++){
+            setInputs({
+              ...inputs,
+              [`keyword${i}`]: data.keywords[i],
+            });
+          }
+
+          })
         .catch((e) => console.log(e));
     };
     const jwt = localStorage.getItem("jwt");
@@ -94,8 +101,9 @@ const ChangeCrawl = ({ match }: any) => {
     getData();
   }, []);
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const { name, value, defaultValue } = event.target;
     console.log(value);
+
     setInputs({
       ...inputs,
       [name]: value,
