@@ -181,21 +181,21 @@ public class CrawlingServiceImpl implements CrawlingService{
 
             Setting setting = settingRepository.findBySettingId(editSettingReq.getSettingId());
 
-            //키워드 지워도 리턴됨
-            //키워드가 있는지를 검사
-            for(int i=0;i<editSettingReq.getKeywords().size();i++){
-                Keyword keyId = keywordRepository.findByKeyword(editSettingReq.getKeywords().get(i));
-                //키워드가 존재하지 않으면
-                if(keyId==null){
-                    //db에 저장
-                    keywordRepository.save(Keyword.builder().keyword(editSettingReq.getKeywords().get(i)).build());
-                }
+            //일단 다 지운다
+            List<SettingKeyword> pastKeyword = settingKeywordRepository.findBySetting_SettingId(setting.getSettingId());
+            for(SettingKeyword i : pastKeyword){
+                settingKeywordRepository.deleteBySkId(i.getSkId());
             }
 
-            //세팅키워드 테이블에 저장
+            //키워드가 있는지를 검사
             for(int i=0;i<editSettingReq.getKeywords().size();i++){
-                Keyword keyword = keywordRepository.findByKeyword(editSettingReq.getKeywords().get(i));
-                settingKeywordRepository.save(SettingKeyword.builder().keyword(keyword).setting(setting).build());
+                Keyword key = keywordRepository.findByKeyword(editSettingReq.getKeywords().get(i));
+                //키워드가 존재하지 않으면
+                if(key==null){
+                    //키워드 db에 저장
+                    keywordRepository.save(Keyword.builder().keyword(editSettingReq.getKeywords().get(i)).build());
+                }
+                settingKeywordRepository.save(SettingKeyword.builder().keyword(key).setting(setting).build());
             }
 
             setting.updateSetting(editSettingReq);
@@ -236,6 +236,7 @@ public class CrawlingServiceImpl implements CrawlingService{
                 List<Map<String,Integer>> keywordCounts = new ArrayList<Map<String,Integer>>();
                 List<String> sentences = new ArrayList<>();
                 AllLogsData allLogs = new AllLogsData();
+                allLogs.setSettingId(logList.get(i).getSetting().getSettingId());
                 allLogs.setDate(logList.get(i).getDate());
                 allLogs.setHtmlSuccess(logList.get(i).isHtmlSuccess());
                 allLogs.setHtmlSource(logList.get(i).getHtmlSource());
