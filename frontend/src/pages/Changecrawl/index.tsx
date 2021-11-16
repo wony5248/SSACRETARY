@@ -55,6 +55,11 @@ const ChangeCrawl = ({ match }: any) => {
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
   const keywords: any[] = [];
+  // const [keyword1, setKeyword1] = useState("")
+  // const [keyword2, setKeyword2] = useState("")
+  // const [keyword3, setKeyword3] = useState("")
+  // const [keyword4, setKeyword4] = useState("")
+  // const [keyword5, setKeyword5] = useState("")
   const [inputs, setInputs] = useState({
     keyword1: "",
     keyword2: "",
@@ -77,7 +82,7 @@ const ChangeCrawl = ({ match }: any) => {
       await crawlAPI
         .getSettingDetail(jwt, id)
         .then(({ data }: any) => {
-          console.log(data);
+          console.log(data.keywords);
           setUrl(data.url);
           setName(data.name);
           setData(data.allSettingData);
@@ -86,15 +91,14 @@ const ChangeCrawl = ({ match }: any) => {
           setChecked(data.mailAlarm);
           setChecked2(data.smsAlarm);
           setKeyword(data.keywords);
-          for(let i = 0; i < 5; i++){
-            setInputs({
-              ...inputs,
-              [`keyword${i+1}`]: data.keywords[i],
-            });
-            // console.log(keyword1)
-            console.log(data.keywords[i])
-          }
-
+          setInputs({
+            ["keyword1"]: data.keywords[0],
+            ["keyword2"]: data.keywords[1],
+            ["keyword3"]: data.keywords[2],
+            ["keyword4"]: data.keywords[3],
+            ["keyword5"]: data.keywords[4]
+          });
+          
           })
         .catch((e) => console.log(e));
     };
@@ -121,7 +125,7 @@ const ChangeCrawl = ({ match }: any) => {
       });
     }
   };
-  const updateCrawl = () => {
+  const updateCrawl = async () => {
     const jwt = localStorage.getItem("jwt");
     const email = localStorage.getItem("email");
     keywords.push(keyword1);
@@ -134,22 +138,22 @@ const ChangeCrawl = ({ match }: any) => {
     console.log(keyword3)
     console.log(keyword4)
     console.log(keyword5)
-    // await crawlAPI
-    //   .editSetting(
-    //     id,
-    //     jwt,
-    //     email,
-    //     keywords,
-    //     checked,
-    //     name,
-    //     time,
-    //     checked2,
-    //     value,
-    //     url
-    //   )
-    //   .then(() => {
-    //     window.location.href = "/settingprofile";
-    //   });
+    await crawlAPI
+      .editSetting(
+        id,
+        jwt,
+        email,
+        keywords,
+        checked,
+        name,
+        time,
+        checked2,
+        value,
+        url
+      )
+      .then(() => {
+        window.location.href = "/settingprofile";
+      });
   };
   const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);

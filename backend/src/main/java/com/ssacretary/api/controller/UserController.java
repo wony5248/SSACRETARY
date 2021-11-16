@@ -68,8 +68,8 @@ public class UserController {
 
     @DeleteMapping("/")
     @ApiOperation(value = "회원 탈퇴")
-    public ResponseEntity<BaseResponseBody> deleteUser(@RequestHeader(value = "Authorization") String JWT, @RequestBody String email){
-        boolean resbody = userServiceImpl.deleteUser(JWT, email);
+    public ResponseEntity<BaseResponseBody> deleteUser(@RequestHeader(value = "Authorization") String JWT){
+        boolean resbody = userServiceImpl.deleteUser(JWT);
 
         if(resbody){
             return ResponseEntity.ok().body(BaseResponseBody.of(200, "회원탈퇴 성공"));
