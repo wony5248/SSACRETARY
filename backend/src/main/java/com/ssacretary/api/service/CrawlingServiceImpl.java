@@ -38,7 +38,7 @@ public class CrawlingServiceImpl implements CrawlingService{
         try {
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
-            if(!email.equals(addSettingReq.getEmail())) throw new Exception();
+            if(email==null) throw new Exception();
 
             //키워드가 있는지를 검사
             for(int i=0;i<addSettingReq.getKeywords().size();i++){
@@ -111,6 +111,7 @@ public class CrawlingServiceImpl implements CrawlingService{
         try{
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
+            if(email==null) throw new Exception();
 
             //세팅 아이디로 세팅 찾기
             Setting setting = settingRepository.findBySettingId(settingId);
@@ -179,7 +180,7 @@ public class CrawlingServiceImpl implements CrawlingService{
         try{
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
-            if(!email.equals(editSettingReq.getEmail())) throw new Exception();
+            if(email==null) throw new Exception();
 
             Setting setting = settingRepository.findBySettingId(editSettingReq.getSettingId());
 
@@ -195,9 +196,11 @@ public class CrawlingServiceImpl implements CrawlingService{
                 //키워드가 존재하지 않으면
                 if(key==null){
                     //키워드 db에 저장
-                    keywordRepository.save(Keyword.builder().keyword(editSettingReq.getKeywords().get(i)).build());
+                    Keyword k = keywordRepository.save(Keyword.builder().keyword(editSettingReq.getKeywords().get(i)).build());
+                    settingKeywordRepository.save(SettingKeyword.builder().keyword(k).setting(setting).build());
+                }else {
+                    settingKeywordRepository.save(SettingKeyword.builder().keyword(key).setting(setting).build());
                 }
-                settingKeywordRepository.save(SettingKeyword.builder().keyword(key).setting(setting).build());
             }
 
             setting.updateSetting(editSettingReq);
