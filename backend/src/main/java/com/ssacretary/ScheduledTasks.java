@@ -104,7 +104,7 @@ public class ScheduledTasks {
                     Document document = conn.get();
                     String doctext = document.html();
                     //키워드 하나하나...?
-                    Pattern pattern = Pattern.compile(sk.get(b).getKeyword().getKeyword());
+                    Pattern pattern = Pattern.compile(sk.get(b).getKeyword().getKeyword(), Pattern.CASE_INSENSITIVE);
 
                     Matcher matcher = pattern.matcher(doctext);
                     int cnt = 0;
