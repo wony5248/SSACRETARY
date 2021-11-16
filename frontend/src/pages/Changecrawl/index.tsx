@@ -133,11 +133,7 @@ const ChangeCrawl = ({ match }: any) => {
     keywords.push(keyword3);
     keywords.push(keyword4);
     keywords.push(keyword5);
-    console.log(keyword1)
-    console.log(keyword2)
-    console.log(keyword3)
-    console.log(keyword4)
-    console.log(keyword5)
+    console.log(keywords)
     await crawlAPI
       .editSetting(
         id,
@@ -357,13 +353,13 @@ const ChangeCrawl = ({ match }: any) => {
                   label="Age"
                   onChange={timeChange}
                 >
-                  <MenuItem value={60}>1시간</MenuItem>
-                  <MenuItem value={120}>2시간</MenuItem>
-                  <MenuItem value={180}>3시간</MenuItem>
-                  <MenuItem value={240}>4시간</MenuItem>
-                  <MenuItem value={360}>6시간</MenuItem>
-                  <MenuItem value={720}>12시간</MenuItem>
-                  <MenuItem value={1440}>24시간</MenuItem>
+                  <MenuItem value={1}>1시간</MenuItem>
+                  <MenuItem value={2}>2시간</MenuItem>
+                  <MenuItem value={3}>3시간</MenuItem>
+                  <MenuItem value={4}>4시간</MenuItem>
+                  <MenuItem value={6}>6시간</MenuItem>
+                  <MenuItem value={12}>12시간</MenuItem>
+                  <MenuItem value={24}>24시간</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -563,13 +559,13 @@ const ChangeCrawl = ({ match }: any) => {
                   label="Age"
                   onChange={timeChange}
                 >
-                  <MenuItem value={5}>5분</MenuItem>
-                  <MenuItem value={10}>10분</MenuItem>
-                  <MenuItem value={30}>30분</MenuItem>
-                  <MenuItem value={60}>1시간</MenuItem>
-                  <MenuItem value={360}>6시간</MenuItem>
-                  <MenuItem value={720}>12시간</MenuItem>
-                  <MenuItem value={1440}>24시간</MenuItem>
+                  <MenuItem value={1}>1시간</MenuItem>
+                  <MenuItem value={2}>2시간</MenuItem>
+                  <MenuItem value={3}>3시간</MenuItem>
+                  <MenuItem value={4}>4시간</MenuItem>
+                  <MenuItem value={6}>6시간</MenuItem>
+                  <MenuItem value={12}>12시간</MenuItem>
+                  <MenuItem value={24}>24시간</MenuItem>
                 </Select>
               </FormControl>
             </Box>

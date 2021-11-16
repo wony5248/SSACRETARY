@@ -201,7 +201,7 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
             name="Go to Detail"
           ></Btn>
           <Btn
-            style={{ width: "90%", maxWidth: "1200px" }}
+            style={{ width: "90%", maxWidth: "1200px", marginBottom:"24px" }}
             onClick={() => {
               window.location.href = "/makecrawl";
             }}
