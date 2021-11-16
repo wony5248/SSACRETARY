@@ -91,6 +91,7 @@ const MakeCrawl = () => {
     });
   };
   const makeCrawl = async () => {
+    keywords = []
     const jwt=localStorage.getItem("jwt")
     const email = localStorage.getItem("email")
     keywords.push(keyword1);

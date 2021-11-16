@@ -89,8 +89,10 @@ const ChangeCrawl = ({ match }: any) => {
           for(let i = 0; i < 5; i++){
             setInputs({
               ...inputs,
-              [`keyword${i}`]: data.keywords[i],
+              [`keyword${i+1}`]: data.keywords[i],
             });
+            // console.log(keyword1)
+            console.log(data.keywords[i])
           }
 
           })
@@ -119,7 +121,7 @@ const ChangeCrawl = ({ match }: any) => {
       });
     }
   };
-  const updateCrawl = async () => {
+  const updateCrawl = () => {
     const jwt = localStorage.getItem("jwt");
     const email = localStorage.getItem("email");
     keywords.push(keyword1);
@@ -127,22 +129,27 @@ const ChangeCrawl = ({ match }: any) => {
     keywords.push(keyword3);
     keywords.push(keyword4);
     keywords.push(keyword5);
-    await crawlAPI
-      .editSetting(
-        id,
-        jwt,
-        email,
-        keywords,
-        checked,
-        name,
-        time,
-        checked2,
-        value,
-        url
-      )
-      .then(() => {
-        window.location.href = "/settingprofile";
-      });
+    console.log(keyword1)
+    console.log(keyword2)
+    console.log(keyword3)
+    console.log(keyword4)
+    console.log(keyword5)
+    // await crawlAPI
+    //   .editSetting(
+    //     id,
+    //     jwt,
+    //     email,
+    //     keywords,
+    //     checked,
+    //     name,
+    //     time,
+    //     checked2,
+    //     value,
+    //     url
+    //   )
+    //   .then(() => {
+    //     window.location.href = "/settingprofile";
+    //   });
   };
   const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -150,15 +157,7 @@ const ChangeCrawl = ({ match }: any) => {
   const onChangeUrl = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
   };
-  const handleAdd = () => {
-    if (keyword.length >= 5) {
-      window.alert("크롤링 키워드는 5개이상 등록하실 수 없습니다.");
-    } else {
-      setIsopen(true);
-    }
 
-    console.log(isopen);
-  };
   const handleExit = () => {
     setIsopen(false);
     console.log(isopen);
