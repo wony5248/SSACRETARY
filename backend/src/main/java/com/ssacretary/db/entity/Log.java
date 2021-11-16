@@ -41,7 +41,7 @@ public class Log {
     @Column(name = "htmlSuccess")
     private boolean htmlSuccess;
 
-    @Column(name = "htmlSource",columnDefinition = "TEXT")
+    @Column(name = "htmlSource",columnDefinition = "LONGTEXT")
     private String htmlSource;
 
 }
