@@ -74,6 +74,7 @@ public class CrawlingServiceImpl implements CrawlingService{
         try{
             //jwt로 본인확인후
             String email = jwtTokenProvider.getUserInfo(jwt);
+            if(email==null) throw new Exception();
 
             //해당 유저의 전체 세팅 찾기
             List<Setting> setting = settingRepository.findByUser_Email(email);
@@ -89,6 +90,7 @@ public class CrawlingServiceImpl implements CrawlingService{
                 for(int j=0;j<sk.size();j++){
                     keywords.add(sk.get(j).getKeyword().getKeyword());
                 }
+
                 allset.setKeywords(keywords);
                 allset.setUrl(setting.get(i).getUrl());
                 allList.add(allset);
