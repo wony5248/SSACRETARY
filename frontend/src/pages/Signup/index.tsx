@@ -323,7 +323,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               }
         }
       >
-        <HeadlineH1>SIGN UP</HeadlineH1>
+        <HeadlineH1>회원가입</HeadlineH1>
         <CommonDiv>
           <div style={{ display: "flex" }}>
             <TextField
@@ -364,7 +364,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               size="small"
               onClick={onEmailCheck}
             >
-              AVAILITY
+              중복체크
             </Button>
           </div>
         </CommonDiv>
@@ -407,7 +407,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
                 size="small"
                 onClick={onEmailValidation}
               >
-                Valid
+                유효
               </Button>
             </div>
           </CommonDiv>
@@ -451,7 +451,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               size="small"
               onClick={onNicknameCheck}
             >
-              AVAILITY
+              유효
             </Button>
           </div>
         </CommonDiv>
@@ -524,7 +524,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               }
               onClick={onPhoneCheck}
             >
-              AVAILITY
+              유효
             </Button>
           </div>
         </CommonDiv>
@@ -543,14 +543,14 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             }}
             onClick={onSignUp}
           >
-            SIGN UP
+            회원가입
           </Button>
           <Button
             variant="outlined"
             style={{ width: "200px" }}
             onClick={onGoBack}
           >
-            GO BACK
+            뒤로가기
           </Button>
         </CommonDiv>
       </Container>

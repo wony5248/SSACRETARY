@@ -236,7 +236,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
           }}
         >
           <Userprofilediv style={{ marginTop: "72px", fontSize: "28px" }}>
-            Profile
+            회원 정보
           </Userprofilediv>
           <Formdiv
             style={{
@@ -252,7 +252,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             <div style={{ width: "100%" }}>
               <TextField
                 disabled
-                label="Email"
+                label="이메일"
                 name="email"
                 onChange={onChange}
                 value={email}
@@ -270,7 +270,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             >
               <TextField
                 error={nicknameCheck === "not available" ? true : false}
-                label="Nickname"
+                label="닉네임"
                 name="nickname"
                 onChange={onChange}
                 value={nickname}
@@ -302,7 +302,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 }
                 onClick={onNicknameCheck}
               >
-                AVAILITY
+                중복 확인
               </Button>
             </div>
             <div
@@ -320,7 +320,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                     ? true
                     : false
                 }
-                label="Phone"
+                label="전화번호"
                 name="phone"
                 onChange={onChange}
                 value={phone}
@@ -350,7 +350,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 color={phoneCheck === "available" ? "success" : "primary"}
                 onClick={onPhoneCheck}
               >
-                AVAILITY
+                중복 확인
               </Button>
             </div>
           </Formdiv>
@@ -359,12 +359,12 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
           ) : null}
           <Btn
             style={{ width: "500px", backgroundColor: "#404040" }}
-            name="CHANGE PROFILE"
+            name="회원정보 변경"
             onClick={onChangeProfile}
           ></Btn>
           <Btn
-            style={{ width: "500px", backgroundColor: "#D62B4B" }}
-            name="WITHDRAWL"
+            style={{ width: "500px", backgroundColor: "#D62B4B", marginBottom:"24px" }}
+            name="회원 탈퇴"
             onClick={onWithdrawl}
           ></Btn>
         </div>
@@ -377,11 +377,11 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             alignItems: "center",
           }}
         >
-          <Userprofilediv>Profile</Userprofilediv>
+          <Userprofilediv>회원 정보</Userprofilediv>
           <Formdiv>
             <div style={{ width: "100%" }}>
               <TextField
-                label="Email"
+                label="이메일"
                 name="email"
                 onChange={onChange}
                 value={email}
@@ -399,7 +399,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             >
               <TextField
                 error={nicknameCheck === "not available" ? true : false}
-                label="Nickname"
+                label="닉네임"
                 name="nickname"
                 onChange={onChange}
                 value={nickname}
@@ -431,7 +431,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 }
                 onClick={onNicknameCheck}
               >
-                AVAILITY
+                중복 확인
               </Button>
             </div>
             <div
@@ -444,7 +444,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             >
               <TextField
                 error={phoneCheck === "not available" ? true : false}
-                label="Phone"
+                label="전화번호"
                 name="phone"
                 onChange={onChange}
                 value={phone}
@@ -477,7 +477,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 }
                 onClick={onPhoneCheck}
               >
-                AVAILITY
+                중복 확인
               </Button>
             </div>
           </Formdiv>
@@ -486,12 +486,12 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
           ) : null}
           <Btn
             style={{ backgroundColor: "#404040" }}
-            name="CHANGE PROFILE"
+            name="회원정보 변경"
             onClick={onChangeProfile}
           ></Btn>
           <Btn
-            style={{ backgroundColor: "#D62B4B" }}
-            name="WITHDRAWL"
+            style={{ backgroundColor: "#D62B4B", }}
+            name="회원 탈퇴"
             onClick={onWithdrawl}
           ></Btn>
         </div>

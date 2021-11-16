@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { useEffect } from "react";
 import { useHistory } from "react-router";
 
 import styled from "styled-components";
@@ -120,19 +120,19 @@ const Menu = (props: any) => {
         <span role="img" aria-label="control">
           🔨
         </span>
-        Make Crawl
+        크롤링 생성
       </a>
       <a href="/settingprofile">
         <span role="img" aria-label="about us">
           ⚙️
         </span>
-        My Crawling
+        나의 크롤링
       </a>
       <a href="/log">
         <span role="img" aria-label="control">
-          🔨
+          📃
         </span>
-        Crawling Log
+        크롤링 로그
       </a>
     </StyledMenu>
   );
@@ -154,6 +154,11 @@ function AppAppBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const opened = Boolean(anchorEl);
   const history = useHistory();
+  const [email, setEmail] :any = React.useState("")
+  useEffect(() => {
+    setEmail(localStorage.getItem("email")?.toUpperCase())
+
+  }, [])
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     console.log("open");
@@ -181,9 +186,9 @@ function AppAppBar() {
           <Typography sx={{ fontSize: 24 }}>{"SSACRETARY"}</Typography>
           <React.Fragment>
             <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-              <Tooltip title="Account settings">
+              <Tooltip title="계정 정보">
                 <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
-                  <Avatar sx={{ bgcolor: deepOrange[500] }}>M</Avatar>
+                  <Avatar sx={{ bgcolor: deepOrange[500] }}>{email[0]}</Avatar>
                 </IconButton>
               </Tooltip>
             </Box>
@@ -223,7 +228,7 @@ function AppAppBar() {
             >
               <MenuItem onClick={() => (window.location.href = "/userprofile")}>
                 <Avatar />
-                User Profile
+                회원 정보
               </MenuItem>
               <Divider />
               <MenuItem
@@ -232,14 +237,14 @@ function AppAppBar() {
                 <ListItemIcon>
                   <Settings fontSize="small" />
                 </ListItemIcon>
-                My Settings
+                나의 크롤링
               </MenuItem>
 
               <MenuItem onClick={onLogout}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>
-                Logout
+                로그아웃
               </MenuItem>
             </Menubar>
           </React.Fragment>

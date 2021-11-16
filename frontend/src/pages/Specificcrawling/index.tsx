@@ -10,6 +10,7 @@ import "react-mui-charts/dist/index.css";
 import Typography from "@mui/material/Typography";
 import { Urldiv, Carddiv } from "./style";
 import Btn from "../../components/Button";
+import { crawlAPI } from "../../utils/axios";
 import { Grid } from "@mui/material";
 const Desktop = ({ children }: any) => {
   const isDesktop = useMediaQuery({ minWidth: 613 });
@@ -72,7 +73,7 @@ const card1 = (
   <React.Fragment>
     <CardContent>
       <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-        Crawl Count
+        크롤링 실행 횟수
         {/* 최근 몇일간 크롤링 실행 횟수-> 알람 횟수? */}
       </Typography>
       <div>
@@ -93,7 +94,7 @@ const card2 = (
   <React.Fragment>
     <CardContent>
       <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-        Word Percentage
+        단어 매칭 비율
       </Typography>
       <div>
         <Doughnut
@@ -112,7 +113,7 @@ const card3 = (
   <React.Fragment>
     <CardContent>
       <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-        Word Count
+        단어 수
       </Typography>
       <div>
         <Line
@@ -127,6 +128,36 @@ const card3 = (
 
 const SettingProfile: React.FunctionComponent = ({ match }: any) => {
   const { id } = match.params;
+  const jwt:any = localStorage.getItem("jwt")
+  useEffect(() => {
+    const getData = async () => {
+      await crawlAPI
+        .getSettingDetail(jwt, id)
+        .then(({ data }: any) => {
+          console.log(data.logs);
+          // setUrl(data.url);
+          // setName(data.name);
+          // setData(data.allSettingData);
+          // setValue(data.type);
+          // setTime(data.period);
+          // setChecked(data.mailAlarm);
+          // setChecked2(data.smsAlarm);
+          // setKeyword(data.keywords);
+          // setInputs({
+          //   ["keyword1"]: data.keywords[0],
+          //   ["keyword2"]: data.keywords[1],
+          //   ["keyword3"]: data.keywords[2],
+          //   ["keyword4"]: data.keywords[3],
+          //   ["keyword5"]: data.keywords[4]
+          // });
+          
+          })
+        .catch((e) => console.log(e));
+    };
+    
+
+    getData();
+  }, []);
   console.log(id);
   const Click = () => {
     window.location.href = `/changecrawl/${id}`;
@@ -198,14 +229,14 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
           <Btn
             style={{ width: "90%", maxWidth: "1200px" }}
             onClick={Click}
-            name="Go to Detail"
+            name="크롤링 변경"
           ></Btn>
           <Btn
-            style={{ width: "90%", maxWidth: "1200px" }}
+            style={{ width: "90%", maxWidth: "1200px", marginBottom:"24px" }}
             onClick={() => {
               window.location.href = "/makecrawl";
             }}
-            name="Make Crawl"
+            name="크롤링 생성"
           ></Btn>
         </div>
       </Desktop>
@@ -264,14 +295,14 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
           <Btn
             style={{ marginTop: "0px" }}
             onClick={Click}
-            name="Go to Detail"
+            name="크롤링 변경"
           ></Btn>
           <Btn
             style={{ marginBottom: "24px" }}
             onClick={() => {
               window.location.href = "/makecrawl";
             }}
-            name="Make Crawl"
+            name="크롤링 생성"
           ></Btn>
         </div>
       </Mobile>

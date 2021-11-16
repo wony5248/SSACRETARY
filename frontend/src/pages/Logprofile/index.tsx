@@ -48,7 +48,7 @@ const Logprofile = () => {
             alignItems: "center",
           }}
         >
-          <Userprofilediv1 style={{ fontSize: "24px" }}>Log</Userprofilediv1>
+          <Userprofilediv1 style={{ fontSize: "24px" }}>크롤링 로그</Userprofilediv1>
 
             {data.length ? (
               <Grid
@@ -99,7 +99,7 @@ const Logprofile = () => {
             alignItems: "center",
           }}
         >
-          <Userprofilediv1>Log</Userprofilediv1>
+          <Userprofilediv1>크롤링 로그</Userprofilediv1>
           {data.length ? (
               <Grid
                 container

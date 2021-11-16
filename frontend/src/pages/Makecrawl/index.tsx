@@ -48,7 +48,7 @@ const MakeCrawl = () => {
   const [checked2, setChecked2] = React.useState(false);
   const [tag, setTag] = React.useState("");
   const [type, setType] = React.useState("or")
-  const [time, setTime] = React.useState(60);
+  const [time, setTime] = React.useState(1);
   const [data, setData] = React.useState(["", "", "", "", ""]);
   let keywords:any[] = [];
   const [inputs, setInputs] = useState({
@@ -91,6 +91,7 @@ const MakeCrawl = () => {
     });
   };
   const makeCrawl = async () => {
+    keywords = []
     const jwt=localStorage.getItem("jwt")
     const email = localStorage.getItem("email")
     keywords.push(keyword1);
@@ -135,7 +136,7 @@ const MakeCrawl = () => {
           }}
         >
           <Userprofilediv1 style={{ fontSize: "24px" }}>
-            Make Crawling
+            크롤링 생성
           </Userprofilediv1>
           <Formdiv1
             style={{
@@ -156,7 +157,7 @@ const MakeCrawl = () => {
             </div>
             <div style={{ width: "100%" }}>
               <TextField
-                label="NAME"
+                label="이름"
                 name="name"
                 onChange={onChange}
                 value={name}
@@ -194,7 +195,7 @@ const MakeCrawl = () => {
                   label="OR"
                 />
               </RadioGroup> */}
-              Keywords
+              키워드
             </div>
 
             <Keworddiv style={{ height: "400px" }}>
@@ -204,7 +205,7 @@ const MakeCrawl = () => {
                     <ClearIcon></ClearIcon>
                   </Exitbtn>
                   <TextField
-                    label="Keyword"
+                    label="키워드"
                     onChange={tagChange}
                     value={tag}
                     required
@@ -240,7 +241,7 @@ const MakeCrawl = () => {
                           }}
                         >
                           <TextField
-                            label={`Keyword${key + 1}`}
+                            label={`키워드${key + 1}`}
                             name={`keyword${key + 1}`}
                             onChange={onChange}
                             required
@@ -286,13 +287,13 @@ const MakeCrawl = () => {
                   label="Age"
                   onChange={timeChange}
                 >
-                  <MenuItem value={60}>1시간</MenuItem>
-                  <MenuItem value={120}>2시간</MenuItem>
-                  <MenuItem value={180}>3시간</MenuItem>
-                  <MenuItem value={240}>4시간</MenuItem>
-                  <MenuItem value={360}>6시간</MenuItem>
-                  <MenuItem value={720}>12시간</MenuItem>
-                  <MenuItem value={1440}>24시간</MenuItem>
+                  <MenuItem value={1}>1시간</MenuItem>
+                  <MenuItem value={2}>2시간</MenuItem>
+                  <MenuItem value={3}>3시간</MenuItem>
+                  <MenuItem value={4}>4시간</MenuItem>
+                  <MenuItem value={6}>6시간</MenuItem>
+                  <MenuItem value={12}>12시간</MenuItem>
+                  <MenuItem value={24}>24시간</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -305,7 +306,7 @@ const MakeCrawl = () => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>MAIL Alarm</Alarmdiv>
+                <Alarmdiv>메일 알람</Alarmdiv>
 
                 <Switch
                   color="default"
@@ -321,7 +322,7 @@ const MakeCrawl = () => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>SMS Alarm</Alarmdiv>
+                <Alarmdiv>SMS 알람</Alarmdiv>
                 <Switch
                   color="default"
                   checked={checked2}
@@ -337,7 +338,7 @@ const MakeCrawl = () => {
               marginTop: "72px",
               maxWidth: "1032px",
             }}
-            name="MAKE CRAWL"
+            name="크롤링 생성"
             onClick={makeCrawl}
           ></Btn>
         </div>
@@ -350,7 +351,7 @@ const MakeCrawl = () => {
             alignItems: "center",
           }}
         >
-          <Userprofilediv1>Make Crawling</Userprofilediv1>
+          <Userprofilediv1>크롤링 생성</Userprofilediv1>
           <Formdiv1>
             <div style={{ width: "100%" }}>
               <TextField
@@ -364,7 +365,7 @@ const MakeCrawl = () => {
             </div>
             <div style={{ width: "100%", marginTop:"12px" }}>
               <TextField
-                label="NAME"
+                label="이름"
                 name="name"
                 onChange={onChange}
                 value={name}
@@ -401,7 +402,7 @@ const MakeCrawl = () => {
                   label="OR"
                 />
               </RadioGroup> */}
-              Keywords
+              키워드
             </div>
             <Keworddiv style={{}}>
               {isopen ? (
@@ -449,7 +450,7 @@ const MakeCrawl = () => {
                           }}
                         >
                           <TextField
-                            label={`Keyword${key + 1}`}
+                            label={`키워드${key + 1}`}
                             name={`keyword${key + 1}`}
                             onChange={onChange}
                             value={item}
@@ -495,13 +496,13 @@ const MakeCrawl = () => {
                   label="Age"
                   onChange={timeChange}
                 >
-                  <MenuItem value={5}>5분</MenuItem>
-                  <MenuItem value={10}>10분</MenuItem>
-                  <MenuItem value={30}>30분</MenuItem>
-                  <MenuItem value={60}>1시간</MenuItem>
-                  <MenuItem value={360}>6시간</MenuItem>
-                  <MenuItem value={720}>12시간</MenuItem>
-                  <MenuItem value={1440}>24시간</MenuItem>
+                  <MenuItem value={1}>1시간</MenuItem>
+                  <MenuItem value={2}>2시간</MenuItem>
+                  <MenuItem value={3}>3시간</MenuItem>
+                  <MenuItem value={4}>4시간</MenuItem>
+                  <MenuItem value={6}>6시간</MenuItem>
+                  <MenuItem value={12}>12시간</MenuItem>
+                  <MenuItem value={24}>24시간</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -514,7 +515,7 @@ const MakeCrawl = () => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>MAIL Alarm</Alarmdiv>
+                <Alarmdiv>메일 알람</Alarmdiv>
 
                 <Switch
                   color="default"
@@ -530,7 +531,7 @@ const MakeCrawl = () => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>SMS Alarm</Alarmdiv>
+                <Alarmdiv>SMS 알람</Alarmdiv>
                 <Switch
                   color="default"
                   checked={checked2}

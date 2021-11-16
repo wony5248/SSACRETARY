@@ -44,17 +44,23 @@ const Mobile = ({ children }: any) => {
 
 const ChangeCrawl = ({ match }: any) => {
   const { id } = match.params;
+  const jwt = localStorage.getItem("jwt");
   const [checked, setChecked] = React.useState(true);
   const [checked2, setChecked2] = React.useState(false);
   const [isopen, setIsopen] = React.useState(false);
   const [tag, setTag] = React.useState("");
   const [value, setValue] = React.useState("or");
-  const [time, setTime] = React.useState(60);
+  const [time, setTime] = React.useState(1);
   const [data, setData] = useState([]);
   const [keyword, setKeyword] = React.useState([]);
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
   const keywords: any[] = [];
+  // const [keyword1, setKeyword1] = useState("")
+  // const [keyword2, setKeyword2] = useState("")
+  // const [keyword3, setKeyword3] = useState("")
+  // const [keyword4, setKeyword4] = useState("")
+  // const [keyword5, setKeyword5] = useState("")
   const [inputs, setInputs] = useState({
     keyword1: "",
     keyword2: "",
@@ -86,17 +92,18 @@ const ChangeCrawl = ({ match }: any) => {
           setChecked(data.mailAlarm);
           setChecked2(data.smsAlarm);
           setKeyword(data.keywords);
-          for(let i = 0; i < 5; i++){
-            setInputs({
-              ...inputs,
-              [`keyword${i}`]: data.keywords[i],
-            });
-          }
-
+          setInputs({
+            ["keyword1"]: data.keywords[0],
+            ["keyword2"]: data.keywords[1],
+            ["keyword3"]: data.keywords[2],
+            ["keyword4"]: data.keywords[3],
+            ["keyword5"]: data.keywords[4]
+          });
+          
           })
         .catch((e) => console.log(e));
     };
-    const jwt = localStorage.getItem("jwt");
+    
 
     getData();
   }, []);
@@ -127,6 +134,7 @@ const ChangeCrawl = ({ match }: any) => {
     keywords.push(keyword3);
     keywords.push(keyword4);
     keywords.push(keyword5);
+    console.log(keywords)
     await crawlAPI
       .editSetting(
         id,
@@ -150,15 +158,7 @@ const ChangeCrawl = ({ match }: any) => {
   const onChangeUrl = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
   };
-  const handleAdd = () => {
-    if (keyword.length >= 5) {
-      window.alert("크롤링 키워드는 5개이상 등록하실 수 없습니다.");
-    } else {
-      setIsopen(true);
-    }
 
-    console.log(isopen);
-  };
   const handleExit = () => {
     setIsopen(false);
     console.log(isopen);
@@ -201,7 +201,7 @@ const ChangeCrawl = ({ match }: any) => {
           }}
         >
           <Userprofilediv1 style={{ fontSize: "24px" }}>
-            Change Crawling
+            크롤링 변경
           </Userprofilediv1>
           <Formdiv1
             style={{
@@ -222,7 +222,7 @@ const ChangeCrawl = ({ match }: any) => {
             </div>
             <div style={{ width: "100%", marginTop: "12px" }}>
               <TextField
-                label="NAME"
+                label="이름"
                 name="name"
                 onChange={onChangeName}
                 value={name}
@@ -260,7 +260,7 @@ const ChangeCrawl = ({ match }: any) => {
                   label="OR"
                 />
               </RadioGroup> */}
-              Keywords
+              키워드
             </div>
             <Keworddiv style={{ height: "400px" }}>
               {isopen ? (
@@ -303,12 +303,12 @@ const ChangeCrawl = ({ match }: any) => {
                           style={{
                             width: "100%",
                             display: "flex",
-                            justifyContent: "space-between",
+                            justifyContent: "center",
                             margin: "8px 0",
                           }}
                         >
                           <TextField
-                            label={`Keyword${key + 1}`}
+                            label={`키워드${key + 1}`}
                             name={`keyword${key + 1}`}
                             defaultValue={item}
                             onChange={onChange}
@@ -354,13 +354,13 @@ const ChangeCrawl = ({ match }: any) => {
                   label="Age"
                   onChange={timeChange}
                 >
-                  <MenuItem value={60}>1시간</MenuItem>
-                  <MenuItem value={120}>2시간</MenuItem>
-                  <MenuItem value={180}>3시간</MenuItem>
-                  <MenuItem value={240}>4시간</MenuItem>
-                  <MenuItem value={360}>6시간</MenuItem>
-                  <MenuItem value={720}>12시간</MenuItem>
-                  <MenuItem value={1440}>24시간</MenuItem>
+                  <MenuItem value={1}>1시간</MenuItem>
+                  <MenuItem value={2}>2시간</MenuItem>
+                  <MenuItem value={3}>3시간</MenuItem>
+                  <MenuItem value={4}>4시간</MenuItem>
+                  <MenuItem value={6}>6시간</MenuItem>
+                  <MenuItem value={12}>12시간</MenuItem>
+                  <MenuItem value={24}>24시간</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -373,7 +373,7 @@ const ChangeCrawl = ({ match }: any) => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>MAIL Alarm</Alarmdiv>
+                <Alarmdiv>메일 알람</Alarmdiv>
 
                 <Switch
                   color="default"
@@ -389,7 +389,7 @@ const ChangeCrawl = ({ match }: any) => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>SMS Alarm</Alarmdiv>
+                <Alarmdiv>SMS 알람</Alarmdiv>
                 <Switch
                   color="default"
                   checked={checked2}
@@ -400,7 +400,7 @@ const ChangeCrawl = ({ match }: any) => {
           </Formdiv1>
           <Btn
             style={{ width: "93%", maxWidth: "1032px" }}
-            name="UPDATE CRAWL"
+            name="크롤링 변경"
             onClick={updateCrawl}
           ></Btn>
           <Btn
@@ -410,7 +410,7 @@ const ChangeCrawl = ({ match }: any) => {
               width: "93%",
               maxWidth: "1032px",
             }}
-            name="DELETE CRAWL"
+            name="크롤링 삭제"
             onClick={deleteCrawl}
           ></Btn>
         </div>
@@ -423,7 +423,7 @@ const ChangeCrawl = ({ match }: any) => {
             alignItems: "center",
           }}
         >
-          <Userprofilediv1>Change Crawling</Userprofilediv1>
+          <Userprofilediv1>크롤링 변경</Userprofilediv1>
           <Formdiv1>
             <div style={{ width: "100%" }}>
               <TextField
@@ -437,7 +437,7 @@ const ChangeCrawl = ({ match }: any) => {
             </div>
             <div style={{ width: "100%", marginTop: "12px" }}>
               <TextField
-                label="NAME"
+                label="이름"
                 name="name"
                 onChange={onChangeName}
                 value={name}
@@ -474,7 +474,7 @@ const ChangeCrawl = ({ match }: any) => {
                   label="OR"
                 />
               </RadioGroup> */}
-              Keywords
+              키워드
             </div>
             <Keworddiv style={{}}>
               {isopen ? (
@@ -522,7 +522,7 @@ const ChangeCrawl = ({ match }: any) => {
                           }}
                         >
                           <TextField
-                            label={`Keyword${key + 1}`}
+                            label={`키워드${key + 1}`}
                             name={`keyword${key + 1}`}
                             defaultValue={item}
                             onChange={onChange}
@@ -560,13 +560,13 @@ const ChangeCrawl = ({ match }: any) => {
                   label="Age"
                   onChange={timeChange}
                 >
-                  <MenuItem value={5}>5분</MenuItem>
-                  <MenuItem value={10}>10분</MenuItem>
-                  <MenuItem value={30}>30분</MenuItem>
-                  <MenuItem value={60}>1시간</MenuItem>
-                  <MenuItem value={360}>6시간</MenuItem>
-                  <MenuItem value={720}>12시간</MenuItem>
-                  <MenuItem value={1440}>24시간</MenuItem>
+                  <MenuItem value={1}>1시간</MenuItem>
+                  <MenuItem value={2}>2시간</MenuItem>
+                  <MenuItem value={3}>3시간</MenuItem>
+                  <MenuItem value={4}>4시간</MenuItem>
+                  <MenuItem value={6}>6시간</MenuItem>
+                  <MenuItem value={12}>12시간</MenuItem>
+                  <MenuItem value={24}>24시간</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -579,7 +579,7 @@ const ChangeCrawl = ({ match }: any) => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>MAIL Alarm</Alarmdiv>
+                <Alarmdiv>메일 알람</Alarmdiv>
 
                 <Switch
                   color="default"
@@ -595,7 +595,7 @@ const ChangeCrawl = ({ match }: any) => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>SMS Alarm</Alarmdiv>
+                <Alarmdiv>SMS 알람</Alarmdiv>
                 <Switch
                   color="default"
                   checked={checked2}
@@ -604,10 +604,10 @@ const ChangeCrawl = ({ match }: any) => {
               </div>
             </Keworddiv>
           </Formdiv1>
-          <Btn name="UPDATE CRAWL" onClick={updateCrawl}></Btn>
+          <Btn name="크롤링 변경" onClick={updateCrawl}></Btn>
           <Btn
             style={{ marginBottom: "24px", backgroundColor: "#d62b4b" }}
-            name="DELETE CRAWL"
+            name="크롤링 삭제"
             onClick={deleteCrawl}
           ></Btn>
         </div>

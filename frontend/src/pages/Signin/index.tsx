@@ -96,7 +96,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
         }
       >
         <img src={Logo} width="200px" height="200px"></img>
-        <HeadlineH1>SIGN IN</HeadlineH1>
+        <HeadlineH1>로그인</HeadlineH1>
         <CommonDiv>
           <TextField
             label="Email"
@@ -127,7 +127,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
               variant="contained"
               onClick={onSignIn}
             >
-              SIGN IN
+              로그인
             </Button>
           </div>
           <div>
@@ -140,7 +140,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
                 variant="outlined"
                 color="primary"
               >
-                CREATE ACCOUNT
+                회원가입
               </Button>
             </Link>
           </div>
