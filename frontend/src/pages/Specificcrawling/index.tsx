@@ -72,7 +72,7 @@ const card1 = (
   <React.Fragment>
     <CardContent>
       <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-        Crawl Count
+        크롤링 실행 횟수
         {/* 최근 몇일간 크롤링 실행 횟수-> 알람 횟수? */}
       </Typography>
       <div>
@@ -93,7 +93,7 @@ const card2 = (
   <React.Fragment>
     <CardContent>
       <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-        Word Percentage
+        단어 매칭 비율
       </Typography>
       <div>
         <Doughnut
@@ -112,7 +112,7 @@ const card3 = (
   <React.Fragment>
     <CardContent>
       <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-        Word Count
+        단어 수
       </Typography>
       <div>
         <Line
@@ -198,14 +198,14 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
           <Btn
             style={{ width: "90%", maxWidth: "1200px" }}
             onClick={Click}
-            name="Go to Detail"
+            name="크롤링 변경"
           ></Btn>
           <Btn
             style={{ width: "90%", maxWidth: "1200px", marginBottom:"24px" }}
             onClick={() => {
               window.location.href = "/makecrawl";
             }}
-            name="Make Crawl"
+            name="크롤링 생성"
           ></Btn>
         </div>
       </Desktop>
@@ -264,14 +264,14 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
           <Btn
             style={{ marginTop: "0px" }}
             onClick={Click}
-            name="Go to Detail"
+            name="크롤링 변경"
           ></Btn>
           <Btn
             style={{ marginBottom: "24px" }}
             onClick={() => {
               window.location.href = "/makecrawl";
             }}
-            name="Make Crawl"
+            name="크롤링 생성"
           ></Btn>
         </div>
       </Mobile>

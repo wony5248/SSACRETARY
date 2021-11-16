@@ -55,7 +55,7 @@ const SettingProfile: React.FunctionComponent = () => {
             alignItems: "center",
           }}
         >
-          <Headerdiv style={{ fontSize: "24px" }}>Crawlings</Headerdiv>
+          <Headerdiv style={{ fontSize: "24px" }}>나의 크롤링</Headerdiv>
           <Bodydiv
             style={{
               height: "1000px",
@@ -89,7 +89,7 @@ const SettingProfile: React.FunctionComponent = () => {
               maxWidth: "1000px",
             }}
             onClick={Click}
-            name="Make Crawl"
+            name="크롤링 생성"
           ></Btn>
         </div>
       </Desktop>
@@ -101,7 +101,7 @@ const SettingProfile: React.FunctionComponent = () => {
             alignItems: "center",
           }}
         >
-          <Headerdiv>Crawlings</Headerdiv>
+          <Headerdiv>나의 크롤링</Headerdiv>
           <Bodydiv>
             {data.map((item :any, index) => (
               <Settingdiv onClick={() => window.location.href=`/specificcrawling/${item.settingId}`} key={index}>
@@ -114,7 +114,7 @@ const SettingProfile: React.FunctionComponent = () => {
               </Settingdiv>
             ))}
           </Bodydiv>
-          <Btn onClick={Click} name="Make Crawl"></Btn>
+          <Btn onClick={Click} name="크롤링 생성"></Btn>
         </div>
       </Mobile>
     </div>

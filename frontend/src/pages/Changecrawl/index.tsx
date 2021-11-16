@@ -221,7 +221,7 @@ const ChangeCrawl = ({ match }: any) => {
             </div>
             <div style={{ width: "100%", marginTop: "12px" }}>
               <TextField
-                label="NAME"
+                label="이름"
                 name="name"
                 onChange={onChangeName}
                 value={name}
@@ -302,12 +302,12 @@ const ChangeCrawl = ({ match }: any) => {
                           style={{
                             width: "100%",
                             display: "flex",
-                            justifyContent: "space-between",
+                            justifyContent: "center",
                             margin: "8px 0",
                           }}
                         >
                           <TextField
-                            label={`Keyword${key + 1}`}
+                            label={`키워드${key + 1}`}
                             name={`keyword${key + 1}`}
                             defaultValue={item}
                             onChange={onChange}
@@ -372,7 +372,7 @@ const ChangeCrawl = ({ match }: any) => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>MAIL Alarm</Alarmdiv>
+                <Alarmdiv>MAIL 알람</Alarmdiv>
 
                 <Switch
                   color="default"
@@ -388,7 +388,7 @@ const ChangeCrawl = ({ match }: any) => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>SMS Alarm</Alarmdiv>
+                <Alarmdiv>SMS 알람</Alarmdiv>
                 <Switch
                   color="default"
                   checked={checked2}
@@ -399,7 +399,7 @@ const ChangeCrawl = ({ match }: any) => {
           </Formdiv1>
           <Btn
             style={{ width: "93%", maxWidth: "1032px" }}
-            name="UPDATE CRAWL"
+            name="크롤링 변경"
             onClick={updateCrawl}
           ></Btn>
           <Btn
@@ -409,7 +409,7 @@ const ChangeCrawl = ({ match }: any) => {
               width: "93%",
               maxWidth: "1032px",
             }}
-            name="DELETE CRAWL"
+            name="크롤링 삭제"
             onClick={deleteCrawl}
           ></Btn>
         </div>
@@ -422,7 +422,7 @@ const ChangeCrawl = ({ match }: any) => {
             alignItems: "center",
           }}
         >
-          <Userprofilediv1>Change Crawling</Userprofilediv1>
+          <Userprofilediv1>크롤링 변경</Userprofilediv1>
           <Formdiv1>
             <div style={{ width: "100%" }}>
               <TextField
@@ -436,7 +436,7 @@ const ChangeCrawl = ({ match }: any) => {
             </div>
             <div style={{ width: "100%", marginTop: "12px" }}>
               <TextField
-                label="NAME"
+                label="이름"
                 name="name"
                 onChange={onChangeName}
                 value={name}
@@ -473,7 +473,7 @@ const ChangeCrawl = ({ match }: any) => {
                   label="OR"
                 />
               </RadioGroup> */}
-              Keywords
+              키워드
             </div>
             <Keworddiv style={{}}>
               {isopen ? (
@@ -521,7 +521,7 @@ const ChangeCrawl = ({ match }: any) => {
                           }}
                         >
                           <TextField
-                            label={`Keyword${key + 1}`}
+                            label={`키워드${key + 1}`}
                             name={`keyword${key + 1}`}
                             defaultValue={item}
                             onChange={onChange}
@@ -578,7 +578,7 @@ const ChangeCrawl = ({ match }: any) => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>MAIL Alarm</Alarmdiv>
+                <Alarmdiv>메일 알람</Alarmdiv>
 
                 <Switch
                   color="default"
@@ -594,7 +594,7 @@ const ChangeCrawl = ({ match }: any) => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>SMS Alarm</Alarmdiv>
+                <Alarmdiv>SMS 알람</Alarmdiv>
                 <Switch
                   color="default"
                   checked={checked2}
@@ -603,10 +603,10 @@ const ChangeCrawl = ({ match }: any) => {
               </div>
             </Keworddiv>
           </Formdiv1>
-          <Btn name="UPDATE CRAWL" onClick={updateCrawl}></Btn>
+          <Btn name="크롤링 변경" onClick={updateCrawl}></Btn>
           <Btn
             style={{ marginBottom: "24px", backgroundColor: "#d62b4b" }}
-            name="DELETE CRAWL"
+            name="크롤링 삭제"
             onClick={deleteCrawl}
           ></Btn>
         </div>

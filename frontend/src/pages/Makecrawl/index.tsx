@@ -48,7 +48,7 @@ const MakeCrawl = () => {
   const [checked2, setChecked2] = React.useState(false);
   const [tag, setTag] = React.useState("");
   const [type, setType] = React.useState("or")
-  const [time, setTime] = React.useState(60);
+  const [time, setTime] = React.useState(1);
   const [data, setData] = React.useState(["", "", "", "", ""]);
   let keywords:any[] = [];
   const [inputs, setInputs] = useState({
@@ -136,7 +136,7 @@ const MakeCrawl = () => {
           }}
         >
           <Userprofilediv1 style={{ fontSize: "24px" }}>
-            Make Crawling
+            크롤링 생성
           </Userprofilediv1>
           <Formdiv1
             style={{
@@ -157,7 +157,7 @@ const MakeCrawl = () => {
             </div>
             <div style={{ width: "100%" }}>
               <TextField
-                label="NAME"
+                label="이름"
                 name="name"
                 onChange={onChange}
                 value={name}
@@ -195,7 +195,7 @@ const MakeCrawl = () => {
                   label="OR"
                 />
               </RadioGroup> */}
-              Keywords
+              키워드
             </div>
 
             <Keworddiv style={{ height: "400px" }}>
@@ -205,7 +205,7 @@ const MakeCrawl = () => {
                     <ClearIcon></ClearIcon>
                   </Exitbtn>
                   <TextField
-                    label="Keyword"
+                    label="키워드"
                     onChange={tagChange}
                     value={tag}
                     required
@@ -241,7 +241,7 @@ const MakeCrawl = () => {
                           }}
                         >
                           <TextField
-                            label={`Keyword${key + 1}`}
+                            label={`키워드${key + 1}`}
                             name={`keyword${key + 1}`}
                             onChange={onChange}
                             required
@@ -306,7 +306,7 @@ const MakeCrawl = () => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>MAIL Alarm</Alarmdiv>
+                <Alarmdiv>메일 알람</Alarmdiv>
 
                 <Switch
                   color="default"
@@ -322,7 +322,7 @@ const MakeCrawl = () => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>SMS Alarm</Alarmdiv>
+                <Alarmdiv>SMS 알람</Alarmdiv>
                 <Switch
                   color="default"
                   checked={checked2}
@@ -338,7 +338,7 @@ const MakeCrawl = () => {
               marginTop: "72px",
               maxWidth: "1032px",
             }}
-            name="MAKE CRAWL"
+            name="크롤링 생성"
             onClick={makeCrawl}
           ></Btn>
         </div>
@@ -351,7 +351,7 @@ const MakeCrawl = () => {
             alignItems: "center",
           }}
         >
-          <Userprofilediv1>Make Crawling</Userprofilediv1>
+          <Userprofilediv1>크롤링 생성</Userprofilediv1>
           <Formdiv1>
             <div style={{ width: "100%" }}>
               <TextField
@@ -365,7 +365,7 @@ const MakeCrawl = () => {
             </div>
             <div style={{ width: "100%", marginTop:"12px" }}>
               <TextField
-                label="NAME"
+                label="이름"
                 name="name"
                 onChange={onChange}
                 value={name}
@@ -402,7 +402,7 @@ const MakeCrawl = () => {
                   label="OR"
                 />
               </RadioGroup> */}
-              Keywords
+              키워드
             </div>
             <Keworddiv style={{}}>
               {isopen ? (
@@ -450,7 +450,7 @@ const MakeCrawl = () => {
                           }}
                         >
                           <TextField
-                            label={`Keyword${key + 1}`}
+                            label={`키워드${key + 1}`}
                             name={`keyword${key + 1}`}
                             onChange={onChange}
                             value={item}
@@ -515,7 +515,7 @@ const MakeCrawl = () => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>MAIL Alarm</Alarmdiv>
+                <Alarmdiv>메일 알람</Alarmdiv>
 
                 <Switch
                   color="default"
@@ -531,7 +531,7 @@ const MakeCrawl = () => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>SMS Alarm</Alarmdiv>
+                <Alarmdiv>SMS 알람</Alarmdiv>
                 <Switch
                   color="default"
                   checked={checked2}
