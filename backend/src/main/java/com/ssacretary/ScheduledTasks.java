@@ -145,8 +145,8 @@ public class ScheduledTasks {
 
     }
 
-//    @Scheduled(cron = "0 0 0/1 * * *")
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(cron = "0 0 0/1 * * *")
+//    @Scheduled(fixedRate = 60000)
     public void makeCrawling() {
         //주기 가져오기
         LocalTime now = LocalTime.now();
@@ -178,7 +178,7 @@ public class ScheduledTasks {
 
                 //로그 저장 - html성공
                 LocalDateTime dateTime = LocalDateTime.now();
-                Log log = logRepository.save(Log.builder().user(s.getUser()).setting(s).date(dateTime).htmlSuccess(true).htmlSource(doctext).build());
+//                Log log = logRepository.save(Log.builder().user(s.getUser()).setting(s).date(dateTime).htmlSuccess(true).htmlSource(doctext).build());
 
                 List<SettingKeyword> sk = settingKeywordRepository.findBySetting_SettingId(s.getSettingId());
                 List<String> kw = new ArrayList<>();
@@ -229,7 +229,7 @@ public class ScheduledTasks {
 //                            System.out.println("찾은거? "+oneSentence);
                             if(!allSentences.contains(oneSentence)) {
                                 allSentences.add(oneSentence);
-                                sentenceRepository.save(Sentence.builder().log(log).keyword(sk.get(b).getKeyword()).matchSentence(oneSentence).build());
+//                                sentenceRepository.save(Sentence.builder().log(log).keyword(sk.get(b).getKeyword()).matchSentence(oneSentence).build());
                             }
                         }
                         else{
@@ -237,11 +237,11 @@ public class ScheduledTasks {
                         }
                     }
                     System.out.println(cnt);
-                    countRepository.save(Count.builder().log(log).keyword(sk.get(b).getKeyword()).count(cnt).build());
+//                    countRepository.save(Count.builder().log(log).keyword(sk.get(b).getKeyword()).count(cnt).build());
                 }
                 System.out.println(allSentences);
-                if(allSentences.size()>0)
-                    mailService(s.getName(),targetUrl,allSentences);
+//                if(allSentences.size()>0)
+//                    mailService(s.getName(),targetUrl,allSentences);
             }
         } catch (Exception e) {
             System.out.println(e);
