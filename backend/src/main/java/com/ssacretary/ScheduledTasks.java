@@ -27,7 +27,7 @@ public class ScheduledTasks {
     SettingKeywordRepository settingKeywordRepository;
 
     @Scheduled(cron = "0 0 0/1 * * *")
-    public void getStockPriceList() {
+    public void makeCrawling() {
         final String useremail = "wony5248@gmail.com";
         final String password = "hjvqhqcmqjjyhenj";
         StringBuffer contents = new StringBuffer();
@@ -41,8 +41,11 @@ public class ScheduledTasks {
         List<Setting> setting = settingRepository.findAll();
         for(int i=0;i<setting.size();i++){
             //현재시각을 period로 나눈 나머지가 0일때만 저장
-//            if(now.getHour()%setting.get(i).getPeriod()==0)
-//                settings.add(setting.get(i));
+            if(now.getHour()%setting.get(i).getPeriod()==0) {
+                settings.add(setting.get(i));
+                System.out.println(setting.get(i).getPeriod());
+            }
+
         }
 
 //        String[] array = stockList.split("/");
