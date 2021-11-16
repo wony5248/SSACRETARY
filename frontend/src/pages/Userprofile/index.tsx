@@ -203,6 +203,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
     axiosOnWithdrawl(localJWT !== null ? localJWT : "", email)
       .then((res: any) => {
         if (res.data.statusCode === 200) {
+          alert("Withdrawl success");
           localStorage.clear();
           props.history.push("/");
         } else {
