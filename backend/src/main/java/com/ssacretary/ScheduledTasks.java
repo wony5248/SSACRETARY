@@ -91,14 +91,14 @@ public class ScheduledTasks {
         return usable;
     }
 
-    public void mailService(String settingName, String targetUrl,List<String> result){
+    public void mailService(String settingName, String email, String targetUrl,List<String> result){
         /* 메일 보내줌 */
         String useremail = "wony5248@gmail.com";
         String password = "hjvqhqcmqjjyhenj";
         String subject = targetUrl + " 사이트에 대한 ["+settingName+"]세팅 크롤링 결과";
         String fromMail = "wony5248@gmail.com";
         String fromName = "Ssacretary";
-        String toMail = "jihyun9623@gmail.com";
+        String toMail = email;
         Properties props = new Properties();
 
         props.put("mail.smtp.host", "smtp.gmail.com"); // use Gmail
@@ -154,15 +154,15 @@ public class ScheduledTasks {
         List<Setting> setting = settingRepository.findAll();
         for(Setting s : setting){
             //targeturl이 크롤링 가능하고 현재시각을 period로 나눈 나머지가 0일때만 저장
-//            if(now.getHour()%setting.get(i).getPeriod()==0 && cantCrawlRobotTxt(setting.get(i).getUrl())) {
-            if(s.getPeriod()==25 && cantCrawlRobotTxt(s.getUrl())) {//테스팅용
+            if(now.getHour()%s.getPeriod()==0 && cantCrawlRobotTxt(s.getUrl())) {
+//            if(s.getPeriod()==25 && cantCrawlRobotTxt(s.getUrl())) {//테스팅용
                 settings.add(s);
             }else if(!cantCrawlRobotTxt(s.getUrl())){
                 //실패 사유를 메일로 보내주고 세팅 삭제
                 System.out.println("크롤링하지마");
                 String targetUrl = s.getUrl();
                 List<String> result = null;
-                mailService(targetUrl,targetUrl,null);
+                mailService(targetUrl,targetUrl,targetUrl,null);
                 settingRepository.deleteBySettingId(s.getSettingId());
             }
         }
@@ -178,7 +178,7 @@ public class ScheduledTasks {
 
                 //로그 저장 - html성공
                 LocalDateTime dateTime = LocalDateTime.now();
-//                Log log = logRepository.save(Log.builder().user(s.getUser()).setting(s).date(dateTime).htmlSuccess(true).htmlSource(doctext).build());
+                Log log = logRepository.save(Log.builder().user(s.getUser()).setting(s).date(dateTime).htmlSuccess(true).htmlSource(doctext).build());
 
                 List<SettingKeyword> sk = settingKeywordRepository.findBySetting_SettingId(s.getSettingId());
                 List<String> kw = new ArrayList<>();
@@ -229,7 +229,7 @@ public class ScheduledTasks {
 //                            System.out.println("찾은거? "+oneSentence);
                             if(!allSentences.contains(oneSentence)) {
                                 allSentences.add(oneSentence);
-//                                sentenceRepository.save(Sentence.builder().log(log).keyword(sk.get(b).getKeyword()).matchSentence(oneSentence).build());
+                                sentenceRepository.save(Sentence.builder().log(log).keyword(sk.get(b).getKeyword()).matchSentence(oneSentence).build());
                             }
                         }
                         else{
@@ -237,11 +237,11 @@ public class ScheduledTasks {
                         }
                     }
                     System.out.println(cnt);
-//                    countRepository.save(Count.builder().log(log).keyword(sk.get(b).getKeyword()).count(cnt).build());
+                    countRepository.save(Count.builder().log(log).keyword(sk.get(b).getKeyword()).count(cnt).build());
                 }
                 System.out.println(allSentences);
-//                if(allSentences.size()>0)
-//                    mailService(s.getName(),targetUrl,allSentences);
+                if(allSentences.size()>0)
+                    mailService(s.getName(), s.getUser().getEmail(), targetUrl, allSentences);
             }
         } catch (Exception e) {
             System.out.println(e);
