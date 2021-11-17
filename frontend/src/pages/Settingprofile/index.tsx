@@ -26,23 +26,24 @@ const Mobile = ({ children }: any) => {
 };
 
 const SettingProfile: React.FunctionComponent = () => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
 
     const getCrawl = async () => {
-      await crawlAPI.getAllSettings(jwt).then(({data}:any) => {
-        console.log(data)
-        setData(data.allSettingData)
-      }).catch((e) => console.log(e))
-
-      
+      await crawlAPI
+        .getAllSettings(jwt)
+        .then(({ data }: any) => {
+          console.log(data);
+          setData(data.allSettingData);
+        })
+        .catch((e) => console.log(e));
     };
 
     getCrawl();
   }, []);
   const Click = () => {
-    window.location.href="/makecrawl"
+    window.location.href = "/makecrawl";
   };
   return (
     <div>
@@ -56,31 +57,45 @@ const SettingProfile: React.FunctionComponent = () => {
           }}
         >
           <Headerdiv style={{ fontSize: "24px" }}>나의 크롤링</Headerdiv>
-          <Bodydiv
-            style={{
-              height: "1000px",
-              maxWidth: "1000px",
-              display: "flex",
-              flexDirection: "column",
-              boxShadow: "5px 5px 5px 5px grey",
-            }}
-          >
-            {data.map((item :any, index) => (
-              <Settingdiv
-                onClick={() => window.location.href=`/specificcrawling/${item.settingId}`}
-                style={{ width: "60%" }}
-                key={index}
-              >
-                <Settingtitlediv>{item.url}</Settingtitlediv>
-                <Settingtagdiv>
-                  {item.keywords.map((items:any) => (
-                    <Settingtag>#️{items}</Settingtag>
-                  ))}
-                  
-                </Settingtagdiv>
-              </Settingdiv>
-            ))}
-          </Bodydiv>
+          {data.length ? (
+            <Bodydiv
+              style={{
+                height: "1000px",
+                maxWidth: "1000px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "5px 5px 5px 5px grey",
+              }}
+            >
+              {data.map((item: any, index) => (
+                <Settingdiv
+                  onClick={() =>
+                    (window.location.href = `/specificcrawling/${item.settingId}`)
+                  }
+                  style={{ width: "60%" }}
+                  key={index}
+                >
+                  <Settingtitlediv>{item.url}</Settingtitlediv>
+                  <Settingtagdiv>
+                    {item.keywords.map((items: any) => (
+                      <Settingtag>#️{items}</Settingtag>
+                    ))}
+                  </Settingtagdiv>
+                </Settingdiv>
+              ))}
+            </Bodydiv>
+          ) : (
+            <Bodydiv
+              style={{
+                fontSize: "28px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              등록된 크롤링이 없습니다.
+            </Bodydiv>
+          )}
           <Btn
             style={{
               marginBottom: "48px",
@@ -102,18 +117,36 @@ const SettingProfile: React.FunctionComponent = () => {
           }}
         >
           <Headerdiv>나의 크롤링</Headerdiv>
-          <Bodydiv>
-            {data.map((item :any, index) => (
-              <Settingdiv onClick={() => window.location.href=`/specificcrawling/${item.settingId}`} key={index}>
-                <Settingtitlediv>{item.url}</Settingtitlediv>
-                <Settingtagdiv>
-                {item.keywords.map((items:any) => (
-                    <Settingtag>#️{items}</Settingtag>
-                  ))}
-                </Settingtagdiv>
-              </Settingdiv>
-            ))}
-          </Bodydiv>
+          {data.length ? (
+            <Bodydiv>
+              {data.map((item: any, index) => (
+                <Settingdiv
+                  onClick={() =>
+                    (window.location.href = `/specificcrawling/${item.settingId}`)
+                  }
+                  key={index}
+                >
+                  <Settingtitlediv>{item.url}</Settingtitlediv>
+                  <Settingtagdiv>
+                    {item.keywords.map((items: any) => (
+                      <Settingtag>#️{items}</Settingtag>
+                    ))}
+                  </Settingtagdiv>
+                </Settingdiv>
+              ))}
+            </Bodydiv>
+          ) : (
+            <Bodydiv
+              style={{
+                fontSize: "16px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              등록된 크롤링이 없습니다.
+            </Bodydiv>
+          )}
           <Btn onClick={Click} name="크롤링 생성"></Btn>
         </div>
       </Mobile>
