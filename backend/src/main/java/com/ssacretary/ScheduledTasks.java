@@ -26,6 +26,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
+import javax.net.ssl.SSLHandshakeException;
 import javax.transaction.Transactional;
 
 
@@ -124,7 +125,9 @@ public class ScheduledTasks {
             message.setSubject(subject);
             if(result==null){
                 message.setContent("해당 url은 robot.txt의 크롤링 금지 url에 해당되어 세팅을 삭제 처리 하였습니다.","text/html;charset=UTF-8");
-            }else{
+            }else if(settingName=="DNS NOT FOUND"){
+                message.setContent("해당 url이 존재하지 않아 세팅을 삭제 처리 하였습니다.","text/html;charset=UTF-8");
+            } else{
                 String content = "<strong>"+settingName+"</strong><br/><strong>["+result.size() + "개의 키워드에 일치하는 결과]</strong><br/>";
                 for(String r : result) {
                     content += r + "<br/>";
@@ -146,7 +149,7 @@ public class ScheduledTasks {
     }
 
     //    @Scheduled(fixedRate = 60000)
-    @Scheduled(cron = "0 0 0/1 * * *")
+    @Scheduled(cron = "0 0/1 * * * *")
     public void makeCrawling() {
         //주기 가져오기
         LocalTime now = LocalTime.now();
@@ -168,9 +171,10 @@ public class ScheduledTasks {
         }
 
         /* 크롤링 시작 */
-        try {
-            for(Setting s : settings){
+        for(Setting s : settings){
+            try{
                 String targetUrl = s.getUrl();
+                System.out.println("현재 이메일 : "+s.getUser().getEmail());
                 List<String> allSentences = new ArrayList<>();
                 Connection conn = Jsoup.connect(targetUrl);
                 Document document = conn.get();
@@ -184,67 +188,78 @@ public class ScheduledTasks {
                 List<String> kw = new ArrayList<>();
 
                 for(int b=0;b<sk.size();b++){
-                    String keyword = sk.get(b).getKeyword().getKeyword();
-                    System.out.println("키워드 : "+keyword);
+                    try {
+                        String keyword = sk.get(b).getKeyword().getKeyword();
+                        System.out.println("키워드 : "+keyword);
 
-                    Pattern pattern = Pattern.compile(keyword);
-                    Matcher matcher = pattern.matcher(doctext);
+                        Pattern pattern = Pattern.compile(keyword);
+                        Matcher matcher = pattern.matcher(doctext);
 //                    System.out.println(document.text());
 
-                    int cnt = 0;
-                    while (true){
-                        boolean matfind = matcher.find();
-                        if (matfind){
-                            int i = matcher.start();
-                            int start = 0;
-                            int end = 0;
-                            cnt += 1;
-                            String regx1 = "\"";
-                            String regx2 = ">";
-                            String regx3 = "<";
-                            char c1 = regx1.charAt(0);
-                            char c2 = regx2.charAt(0);
-                            char c3 = regx3.charAt(0);
-                            while(true){
-                                if (doctext.charAt(i) != c1 && doctext.charAt(i) != c2) {
-                                    i -= 1;
+                        int cnt = 0;
+                        while (true){
+                            boolean matfind = matcher.find();
+                            if (matfind){
+                                int i = matcher.start();
+                                int start = 0;
+                                int end = 0;
+                                cnt += 1;
+                                String regx1 = "\"";
+                                String regx2 = ">";
+                                String regx3 = "<";
+                                char c1 = regx1.charAt(0);
+                                char c2 = regx2.charAt(0);
+                                char c3 = regx3.charAt(0);
+                                while(true){
+                                    if (doctext.charAt(i) != c1 && doctext.charAt(i) != c2) {
+                                        i -= 1;
+                                    }
+                                    else{
+                                        start = i+1;
+                                        break;
+                                    }
                                 }
-                                else{
-                                    start = i+1;
-                                    break;
+                                int j = matcher.start();
+                                while(true){
+                                    if (doctext.charAt(j) != c1 && doctext.charAt(j) != c3) {
+                                        j += 1;
+                                    }
+                                    else{
+                                        end = j;
+                                        break;
+                                    }
                                 }
-                            }
-                            int j = matcher.start();
-                            while(true){
-                                if (doctext.charAt(j) != c1 && doctext.charAt(j) != c3) {
-                                    j += 1;
-                                }
-                                else{
-                                    end = j;
-                                    break;
-                                }
-                            }
 //                          System.out.println(doctext.substring(start, end));
-                            String oneSentence = doctext.substring(start, end).trim().replaceAll(" ", "");
-//                            System.out.println("찾은거? "+oneSentence);
-                            if(!allSentences.contains(oneSentence)) {
-                                allSentences.add(oneSentence);
-                                sentenceRepository.save(Sentence.builder().log(log).keyword(sk.get(b).getKeyword()).matchSentence(oneSentence).build());
+                                String oneSentence = doctext.substring(start, end).trim().replaceAll(" ", "");
+                                System.out.println("찾은거? "+oneSentence);
+                                if(!allSentences.contains(oneSentence)) {
+                                    allSentences.add(oneSentence);
+                                    sentenceRepository.save(Sentence.builder().log(log).keyword(sk.get(b).getKeyword()).matchSentence(oneSentence).build());
+                                }
+                            }
+                            else{
+                                break;
                             }
                         }
-                        else{
-                            break;
-                        }
+                        System.out.println(cnt);
+                        countRepository.save(Count.builder().log(log).keyword(sk.get(b).getKeyword()).count(cnt).build());
+                    }catch (StringIndexOutOfBoundsException e){
+                        System.out.println(e);
+                    }catch (Exception e){
+                        System.out.println(e);
                     }
-                    System.out.println(cnt);
-                    countRepository.save(Count.builder().log(log).keyword(sk.get(b).getKeyword()).count(cnt).build());
                 }
                 System.out.println(allSentences);
                 if(allSentences.size()>0)
                     mailService(s.getName(), s.getUser().getEmail(), targetUrl, allSentences);
+            }catch (SSLHandshakeException e){
+                System.out.println(e);
+                String nullString = "DNS NOT FOUND";
+                mailService(nullString,null,null,null);
+                settingRepository.deleteBySettingId(s.getSettingId());
+            }catch (Exception e){
+                System.out.println(e);
             }
-        } catch (Exception e) {
-            System.out.println(e);
         }
     }
 }
