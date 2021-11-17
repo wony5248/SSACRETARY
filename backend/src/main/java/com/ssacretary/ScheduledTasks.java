@@ -128,7 +128,7 @@ public class ScheduledTasks {
             }else if(settingName=="DNS NOT FOUND"){
                 message.setContent("해당 url이 존재하지 않아 세팅을 삭제 처리 하였습니다.","text/html;charset=UTF-8");
             } else{
-                String content = "<strong>"+settingName+"</strong><br/><strong>["+result.size() + "개의 키워드에 일치하는 결과]</strong><br/>";
+                String content = "<strong>"+settingName+"</strong><br/><strong>[등록된 키워드에 일치하는 "+result.size() + "개의 결과]</strong><br/>";
                 for(String r : result) {
                     content += r + "<br/>";
                 }
@@ -149,7 +149,7 @@ public class ScheduledTasks {
     }
 
     //    @Scheduled(fixedRate = 60000)
-    @Scheduled(cron = "0 0/1 * * * *")
+    @Scheduled(cron = "0 0/10 * * * *")
     public void makeCrawling() {
         //주기 가져오기
         LocalTime now = LocalTime.now();
@@ -158,7 +158,7 @@ public class ScheduledTasks {
         for(Setting s : setting){
             //targeturl이 크롤링 가능하고 현재시각을 period로 나눈 나머지가 0일때만 저장
             if(now.getHour()%s.getPeriod()==0 && cantCrawlRobotTxt(s.getUrl())) {
-//            if(s.getPeriod()==25 && cantCrawlRobotTxt(s.getUrl())) {//테스팅용
+//            if(s.getPeriod()==26 && cantCrawlRobotTxt(s.getUrl())) {//테스팅용
                 settings.add(s);
             }else if(!cantCrawlRobotTxt(s.getUrl())){
                 //실패 사유를 메일로 보내주고 세팅 삭제
@@ -172,9 +172,15 @@ public class ScheduledTasks {
 
         /* 크롤링 시작 */
         for(Setting s : settings){
+            //알람여부
+            boolean mailAlarm = s.getAlarm();
+            //현재 이메일, 세팅명
+            String email = s.getUser().getEmail();
+            String settingName = s.getName();
             try{
                 String targetUrl = s.getUrl();
-                System.out.println("현재 이메일 : "+s.getUser().getEmail());
+                System.out.println("현재 이메일 : "+email);
+                System.out.println("현재 세팅명 : "+settingName);
                 List<String> allSentences = new ArrayList<>();
                 Connection conn = Jsoup.connect(targetUrl);
                 Document document = conn.get();
@@ -185,7 +191,6 @@ public class ScheduledTasks {
                 Log log = logRepository.save(Log.builder().user(s.getUser()).setting(s).date(dateTime).htmlSuccess(true).htmlSource(doctext).build());
 
                 List<SettingKeyword> sk = settingKeywordRepository.findBySetting_SettingId(s.getSettingId());
-                List<String> kw = new ArrayList<>();
 
                 for(int b=0;b<sk.size();b++){
                     try {
@@ -194,7 +199,7 @@ public class ScheduledTasks {
 
                         Pattern pattern = Pattern.compile(keyword);
                         Matcher matcher = pattern.matcher(doctext);
-//                    System.out.println(document.text());
+//                        System.out.println(document.html());
 
                         int cnt = 0;
                         while (true){
@@ -250,12 +255,13 @@ public class ScheduledTasks {
                     }
                 }
                 System.out.println(allSentences);
-                if(allSentences.size()>0)
-                    mailService(s.getName(), s.getUser().getEmail(), targetUrl, allSentences);
+                if(allSentences.size()>0 && mailAlarm)
+                    mailService(settingName, email, targetUrl, allSentences);
             }catch (SSLHandshakeException e){
                 System.out.println(e);
                 String nullString = "DNS NOT FOUND";
-                mailService(nullString,null,null,null);
+                if(mailAlarm)
+                    mailService(nullString,null,null,null);
                 settingRepository.deleteBySettingId(s.getSettingId());
             }catch (Exception e){
                 System.out.println(e);

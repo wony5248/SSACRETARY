@@ -25,7 +25,7 @@ public class Sentence {
     @JoinColumn(name = "keyword_id")
     private Keyword keyword;
 
-    @Column(name = "matchSentence")
+    @Column(name = "matchSentence",columnDefinition = "LONGTEXT")
     private String matchSentence;
 
 }
