@@ -125,10 +125,10 @@ public class ScheduledTasks {
             message.setSubject(subject);
             if(result==null){
                 message.setContent("해당 url은 robot.txt의 크롤링 금지 url에 해당되어 세팅을 삭제 처리 하였습니다.","text/html;charset=UTF-8");
-            }else if(settingName=="DNS NOT FOUND"){
+            }else if(settingName.equals("DNS NOT FOUND")){
                 message.setContent("해당 url이 존재하지 않아 세팅을 삭제 처리 하였습니다.","text/html;charset=UTF-8");
             } else{
-                String content = "<strong>"+settingName+"</strong><br/><strong>[등록된 키워드에 일치하는 "+result.size() + "개의 결과]</strong><br/>";
+                String content = "<strong>"+settingName+"</strong><br/><strong>[등록된 키워드와 일치하는 "+result.size() + "개의 결과]</strong><br/>";
                 for(String r : result) {
                     content += r + "<br/>";
                 }
@@ -149,7 +149,7 @@ public class ScheduledTasks {
     }
 
     //    @Scheduled(fixedRate = 60000)
-    @Scheduled(cron = "0 0/10 * * * *")
+    @Scheduled(cron = "0 0 0/1 * * *")
     public void makeCrawling() {
         //주기 가져오기
         LocalTime now = LocalTime.now();
