@@ -145,8 +145,8 @@ public class ScheduledTasks {
 
     }
 
+    //    @Scheduled(fixedRate = 60000)
     @Scheduled(cron = "0 0 0/1 * * *")
-//    @Scheduled(fixedRate = 60000)
     public void makeCrawling() {
         //주기 가져오기
         LocalTime now = LocalTime.now();
@@ -224,7 +224,7 @@ public class ScheduledTasks {
                                     break;
                                 }
                             }
-//                    System.out.println(doctext.substring(start, end));
+//                          System.out.println(doctext.substring(start, end));
                             String oneSentence = doctext.substring(start, end).trim().replaceAll(" ", "");
 //                            System.out.println("찾은거? "+oneSentence);
                             if(!allSentences.contains(oneSentence)) {
