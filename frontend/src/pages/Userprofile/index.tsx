@@ -193,6 +193,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             message: error.response.data.message,
           });
         } else if (error.response.data.statusCode === 401) {
+          localStorage.clear();
           props.history.push("/");
         } else {
           console.log(error.response);
@@ -219,6 +220,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             message: error.response.data.message,
           });
         } else if (error.response.data.statusCode === 401) {
+          localStorage.clear();
           props.history.push("/");
         } else {
           console.log(error.response);
