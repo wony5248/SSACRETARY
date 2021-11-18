@@ -84,6 +84,7 @@ public class CrawlingServiceImpl implements CrawlingService{
             for (int i =0;i<setting.size();i++){
                 AllSettingData allset = new AllSettingData();
                 allset.setSettingId(setting.get(i).getSettingId());
+                allset.setName(setting.get(i).getName());
 
                 List<SettingKeyword> sk = settingKeywordRepository.findBySetting_SettingId(setting.get(i).getSettingId());
                 List<String> keywords = new ArrayList<>();
@@ -242,6 +243,7 @@ public class CrawlingServiceImpl implements CrawlingService{
                 List<String> sentences = new ArrayList<>();
                 AllLogsData allLogs = new AllLogsData();
                 allLogs.setUrl(logList.get(i).getSetting().getUrl());
+                allLogs.setName(logList.get(i).getSetting().getName());
                 allLogs.setDate(logList.get(i).getDate());
                 allLogs.setHtmlSuccess(logList.get(i).isHtmlSuccess());
                 allLogs.setHtmlSource(logList.get(i).getHtmlSource());
