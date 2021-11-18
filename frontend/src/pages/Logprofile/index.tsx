@@ -91,6 +91,7 @@ const Logprofile = () => {
                       >
                         매칭 문장수
                       </div>
+                      <div>{Object.keys(item.keywordCount)}</div>
                       <div>{item.matchSentences.length}</div>
                       {/* {item.matchSentences.map((items:any) => {
                         <div>{items}</div>;

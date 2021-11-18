@@ -34,7 +34,7 @@ const SettingProfile: React.FunctionComponent = () => {
       await crawlAPI
         .getAllSettings(jwt)
         .then(({ data }: any) => {
-          console.log(data);
+          // console.log(data);
           setData(data.allSettingData);
         })
         .catch((e) => console.log(e));

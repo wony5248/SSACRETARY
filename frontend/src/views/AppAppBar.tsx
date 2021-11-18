@@ -161,7 +161,7 @@ function AppAppBar() {
   }, [])
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-    console.log("open");
+    // console.log("open");
   };
   const handleClose = () => {
     setAnchorEl(null);

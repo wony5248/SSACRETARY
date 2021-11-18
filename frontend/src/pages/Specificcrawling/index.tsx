@@ -46,7 +46,7 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
       await crawlAPI
         .getSettingDetail(jwt, id)
         .then(({ data }: any) => {
-          console.log(data.logs);
+          // console.log(data.logs);
           let arr: any = [];
           let arr2: any = [];
           let arr3: any = [];
@@ -65,12 +65,12 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
             }
           }
           data.logs.map((item: any) => {
-            if (arr2.length < 6) {
+            if (arr2.length < 5) {
               arr2.push(item.matchSentences.length);
               arr3.push(moment(item.date).format("YYYYMMDD HH:mm"));
             }
           });
-          console.log(arr);
+          // console.log(arr);
           setCount(arr);
           setSentence(arr2);
           setDate(arr3);
@@ -175,7 +175,7 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
     <React.Fragment>
       <CardContent>
         <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-          최근 6개의 크롤링 키워드 검색 수
+          최근 5개의 크롤링 키워드 검색 수
         </Typography>
         <div>
           <Line
@@ -190,7 +190,7 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
   const { id } = match.params;
   const jwt: any = localStorage.getItem("jwt");
 
-  console.log(id);
+  // console.log(id);
   const Click = () => {
     window.location.href = `/changecrawl/${id}`;
   };
@@ -242,7 +242,7 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
               </Grid>
               <Grid style={{ height: "45%" }} item xs={12}>
                 <Card
-                  title="최근 6개의 크롤링 키워드 검색 수"
+                  title="최근 5개의 크롤링 키워드 검색 수"
                   style={{
                     height: "100%",
                     display: "flex",

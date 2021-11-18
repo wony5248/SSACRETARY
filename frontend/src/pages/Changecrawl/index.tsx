@@ -83,7 +83,7 @@ const ChangeCrawl = ({ match }: any) => {
       await crawlAPI
         .getSettingDetail(jwt, id)
         .then(({ data }: any) => {
-          console.log(data);
+          // console.log(data);
           setUrl(data.url);
           setName(data.name);
           setData(data.allSettingData);
@@ -109,7 +109,7 @@ const ChangeCrawl = ({ match }: any) => {
   }, []);
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, defaultValue } = event.target;
-    console.log(value);
+    // console.log(value);
 
     setInputs({
       ...inputs,
@@ -120,7 +120,7 @@ const ChangeCrawl = ({ match }: any) => {
     const jwt = localStorage.getItem("jwt");
     const email = localStorage.getItem("email");
     if(window.confirm("정말 삭제하시겠습니까?")){
-      console.log(id, jwt, email)
+      // console.log(id, jwt, email)
       await crawlAPI.deleteSetting(id, jwt, email).then(() => {
         window.location.href = "/settingprofile";
       });
@@ -134,7 +134,7 @@ const ChangeCrawl = ({ match }: any) => {
     keywords.push(keyword3);
     keywords.push(keyword4);
     keywords.push(keyword5);
-    console.log(keywords)
+    // console.log(keywords)
     await crawlAPI
       .editSetting(
         id,
@@ -161,7 +161,7 @@ const ChangeCrawl = ({ match }: any) => {
 
   const handleExit = () => {
     setIsopen(false);
-    console.log(isopen);
+    // console.log(isopen);
   };
 
   // const addTag = () => {
@@ -170,23 +170,23 @@ const ChangeCrawl = ({ match }: any) => {
   // };
   const tagChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTag(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
   const radioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue("or");
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
-    console.log(event.target.checked);
+    // console.log(event.target.checked);
   };
   const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked2(event.target.checked);
-    console.log(event.target.checked);
+    // console.log(event.target.checked);
   };
   const timeChange = (event: any) => {
     setTime(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
   return (
     <div>
