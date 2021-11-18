@@ -1,5 +1,6 @@
 package com.ssacretary.db.entity;
 
+import com.ssacretary.api.request.user.EditUserReq;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Setting> settingList = new ArrayList<>();
 
     @Column(name = "nickname")
@@ -30,5 +31,10 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    public void updateUserProfile(EditUserReq editUserReq){
+        this.nickname=editUserReq.getNickname();
+        this.phone=editUserReq.getPhoneNum();
+    }
 
 }

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Alert, Button, TextField } from "@mui/material";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
 import Logo from "../../assets/logo.png";
 import { axiosOnSignIn } from "../../utils/axios";
@@ -10,6 +11,15 @@ import { CommonDiv } from "../../components/CommonDiv/index";
 import { Container } from "../../components/Container/index";
 
 const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
+  useEffect(() => {
+    const isLogin = localStorage.getItem("jwt") !== null ? true : false;
+    if (isLogin) {
+      props.history.push("/settingprofile");
+    }
+  });
+
+  const isMobile = useMediaQuery({ maxWidth: 612 });
+
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -32,73 +42,111 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
       axiosOnSignIn(email, password)
         .then((res: any) => {
           if (res.data.statusCode === 200) {
-            localStorage.setItem("jwt", res.data.token);
-            localStorage.setItem("userInfo", res.data.userInfo);
+            localStorage.setItem("jwt", res.data.jwt);
+            localStorage.setItem("email", res.data.email);
+            localStorage.setItem("nickname", res.data.nickname);
+            localStorage.setItem("phone", res.data.phoneNum);
             props.history.push("/settingprofile");
           } else {
             setMessage(res.data.message);
           }
         })
         .catch((error: any) => {
-          setMessage(error.response.data.error);
+          setMessage(error.response);
         });
     } else {
-      alert("Email and password both required");
+      alert("이메일과 비밀번호 모두 필요합니다.");
+    }
+  };
+
+  const onKeyPress = function (event: React.KeyboardEvent) {
+    if (event.key === "Enter") {
+      onSignIn();
     }
   };
 
   return (
-    <Container>
-      <img src={Logo} width="200px" height="200px"></img>
-      <HeadlineH1>SIGN IN</HeadlineH1>
-      <CommonDiv>
-        <TextField
-          label="Email"
-          name="email"
-          onChange={onChange}
-          value={email}
-          required
-        />
-      </CommonDiv>
-      <CommonDiv>
-        <TextField
-          label="Password"
-          name="password"
-          onChange={onChange}
-          value={password}
-          required
-        />
-      </CommonDiv>
-      <CommonDiv>
-        {message !== "" ? <Alert severity="error">{message}</Alert> : null}
-      </CommonDiv>
-      <CommonDiv>
-        <div>
-          <Button
-            style={{ width: "200px" }}
-            variant="contained"
-            color="primary"
-            onClick={onSignIn}
-          >
-            SING IN
-          </Button>
-        </div>
-        <div>
-          <Link
-            style={{ color: "inherit", textDecoration: "none" }}
-            to="/signup"
-          >
+    <div
+      style={
+        isMobile
+          ? {
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }
+          : {
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }
+      }
+    >
+      <Container
+        style={
+          isMobile
+            ? {}
+            : {
+                boxShadow: "5px 5px 5px 5px grey",
+                border: "solid",
+                borderWidth: "thin",
+                borderRadius: "0.5rem",
+              }
+        }
+      >
+        <img src={Logo} width="200px" height="200px"></img>
+        <HeadlineH1>로그인</HeadlineH1>
+        <CommonDiv>
+          <TextField
+            label="Email"
+            name="email"
+            onChange={onChange}
+            value={email}
+            required
+          />
+        </CommonDiv>
+        <CommonDiv>
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            onChange={onChange}
+            onKeyPress={onKeyPress}
+            value={password}
+            required
+          />
+        </CommonDiv>
+        <CommonDiv>
+          {message !== "" ? <Alert severity="error">{message}</Alert> : null}
+        </CommonDiv>
+        <CommonDiv>
+          <div>
             <Button
-              style={{ width: "200px" }}
-              variant="outlined"
-              color="primary"
+              sx={{ width: "200px", backgroundColor: "#404040" }}
+              variant="contained"
+              onClick={onSignIn}
             >
-              CREATE ACCOUNT
+              로그인
             </Button>
-          </Link>
-        </div>
-      </CommonDiv>
-    </Container>
+          </div>
+          <div>
+            <Link
+              style={{ color: "inherit", textDecoration: "none" }}
+              to="/signup"
+            >
+              <Button
+                style={{ width: "200px" }}
+                variant="outlined"
+                color="primary"
+              >
+                회원가입
+              </Button>
+            </Link>
+          </div>
+        </CommonDiv>
+      </Container>
+    </div>
   );
 };
 

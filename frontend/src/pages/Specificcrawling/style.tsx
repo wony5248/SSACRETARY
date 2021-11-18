@@ -9,6 +9,7 @@ export const Urldiv = styled.div`
 export const Carddiv = styled.div`
     display : flex;
     flex-direction: column;
+    
     align-items:center;
     height: 450px;
     width: 90%;
@@ -19,6 +20,7 @@ export const Carddiv = styled.div`
 export const Cardcondiv = styled.div`
     border: 1px solid #6200EE;
     width: 360px;
+    
     border-radius: 8px;
     margin-top:12px;
     margin-bottom: 12px;

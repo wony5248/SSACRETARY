@@ -24,7 +24,7 @@ export const Keworddiv = styled.div`
   align-items: center;
   height: 130px;
   width: 100%;
-  overflow: auto;
+  overflow-y: auto;
   border: 1px solid #d8d8d8;
   margin-bottom: 24px;
 `;
@@ -32,14 +32,17 @@ export const Carddiv1 = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  algin-self: center;
   margin-bottom: 32px;
+  box-shadow: 5px 5px 5px 5px grey;
   width: 90%;
   height:300px;
-  background-color: rgba(98, 0, 238, 0.08);
+  background-color: #404040;
   opaciry:0.08;
 `;
 export const Carddiv2 = styled.div`
   align-items: center;
+  overflow: auto;
   width: 84%;
   height:84%;
   padding: 3%;
