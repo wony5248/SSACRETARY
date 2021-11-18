@@ -146,7 +146,12 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               ...checks,
               emailCheck: "not available",
             });
+            setMessages({
+              ...messages,
+              emailMessage: "이미 등록된 이메일입니다.",
+            });
           } else {
+            console.log(error.response.data);
           }
         });
     } else {
@@ -319,7 +324,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               }
         }
       >
-        <HeadlineH1>회원가입</HeadlineH1>
+        <HeadlineH1 style={{ marginTop: "10px" }}>회원가입</HeadlineH1>
         <CommonDiv>
           <div style={{ display: "flex" }}>
             <TextField
@@ -536,6 +541,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               width: "200px",
               backgroundColor: "#404040",
               color: "#ffffff",
+              marginBottom: "10px",
             }}
             onClick={onSignUp}
           >

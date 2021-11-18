@@ -41,17 +41,30 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserLoginPostRes login(LoginReq loginReq) {
-        User user = userRepository.findByEmail(loginReq.getEmail())
+        try{
+            User user = userRepository.findByEmail(loginReq.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
-        if (!passwordEncoder.matches(loginReq.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+            if (!passwordEncoder.matches(loginReq.getPassword(), user.getPassword())) {
+                System.out.println("잘못된 비밀번호입니다.");
+                UserLoginPostRes resbody = new UserLoginPostRes();
+                resbody.setNickname("wrong password");
+                return resbody;
+//                throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+            }
+            UserLoginPostRes resbody = new UserLoginPostRes();
+            resbody.setJwt(jwtTokenProvider.createToken(loginReq.getEmail()));
+            resbody.setEmail(loginReq.getEmail());
+            resbody.setNickname(user.getNickname());
+            resbody.setPhoneNum(user.getPhone());
+            return resbody;
+        }catch (IllegalArgumentException e){
+            UserLoginPostRes resbody = new UserLoginPostRes();
+            resbody.setNickname("wrong email");
+            return resbody;
+        }catch (Exception e){
+            System.out.println(e);
+            return null;
         }
-        UserLoginPostRes resbody = new UserLoginPostRes();
-        resbody.setJwt(jwtTokenProvider.createToken(loginReq.getEmail()));
-        resbody.setEmail(loginReq.getEmail());
-        resbody.setNickname(user.getNickname());
-        resbody.setPhoneNum(user.getPhone());
-        return resbody;
     }
 
     @Override
