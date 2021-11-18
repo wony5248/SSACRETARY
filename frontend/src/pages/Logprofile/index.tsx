@@ -21,6 +21,7 @@ const Mobile = ({ children }: any) => {
 
 const Logprofile = () => {
   const [data, setData]: any[] = useState([]);
+  const [keywords, setKeywords] = useState([]);
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     const email = localStorage.getItem("email");
@@ -29,8 +30,10 @@ const Logprofile = () => {
       await crawlAPI
         .getAllLog(jwt)
         .then(({ data }: any) => {
-          console.log(data.allLogsData);
+          let arr = [];
+          console.log(data.allLogsData)
           setData(data.allLogsData);
+          // console.log(data.allLogsData[0].keywordCount);
         })
         .catch((e) => console.log(e));
     };
@@ -73,36 +76,28 @@ const Logprofile = () => {
                     <Carddiv2>
                       <div
                         style={{
-                          fontSize: "18px",
+                          fontSize: "24px",
                           fontFamily: "Black Han Sans",
-
-                          fontWeight: 600,
-                        }}
-                      >
-                        URL
-                      </div>
-                      <div>{item.url}</div>
-                      <div
-                        style={{
-                          fontSize: "18px",
-                          fontFamily: "Black Han Sans",
-
-                          fontWeight: 600,
-                        }}
-                      >
-                        세팅 이름
-                      </div>
-                      <div>{item.name}</div>
-                      <div
-                        style={{
-                          fontSize: "18px",
-                          fontFamily: "Black Han Sans",
-
+                          display: "flex",
+                          justifyContent: "center",
                           fontWeight: 600,
                         }}
                       >
                         {item.name}
                       </div>
+                      <div
+                        style={{
+                          fontSize: "18px",
+                          fontFamily: "Black Han Sans",
+                          display: "flex",
+                          justifyContent: "center",
+                          fontWeight: 600,
+                          marginBottom: "24px",
+                        }}
+                      >
+                        {item.url}
+                      </div>
+
                       <div
                         style={{
                           fontSize: "18px",
@@ -113,7 +108,13 @@ const Logprofile = () => {
                       >
                         매칭 키워드
                       </div>
-                      <div>{Object.keys(item.keywordCount)}</div>
+                      <div>
+                        {item.keywordCount
+                          ? item.keywordCount.map((items: any) => (
+                              <span>{Object.keys(items)}, </span>
+                            ))
+                          : null}
+                      </div>
                       <div
                         style={{
                           fontSize: "18px",
@@ -122,9 +123,9 @@ const Logprofile = () => {
                           fontWeight: 600,
                         }}
                       >
-                        매칭 문장수
+                        매칭 문장수 {item.matchSentences.length}개
                       </div>
-                      <div>{item.matchSentences.length}</div>
+
                       {/* {item.matchSentences.map((items:any) => {
                         <div>{items}</div>;
                       })} */}
@@ -138,7 +139,13 @@ const Logprofile = () => {
                       >
                         매칭된 문장
                       </div>
-                      <div>{item.matchSentences}</div>
+                      <div>
+                        {item.matchSentences
+                          ? item.matchSentences.map((item: any) => (
+                              <div>{item}</div>
+                            ))
+                          : null}
+                      </div>
                       <div>
                         {moment(item.date).format("YYYY년 MM월 DD일 HH시 mm분")}
                       </div>
@@ -188,8 +195,32 @@ const Logprofile = () => {
                           fontWeight: 600,
                         }}
                       >
-                        {item.settingId}
+                        URL
                       </div>
+                      <div>{item.url}</div>
+                      <div
+                        style={{
+                          fontSize: "18px",
+                          fontFamily: "Black Han Sans",
+
+                          fontWeight: 600,
+                        }}
+                      >
+                        세팅 이름
+                      </div>
+                      <div>{item.name}</div>
+
+                      <div
+                        style={{
+                          fontSize: "18px",
+                          fontFamily: "Black Han Sans",
+
+                          fontWeight: 600,
+                        }}
+                      >
+                        매칭 키워드
+                      </div>
+                      <div>{Object.keys(item.keywordCount)}</div>
                       <div
                         style={{
                           fontSize: "18px",

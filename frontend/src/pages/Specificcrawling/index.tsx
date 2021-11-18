@@ -47,6 +47,7 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
       await crawlAPI
         .getSettingDetail(jwt, id)
         .then(({ data }: any) => {
+          console.log(data.logs);
           setLatestData(data.logs[data.logs.length - 1]);
           let arr: any = [];
           let arr2: any = [];
@@ -279,16 +280,22 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
             title="최근 크롤링 매칭된 문장"
             style={{
               height: "500px",
+              maxWidth: "1120px",
               width: "80%",
-              padding: "0 1%",
+              padding: "28px",
               boxShadow: "5px 5px 5px 5px grey",
               flexDirection: "column",
               margin: "0 12px",
               overflow: "auto",
             }}
+            onClick={() => console.log(latestdata.matchSentences)}
             variant="outlined"
           >
-            {latestdata.matchSentences}
+            {latestdata.matchSentences
+              ? latestdata.matchSentences.map((item: any) => {
+                  return <div>{item}</div>;
+                })
+              : null}
           </Card>
           <Btn
             style={{ width: "90%", maxWidth: "1200px" }}
