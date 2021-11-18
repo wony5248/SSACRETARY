@@ -324,7 +324,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               }
         }
       >
-        <HeadlineH1>회원가입</HeadlineH1>
+        <HeadlineH1 style={{ marginTop: "10px" }}>회원가입</HeadlineH1>
         <CommonDiv>
           <div style={{ display: "flex" }}>
             <TextField
@@ -541,6 +541,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               width: "200px",
               backgroundColor: "#404040",
               color: "#ffffff",
+              marginBottom: "10px",
             }}
             onClick={onSignUp}
           >
