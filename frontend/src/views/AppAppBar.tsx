@@ -1,21 +1,26 @@
 import * as React from "react";
+import { useEffect } from "react";
+import { useHistory } from "react-router";
+
+import styled from "styled-components";
+
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
-import AppBar from "../components/AppBar";
-import Toolbar from "../components/ToolBar";
 import Avatar from "@mui/material/Avatar";
-import styled from "styled-components";
 import Menubar from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { deepOrange } from "@mui/material/colors";
+import { Typography } from "@mui/material";
+
+import AppBar from "../components/AppBar";
+import Toolbar from "../components/ToolBar";
+
 interface ITest {
   open: any;
 }
@@ -25,7 +30,7 @@ const StyledMenu = styled.nav`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  background: #e6f5ff;
+  background: #404040;
   transform: ${(props: ITest) =>
     props.open ? "translateX(0)" : "translateX(-100%)"};
   height: 100vh;
@@ -46,7 +51,7 @@ const StyledMenu = styled.nav`
     padding: 2rem 0;
     font-weight: bold;
     letter-spacing: 0.5rem;
-    color: #0d0c1d;
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.3s linear;
 
@@ -56,10 +61,11 @@ const StyledMenu = styled.nav`
     }
 
     &:hover {
-      color: #343078;
+      color: #808080;
     }
   }
 `;
+
 const StyledBurger = styled.button`
   left: 2rem;
   display: flex;
@@ -70,6 +76,7 @@ const StyledBurger = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
+  color: #ffffff;
   padding: 0;
   z-index: 10;
 
@@ -80,7 +87,7 @@ const StyledBurger = styled.button`
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${(props: ITest) => (props.open ? "#0D0C1D" : "#EFFFFA")};
+    background: ${(props: ITest) => (props.open ? "#FFFFFF" : "#EFFFFA")};
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;
@@ -103,6 +110,7 @@ const StyledBurger = styled.button`
     }
   }
 `;
+
 const Menu = (props: any) => {
   const { open } = props;
 
@@ -112,35 +120,24 @@ const Menu = (props: any) => {
         <span role="img" aria-label="control">
           🔨
         </span>
-        Make Crawl
-      </a>
-      <a href="/changecrawl">
-        <span role="img" aria-label="about us">
-          🔧
-        </span>
-        Change Crawl
+        크롤링 생성
       </a>
       <a href="/settingprofile">
         <span role="img" aria-label="about us">
           ⚙️
         </span>
-        Setting Crawl
-      </a>
-      <a href="/specificcrawling">
-        <span role="img" aria-label="control">
-          📌
-        </span>
-        Specific Crawl
+        나의 크롤링
       </a>
       <a href="/log">
         <span role="img" aria-label="control">
-          🔨
+          📃
         </span>
-        Crawl Log
+        크롤링 로그
       </a>
     </StyledMenu>
   );
 };
+
 const Burger = (props: any) => {
   const { open, setOpen } = props;
   return (
@@ -151,22 +148,32 @@ const Burger = (props: any) => {
     </StyledBurger>
   );
 };
+
 function AppAppBar() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const opened = Boolean(anchorEl);
+  const history = useHistory();
+  const [email, setEmail] :any = React.useState("")
+  useEffect(() => {
+    setEmail(localStorage.getItem("email")?.toUpperCase())
+
+  }, [])
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-    console.log("open");
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const onLogout = function () {
+    localStorage.clear();
+    history.push("/");
   };
   // const [islogin, setIslogin] = React.useState(false)
   // const node = React.useRef();
   return (
     <div>
-      <AppBar position="fixed">
+      <AppBar sx={{ backgroundColor: "#404040" }} position="fixed">
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Box
             sx={{ flex: 1 }}
@@ -175,20 +182,12 @@ function AppAppBar() {
             <Burger open={open} setOpen={setOpen} />
             <Menu open={open} setOpen={setOpen} />
           </Box>
-          <Link
-            variant="h6"
-            underline="none"
-            color="inherit"
-            href="/"
-            sx={{ fontSize: 24 }}
-          >
-            {"SSACRETARY"}
-          </Link>
+          <Typography sx={{ fontSize: 24 }}>{"SSACRETARY"}</Typography>
           <React.Fragment>
             <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-              <Tooltip title="Account settings">
+              <Tooltip title="계정 정보">
                 <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
-                  <Avatar sx={{ bgcolor: deepOrange[500] }}>M</Avatar>
+                  <Avatar sx={{ bgcolor: deepOrange[500] }}>{email[0]}</Avatar>
                 </IconButton>
               </Tooltip>
             </Box>
@@ -226,22 +225,25 @@ function AppAppBar() {
               transformOrigin={{ horizontal: "right", vertical: "top" }}
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
-              <MenuItem onClick ={() => window.location.href="/userprofile"}>
-                <Avatar />User Profile
+              <MenuItem onClick={() => (window.location.href = "/userprofile")}>
+                <Avatar />
+                회원 정보
               </MenuItem>
               <Divider />
-              <MenuItem onClick ={() => window.location.href="/settingprofile"}>
+              <MenuItem
+                onClick={() => (window.location.href = "/settingprofile")}
+              >
                 <ListItemIcon>
                   <Settings fontSize="small" />
                 </ListItemIcon>
-                My Settings
+                나의 크롤링
               </MenuItem>
-              
-              <MenuItem onClick ={() => window.location.href="/"}>
+
+              <MenuItem onClick={onLogout}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>
-                Logout
+                로그아웃
               </MenuItem>
             </Menubar>
           </React.Fragment>

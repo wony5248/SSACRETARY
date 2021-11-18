@@ -15,7 +15,7 @@ public class Sentence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sentence_id")
-    private Long sentenceId;
+    private int sentenceId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "log_id")
@@ -25,7 +25,7 @@ public class Sentence {
     @JoinColumn(name = "keyword_id")
     private Keyword keyword;
 
-    @Column(name = "matchSentence")
+    @Column(name = "matchSentence",columnDefinition = "LONGTEXT")
     private String matchSentence;
 
 }

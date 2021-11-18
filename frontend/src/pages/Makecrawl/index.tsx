@@ -4,17 +4,19 @@ import AppAppBar from "../../views/AppAppBar";
 import TextField from "@mui/material/TextField";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import ClearIcon from "@mui/icons-material/Clear";
+import { Tagdiv } from "../../components/Tagdiv";
+import { Exitbtn } from "../../components/Exitbtn";
+import { crawlAPI } from "../../utils/axios";
 import {
   Userprofilediv1,
   Formdiv1,
   Removebtn,
-  Styledlabel,
   Keworddiv,
   Alarmdiv,
   Addbtn,
 } from "./style";
 import Btn from "../../components/Button";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Radio,
   Switch,
@@ -42,35 +44,36 @@ const Mobile = ({ children }: any) => {
 
 const MakeCrawl = () => {
   const [checked, setChecked] = React.useState(true);
+  const [isopen, setIsopen] = React.useState(false);
   const [checked2, setChecked2] = React.useState(false);
-  const [value, setValue] = React.useState("and");
-  const [time, setTime] = React.useState(60);
-  const data :any = [];
+  const [tag, setTag] = React.useState("");
+  const [type, setType] = React.useState("or")
+  const [time, setTime] = React.useState(1);
+  const [data, setData] = React.useState(["", "", "", "", ""]);
+  let keywords:any[] = [];
   const [inputs, setInputs] = useState({
     url: "",
+    name: "",
     keyword1: "",
     keyword2: "",
     keyword3: "",
     keyword4: "",
     keyword5: "",
-    keyword6: "",
-    keyword7: "",
-    keyword8: "",
   });
   const {
     url,
-    // keyword1,
-    // keyword2,
-    // keyword3,
-    // keyword4,
-    // keyword5,
-    // keyword6,
-    // keyword7,
-    // keyword8,
+    name,
+    keyword1,
+    keyword2,
+    keyword3,
+    keyword4,
+    keyword5,
   } = inputs;
   const radioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-    console.log(event.target.value);
+    setType(event.target.value);
+  };
+  const tagChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTag(event.target.value);
   };
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
@@ -79,25 +82,37 @@ const MakeCrawl = () => {
       [name]: value,
     });
   };
-
+  const makeCrawl = async () => {
+    keywords = []
+    const jwt=localStorage.getItem("jwt")
+    const email = localStorage.getItem("email")
+    keywords.push(keyword1);
+    keywords.push(keyword2);
+    keywords.push(keyword3);
+    keywords.push(keyword4);
+    keywords.push(keyword5);
+    await crawlAPI.addSetting(jwt, email, type, keywords, url, time, checked, checked2, name).then(() => {window.location.href="/settingprofile"});
+  };
+  const handleExit = () => {
+    setIsopen(false);
+  };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
-    console.log(event.target.checked);
   };
   const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked2(event.target.checked);
-    console.log(event.target.checked);
   };
   const timeChange = (event: any) => {
     setTime(event.target.value);
-    console.log(event.target.value);
+  };
+  const tagAdd = () => {
+
   };
   return (
     <div>
       {/* {isMobile ? <AppAppBar /> : undefined} */}
       <AppAppBar />
-      <Desktop>this page is UserProfile page</Desktop>
-      <Mobile>
+      <Desktop>
         <div
           style={{
             display: "flex",
@@ -105,8 +120,16 @@ const MakeCrawl = () => {
             alignItems: "center",
           }}
         >
-          <Userprofilediv1>Make Crawling</Userprofilediv1>
-          <Formdiv1>
+          <Userprofilediv1 style={{ fontSize: "24px" }}>
+            크롤링 생성
+          </Userprofilediv1>
+          <Formdiv1
+            style={{
+              height: "900px",
+              maxWidth: "1000px",
+              boxShadow: "5px 5px 5px 5px grey",
+            }}
+          >
             <div style={{ width: "100%" }}>
               <TextField
                 label="URL"
@@ -114,7 +137,17 @@ const MakeCrawl = () => {
                 onChange={onChange}
                 value={url}
                 required
-                style={{ width: "100%", backgroundColor: "#E6E6E6" }}
+                style={{ width: "100%" }}
+              ></TextField>
+            </div>
+            <div style={{ width: "100%" }}>
+              <TextField
+                label="이름"
+                name="name"
+                onChange={onChange}
+                value={name}
+                required
+                style={{ width: "100%" }}
               ></TextField>
             </div>
             <div
@@ -122,10 +155,14 @@ const MakeCrawl = () => {
                 display: "flex",
                 justifyContent: "space-around",
                 width: "100%",
+                fontSize: "24px",
+                fontWeight: "bold",
+                fontStyle: "medium",
+                fontFamily: "Roboto",
                 margin: "24px 0",
               }}
             >
-              <RadioGroup
+              {/* <RadioGroup
                 row
                 aria-label="condition"
                 defaultValue="and"
@@ -134,60 +171,94 @@ const MakeCrawl = () => {
               >
                 <FormControlLabel
                   value="and"
-                  control={<Radio />}
+                  control={<Radio color="default" />}
                   label="AND"
                 />
                 <FormControlLabel
                   value="or"
-                  control={<Radio />}
+                  control={<Radio color="default" />}
                   label="OR"
                 />
-              </RadioGroup>
+              </RadioGroup> */}
+              키워드
             </div>
-            <Keworddiv style={{}}>
-              {data.length ? (
-                <div style={{ width: "100%" }}>
-                  {data.map((item:any, key:any) => (
+
+            <Keworddiv style={{ height: "400px" }}>
+              {isopen ? (
+                <Tagdiv>
+                  <Exitbtn onClick={handleExit}>
+                    <ClearIcon></ClearIcon>
+                  </Exitbtn>
+                  <TextField
+                    label="키워드"
+                    onChange={tagChange}
+                    value={tag}
+                    required
+                    style={{
+                      width: "70%",
+                    }}
+                  ></TextField>
+                  <Addbtn style={{ alignSelf: "center" }} onClick={tagAdd}>
+                    <AddIcon />
+                    ADD
+                  </Addbtn>
+                </Tagdiv>
+              ) : (
+                <div style={{ height: "100%", width: "100%" }}>
+                  {data ? (
                     <div
-                      key={key}
                       style={{
+                        height: "100%",
                         width: "100%",
                         display: "flex",
+                        flexDirection: "column",
                         justifyContent: "space-between",
                       }}
                     >
-                      <TextField
-                        label="Keyword1"
-                        name="keyword1"
-                        onChange={onChange}
-                        value={item.keyword}
-                        required
-                        style={{ width: "70%", backgroundColor: "#E6E6E6" }}
-                      ></TextField>
-                      <Removebtn onClick={() => console.log("remove")}>
-                        <RemoveIcon />
-                      </Removebtn>
+                      {data.map((item: any, key: any) => (
+                        <div
+                          key={key}
+                          style={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                            margin: "8px 0",
+                          }}
+                        >
+                          <TextField
+                            label={`키워드${key + 1}`}
+                            name={`keyword${key + 1}`}
+                            onChange={onChange}
+                            required
+                            style={{ width: "70%" }}
+                          ></TextField>
+                          {/* <Removebtn onClick={() => console.log("remove")}>
+                            <RemoveIcon />
+                          </Removebtn> */}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div
-                  style={{
-                    width: "100%",
-                    height:"100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  ADD 버튼을 눌러 tag를 추가해주세요.
+                  ) : (
+                    <div
+                      onClick={() => console.log(data)}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      ADD 버튼을 눌러 tag를 추가해주세요.
+                    </div>
+                  )}
                 </div>
               )}
             </Keworddiv>
-            <Addbtn onClick={() => console.log("add")}>
+            {/* <Addbtn onClick={handleAdd}>
               <AddIcon />
               ADD
-            </Addbtn>
+            </Addbtn> */}
             <Box
               style={{ alignSelf: "flex-end", marginBottom: "24px" }}
               sx={{ minWidth: 120 }}
@@ -201,13 +272,13 @@ const MakeCrawl = () => {
                   label="Age"
                   onChange={timeChange}
                 >
-                  <MenuItem value={5}>5분</MenuItem>
-                  <MenuItem value={10}>10분</MenuItem>
-                  <MenuItem value={30}>30분</MenuItem>
-                  <MenuItem value={60}>1시간</MenuItem>
-                  <MenuItem value={360}>6시간</MenuItem>
-                  <MenuItem value={720}>12시간</MenuItem>
-                  <MenuItem value={1440}>24시간</MenuItem>
+                  <MenuItem value={1}>1시간</MenuItem>
+                  <MenuItem value={2}>2시간</MenuItem>
+                  <MenuItem value={3}>3시간</MenuItem>
+                  <MenuItem value={4}>4시간</MenuItem>
+                  <MenuItem value={6}>6시간</MenuItem>
+                  <MenuItem value={12}>12시간</MenuItem>
+                  <MenuItem value={24}>24시간</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -220,9 +291,13 @@ const MakeCrawl = () => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>MAIL Alarm</Alarmdiv>
+                <Alarmdiv>메일 알람</Alarmdiv>
 
-                <Switch checked={checked} onChange={handleChange} />
+                <Switch
+                  color="default"
+                  checked={checked}
+                  onChange={handleChange}
+                />
               </div>
               <div
                 style={{
@@ -232,8 +307,221 @@ const MakeCrawl = () => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>SMS Alarm</Alarmdiv>
-                <Switch checked={checked2} onChange={handleChange2} />
+                <Alarmdiv>SMS 알람</Alarmdiv>
+                <Switch
+                  color="default"
+                  checked={checked2}
+                  onChange={handleChange2}
+                />
+              </div>
+            </Keworddiv>
+          </Formdiv1>
+          <Btn
+            style={{
+              width: "93%",
+              marginBottom: "48px",
+              marginTop: "72px",
+              maxWidth: "1032px",
+            }}
+            name="크롤링 생성"
+            onClick={makeCrawl}
+          ></Btn>
+        </div>
+      </Desktop>
+      <Mobile>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Userprofilediv1>크롤링 생성</Userprofilediv1>
+          <Formdiv1>
+            <div style={{ width: "100%" }}>
+              <TextField
+                label="URL"
+                name="url"
+                onChange={onChange}
+                value={url}
+                required
+                style={{ width: "100%" }}
+              ></TextField>
+            </div>
+            <div style={{ width: "100%", marginTop:"12px" }}>
+              <TextField
+                label="이름"
+                name="name"
+                onChange={onChange}
+                value={name}
+                required
+                style={{ width: "100%" }}
+              ></TextField>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-around",
+                width: "100%",
+                fontWeight: "bold",
+                fontStyle: "medium",
+                fontFamily: "Roboto",
+                margin: "24px 0",
+              }}
+            >
+              {/* <RadioGroup
+                row
+                aria-label="condition"
+                defaultValue="and"
+                name="row-radio-buttons-group"
+                onChange={radioChange}
+              >
+                <FormControlLabel
+                  value="and"
+                  control={<Radio color="default" />}
+                  label="AND"
+                />
+                <FormControlLabel
+                  value="or"
+                  control={<Radio color="default" />}
+                  label="OR"
+                />
+              </RadioGroup> */}
+              키워드
+            </div>
+            <Keworddiv style={{}}>
+              {isopen ? (
+                <Tagdiv
+                  style={{
+                    width: "90%",
+                    height: "400px",
+                    zIndex: 2,
+                    marginTop: "0px",
+                  }}
+                >
+                  <Exitbtn onClick={handleExit}>
+                    <ClearIcon></ClearIcon>
+                  </Exitbtn>
+                  <TextField
+                    label="Keyword"
+                    onChange={tagChange}
+                    value={tag}
+                    required
+                    style={{
+                      width: "70%",
+                      margin: "24px 0",
+                    }}
+                  ></TextField>
+                  <Addbtn
+                    style={{ alignSelf: "center" }}
+                    onClick={() => console.log("add")}
+                  >
+                    <AddIcon />
+                    ADD
+                  </Addbtn>
+                </Tagdiv>
+              ) : (
+                <div>
+                  {data.length ? (
+                    <div style={{ width: "100%" }}>
+                      {data.map((item: any, key: any) => (
+                        <div
+                          key={key}
+                          style={{
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            margin: "8px 0",
+                          }}
+                        >
+                          <TextField
+                            label={`키워드${key + 1}`}
+                            name={`keyword${key + 1}`}
+                            onChange={onChange}
+                            value={item}
+                            required
+                            style={{ width: "70%" }}
+                          ></TextField>
+                          {/* <Removebtn onClick={() => console.log("remove")}>
+                            <RemoveIcon />
+                          </Removebtn> */}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      ADD 버튼을 눌러 tag를 추가해주세요.
+                    </div>
+                  )}
+                </div>
+              )}
+            </Keworddiv>
+            {/* <Addbtn onClick={handleAdd}>
+              <AddIcon />
+              ADD
+            </Addbtn> */}
+            <Box
+              style={{ alignSelf: "flex-end", marginBottom: "24px" }}
+              sx={{ minWidth: 120 }}
+            >
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">주기</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={time}
+                  label="Age"
+                  onChange={timeChange}
+                >
+                  <MenuItem value={1}>1시간</MenuItem>
+                  <MenuItem value={2}>2시간</MenuItem>
+                  <MenuItem value={3}>3시간</MenuItem>
+                  <MenuItem value={4}>4시간</MenuItem>
+                  <MenuItem value={6}>6시간</MenuItem>
+                  <MenuItem value={12}>12시간</MenuItem>
+                  <MenuItem value={24}>24시간</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            <Keworddiv style={{ border: "none" }}>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Alarmdiv>메일 알람</Alarmdiv>
+
+                <Switch
+                  color="default"
+                  checked={checked}
+                  onChange={handleChange}
+                />
+              </div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Alarmdiv>SMS 알람</Alarmdiv>
+                <Switch
+                  color="default"
+                  checked={checked2}
+                  onChange={handleChange2}
+                />
               </div>
             </Keworddiv>
           </Formdiv1>

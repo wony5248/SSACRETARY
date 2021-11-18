@@ -17,15 +17,15 @@ public class Keyword {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "keyword_id")
-    private Long keywordId;
+    private int keywordId;
 
-    @OneToMany(mappedBy = "keyword")
+    @OneToMany(mappedBy = "keyword", cascade = CascadeType.ALL)
     private List<SettingKeyword> settingKeywordList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "keyword")
+    @OneToMany(mappedBy = "keyword", cascade = CascadeType.ALL)
     private List<Count> countList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "keyword")
+    @OneToMany(mappedBy = "keyword", cascade = CascadeType.ALL)
     private List<Sentence> sentenceList = new ArrayList<>();
 
     @Column(name = "keyword")

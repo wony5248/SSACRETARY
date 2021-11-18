@@ -2,14 +2,17 @@ package com.ssacretary.db.repository;
 
 import com.ssacretary.db.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-
+@Transactional
+public interface UserRepository extends JpaRepository<User,String> {
+//    User findByUserEmail(String email);
     Optional<User> findByEmail(String email);
     Optional<User> findByNickname(String nickname);
     Optional<User> findByPhone(String phone);
+
+    long deleteByEmail(String email);
 
 }

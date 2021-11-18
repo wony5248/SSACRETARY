@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bf50da54-66c6-444b-91c2-d5e4fd4d8a3f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/ScheduledTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/ScheduledTasks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/component/stock/JsoupComponentLocalMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/component/stock/JsoupComponentLocalMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Logprofile/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Logprofile/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/utils/statics.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/statics.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,12 +22,20 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/backend">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ssacretary" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ssacretary" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -129,12 +137,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="backend [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/backend" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SsacretaryApplication" />
+        <item itemvalue="Gradle.backend [dependencies]" />
         <item itemvalue="Application.JsoupComponentLocalMain (1)" />
         <item itemvalue="Application.SpringBootBuildupApplication" />
         <item itemvalue="Application.JsoupComponentLocalMain" />
-        <item itemvalue="Application.SsacretaryApplication" />
       </list>
     </recent_temporary>
   </component>
