@@ -99,12 +99,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
               }
         }
       >
-        <img
-          style={{ marginTop: "10px" }}
-          src={Logo}
-          width="200px"
-          height="200px"
-        ></img>
+        <img src={Logo} width="200px" height="200px"></img>
         <HeadlineH1 style={{ marginTop: "10px" }}>로그인</HeadlineH1>
         <CommonDiv>
           <TextField
