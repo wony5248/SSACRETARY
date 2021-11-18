@@ -138,7 +138,6 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             setEmailValidNum(tmpValidationNumber);
             sendEmail(email, tmpValidationNumber);
           } else {
-
           }
         })
         .catch((error: any) => {
@@ -404,7 +403,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
                 size="small"
                 onClick={onEmailValidation}
               >
-                유효성검사
+                번호확인
               </Button>
             </div>
           </CommonDiv>
