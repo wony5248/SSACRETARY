@@ -55,7 +55,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
           setMessage(error.response);
         });
     } else {
-      alert("Email and password both required");
+      alert("이메일과 비밀번호 모두 필요합니다.");
     }
   };
 
