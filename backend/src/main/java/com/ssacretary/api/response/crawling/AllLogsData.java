@@ -9,8 +9,8 @@ import java.util.Map;
 
 @Data
 public class AllLogsData {
-    @ApiModelProperty(name = "settingId",example = "2")
-    int settingId;
+    @ApiModelProperty(name = "url",example = "2")
+    String url;
     @ApiModelProperty(name = "날짜",example = "localdatetime")
     LocalDateTime date;
     @ApiModelProperty(name = "matchSentences",example = "keyword1 was in the room.")

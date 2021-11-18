@@ -241,7 +241,7 @@ public class CrawlingServiceImpl implements CrawlingService{
                 List<Map<String,Integer>> keywordCounts = new ArrayList<Map<String,Integer>>();
                 List<String> sentences = new ArrayList<>();
                 AllLogsData allLogs = new AllLogsData();
-                allLogs.setSettingId(logList.get(i).getSetting().getSettingId());
+                allLogs.setUrl(logList.get(i).getSetting().getUrl());
                 allLogs.setDate(logList.get(i).getDate());
                 allLogs.setHtmlSuccess(logList.get(i).isHtmlSuccess());
                 allLogs.setHtmlSource(logList.get(i).getHtmlSource());

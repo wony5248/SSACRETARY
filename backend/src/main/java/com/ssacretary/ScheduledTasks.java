@@ -164,7 +164,6 @@ public class ScheduledTasks {
                 //실패 사유를 메일로 보내주고 세팅 삭제
                 System.out.println("크롤링하지마");
                 String targetUrl = s.getUrl();
-                List<String> result = null;
                 mailService(targetUrl,targetUrl,targetUrl,null);
                 settingRepository.deleteBySettingId(s.getSettingId());
             }
