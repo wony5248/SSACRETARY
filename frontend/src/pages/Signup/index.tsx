@@ -146,7 +146,12 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               ...checks,
               emailCheck: "not available",
             });
+            setMessages({
+              ...messages,
+              emailMessage: "이미 등록된 이메일입니다.",
+            });
           } else {
+            console.log(error.response.data);
           }
         });
     } else {
