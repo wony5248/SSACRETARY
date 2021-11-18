@@ -79,22 +79,25 @@
 
 "src/backend" directory 상에서
 
-```bash
+인텔리제이 필요
 
-```
+인텔리제이로 src/backend를 열고, gradle로 빌드
+
+이후 run하면 실행가능
 
 #### frontend (React)
 
 "src/frontend" directory 상에서
 
 ```bash
+// node.js 환경 필요
 $ npm install
 $ npm start
 ```
 
 #### Server
 
-> [배포문서 참고]()
+> [배포문서 참고](docs/exec.md)
 
 ## 🎨Design
 
