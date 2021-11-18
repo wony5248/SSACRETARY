@@ -87,7 +87,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
         });
         setMessages({
           ...messages,
-          emailMessage: "Email format is wrong",
+          emailMessage: "이메일 형식에 맞지 않습니다.",
         });
       }
     } else if (name === "nickname") {
@@ -114,7 +114,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
         });
         setMessages({
           ...messages,
-          phoneMessage: "Phone format is wrong",
+          phoneMessage: "전화번호 형식에 맞지 않습니다.",
         });
       }
     }
@@ -152,7 +152,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           }
         });
     } else {
-      alert("Email isn't allowed to be empty");
+      alert("이메일은 필수값입니다.");
     }
   };
 
@@ -163,7 +163,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
         emailValidCheck: "available",
         emailStep: "done",
       });
-      alert("Email validation done");
+      alert("유효한 이메일임을 확인하였습니다.");
     } else {
       setChecks({
         ...checks,
@@ -196,7 +196,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           }
         });
     } else {
-      alert("Nickname isn't allowed to be empty");
+      alert("닉네임은 필수값입니다.");
     }
   };
 
@@ -225,16 +225,14 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             });
             setMessages({
               ...messages,
-              phoneMessage: "Phone number isn't available",
+              phoneMessage: "이미 등록된 전화번호입니다.",
             });
           } else {
             console.log(error.response);
           }
         });
     } else {
-      alert(
-        "Phone isn't required. But if you want to use, then please fill with something in phone"
-      );
+      alert("전화번호는 필수는 아니나, 빈 값을 사용하실 수 없습니다.");
     }
   };
 
@@ -242,20 +240,20 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
     if (emailCheck !== "available" || emailRegexCheck !== "available") {
       setMessages({
         ...messages,
-        message: "Email check failed",
+        message: "이메일이 사용가능하지 않거나 확인되지 않았습니다.",
       });
       return;
     } else if (emailValidCheck !== "available") {
       setMessages({
         ...messages,
-        message: "Email validation failed",
+        message: "유효한 이메일인지 확인되지 않았습니다.",
       });
       return;
     }
     if (nicknameCheck !== "available") {
       setMessages({
         ...messages,
-        message: "Nickname check failed",
+        message: "닉네임이 사용가능하지 않거나 확인되지 않았습니다.",
       });
       return;
     }
@@ -263,7 +261,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
       if (phoneCheck !== "available") {
         setMessages({
           ...messages,
-          message: "phone number check failed",
+          message: "전화번호가 사용가능하지 않거나 확인되지 않았습니다.",
         });
         return;
       }
@@ -271,7 +269,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
     axiosOnSignUp(email, nickname, password, passwordCheck, phone)
       .then((res: any) => {
         if (res.status === 200) {
-          alert("Your sign up request success");
+          alert("회원가입에 성공하셨습니다.");
           props.history.push("/");
         } else {
           console.log(res);
@@ -364,7 +362,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               size="small"
               onClick={onEmailCheck}
             >
-              중복체크
+              중복확인
             </Button>
           </div>
         </CommonDiv>
@@ -384,7 +382,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
                 helperText={
                   emailValidCheck === "not available"
                     ? ""
-                    : "Validation Number is wrong"
+                    : "인증번호가 일치하지 않습니다."
                 }
               />
               <Button
@@ -407,7 +405,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
                 size="small"
                 onClick={onEmailValidation}
               >
-                유효
+                유효성검사
               </Button>
             </div>
           </CommonDiv>
@@ -426,7 +424,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               onChange={onChange}
               helperText={
                 nicknameCheck === "not available"
-                  ? "Your nickname isn't available"
+                  ? "이미 등록된 닉네임입니다."
                   : ""
               }
             />
@@ -451,7 +449,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               size="small"
               onClick={onNicknameCheck}
             >
-              유효
+              중복확인
             </Button>
           </div>
         </CommonDiv>
@@ -481,7 +479,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             }}
             onChange={onChange}
             helperText={
-              password === passwordCheck ? "" : "PasswordCheck isn't identical"
+              password === passwordCheck ? "" : "비밀번호와 일치하지 않습니다."
             }
           />
         </CommonDiv>
@@ -524,7 +522,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               }
               onClick={onPhoneCheck}
             >
-              유효
+              중복확인
             </Button>
           </div>
         </CommonDiv>
