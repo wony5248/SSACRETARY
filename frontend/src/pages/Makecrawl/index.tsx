@@ -47,10 +47,10 @@ const MakeCrawl = () => {
   const [isopen, setIsopen] = React.useState(false);
   const [checked2, setChecked2] = React.useState(false);
   const [tag, setTag] = React.useState("");
-  const [type, setType] = React.useState("or")
+  const [type, setType] = React.useState("or");
   const [time, setTime] = React.useState(1);
   const [data, setData] = React.useState(["", "", "", "", ""]);
-  let keywords:any[] = [];
+  let keywords: any[] = [];
   const [inputs, setInputs] = useState({
     url: "",
     name: "",
@@ -60,15 +60,8 @@ const MakeCrawl = () => {
     keyword4: "",
     keyword5: "",
   });
-  const {
-    url,
-    name,
-    keyword1,
-    keyword2,
-    keyword3,
-    keyword4,
-    keyword5,
-  } = inputs;
+  const { url, name, keyword1, keyword2, keyword3, keyword4, keyword5 } =
+    inputs;
   const radioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value);
   };
@@ -83,15 +76,29 @@ const MakeCrawl = () => {
     });
   };
   const makeCrawl = async () => {
-    keywords = []
-    const jwt=localStorage.getItem("jwt")
-    const email = localStorage.getItem("email")
+    keywords = [];
+    const jwt = localStorage.getItem("jwt");
+    const email = localStorage.getItem("email");
     keywords.push(keyword1);
     keywords.push(keyword2);
     keywords.push(keyword3);
     keywords.push(keyword4);
     keywords.push(keyword5);
-    await crawlAPI.addSetting(jwt, email, type, keywords, url, time, checked, checked2, name).then(() => {window.location.href="/settingprofile"});
+    await crawlAPI
+      .addSetting(
+        jwt,
+        email,
+        type,
+        keywords,
+        url,
+        time,
+        checked,
+        checked2,
+        name
+      )
+      .then(() => {
+        window.location.href = "/settingprofile";
+      });
   };
   const handleExit = () => {
     setIsopen(false);
@@ -105,9 +112,7 @@ const MakeCrawl = () => {
   const timeChange = (event: any) => {
     setTime(event.target.value);
   };
-  const tagAdd = () => {
-
-  };
+  const tagAdd = () => {};
   return (
     <div>
       {/* {isMobile ? <AppAppBar /> : undefined} */}
@@ -260,7 +265,7 @@ const MakeCrawl = () => {
               ADD
             </Addbtn> */}
             <Box
-              style={{ alignSelf: "flex-end", marginBottom: "24px" }}
+              style={{ alignSelf: "flex-end", marginBottom: "24px", }}
               sx={{ minWidth: 120 }}
             >
               <FormControl fullWidth>
@@ -282,7 +287,7 @@ const MakeCrawl = () => {
                 </Select>
               </FormControl>
             </Box>
-            <Keworddiv style={{ border: "none" }}>
+            <Keworddiv style={{ border: "none", height:"80px" }}>
               <div
                 style={{
                   width: "100%",
@@ -299,21 +304,7 @@ const MakeCrawl = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Alarmdiv>SMS 알람</Alarmdiv>
-                <Switch
-                  color="default"
-                  checked={checked2}
-                  onChange={handleChange2}
-                />
-              </div>
+
             </Keworddiv>
           </Formdiv1>
           <Btn
@@ -348,7 +339,7 @@ const MakeCrawl = () => {
                 style={{ width: "100%" }}
               ></TextField>
             </div>
-            <div style={{ width: "100%", marginTop:"12px" }}>
+            <div style={{ width: "100%", marginTop: "12px" }}>
               <TextField
                 label="이름"
                 name="name"
@@ -491,7 +482,7 @@ const MakeCrawl = () => {
                 </Select>
               </FormControl>
             </Box>
-            <Keworddiv style={{ border: "none" }}>
+            <Keworddiv style={{ border: "none", height:"60px" }}>
               <div
                 style={{
                   width: "100%",
@@ -516,12 +507,6 @@ const MakeCrawl = () => {
                   alignItems: "center",
                 }}
               >
-                <Alarmdiv>SMS 알람</Alarmdiv>
-                <Switch
-                  color="default"
-                  checked={checked2}
-                  onChange={handleChange2}
-                />
               </div>
             </Keworddiv>
           </Formdiv1>
