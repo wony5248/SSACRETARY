@@ -9,6 +9,8 @@ import java.util.List;
 public class AllSettingData {
     @ApiModelProperty(name = "settingId",example = "234")
     int settingId;
+    @ApiModelProperty(name = "name",example = "setting name")
+    String name;
     @ApiModelProperty(name = "keywords",example = "[keyword1,keyword2,...]")
     List<String> keywords;
     @ApiModelProperty(name = "url",example = "www.ssacreyary.com")

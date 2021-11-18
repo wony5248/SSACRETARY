@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,9 +29,8 @@ import java.util.Date;
 public class JwtTokenProvider {
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
     private static String secretKey = "secretKey-authorization-jwt-token-ssacretary";
-    private static Long tokenValidTime = 3000 * 60 * 1000L;       // 토큰 유효 시간 나중에 바꾸기
+    private static Long tokenValidTime = 60 * 60 * 1000L;       // 토큰 유효 시간 나중에 바꾸기
     private final UserDetailsService userDetailsService;
-    private final StringRedisTemplate redisTemplate;
 
     // 객체 초기화, secretKey Base64로 인코딩.
     @PostConstruct
@@ -40,7 +38,6 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    //public String createToken(String userPk, UserRole roles){
     public String createToken(@NotNull String email) {
         init();
         Date now = new Date();
@@ -77,6 +74,7 @@ public class JwtTokenProvider {
         } catch (io.jsonwebtoken.security.SignatureException e) {
             log.info("잘못된 JWT 서명입니다.");
             System.out.println(e);
+            return "wrong jwt";
         } catch (Exception e){
             log.info("잘못된 토큰입니다.");
             System.out.println(e);
