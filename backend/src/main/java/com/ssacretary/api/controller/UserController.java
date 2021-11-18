@@ -5,6 +5,7 @@ import com.ssacretary.api.request.user.SignupReq;
 import com.ssacretary.api.response.user.UserLoginPostRes;
 import com.ssacretary.api.service.UserServiceImpl;
 import com.ssacretary.common.response.BaseResponseBody;
+import com.ssacretary.config.JwtTokenProvider;
 import com.ssacretary.db.repository.UserRepository;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,8 @@ public class UserController {
 
     @Autowired
     UserServiceImpl userServiceImpl;
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     // 회원가입
     @PostMapping("/")
@@ -60,16 +63,26 @@ public class UserController {
     @ApiOperation(value = "회원정보 수정")
     public ResponseEntity<UserLoginPostRes> editUser(@RequestHeader(value = "Authorization") String JWT, @RequestBody EditUserReq editUserReq){
         UserLoginPostRes resbody = userServiceImpl.editUser(JWT,editUserReq);
-        if(resbody.getJwt().equals(JWT) && resbody.getEmail()!=null){
+        if(resbody.getEmail()==null)
+            return ResponseEntity.ok(UserLoginPostRes.of(402, "잘못된 토큰입니다.",null,null,null,null));
+        else if(resbody.getEmail().equals("wrong jwt"))
+            return ResponseEntity.status(401).body(UserLoginPostRes.of(401,"잘못된 JWT 서명입니다.",null,null,null,null));
+        else if(resbody.getEmail()!=null){
             return ResponseEntity.ok(UserLoginPostRes.of(200, "수정 성공",resbody.getJwt(),resbody.getEmail(),resbody.getPhoneNum(),resbody.getNickname()));
         }
-        return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "유효하지 않은 연결입니다.",resbody.getJwt(),"","",""));
+        return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "수정 실패",resbody.getJwt(),"","",""));
     }
 
     @DeleteMapping("/")
     @ApiOperation(value = "회원 탈퇴")
     public ResponseEntity<BaseResponseBody> deleteUser(@RequestHeader(value = "Authorization") String JWT){
-        boolean resbody = userServiceImpl.deleteUser(JWT);
+
+        //jwt로 본인확인후
+        String email = jwtTokenProvider.getUserInfo(JWT);
+        if(email==null) return ResponseEntity.ok(BaseResponseBody.of(402, "잘못된 토큰입니다."));
+        else if (email.equals("wrong jwt")) return ResponseEntity.status(401).body(BaseResponseBody.of(401,"잘못된 JWT 서명입니다."));
+
+        boolean resbody = userServiceImpl.deleteUser(email);
 
         if(resbody){
             return ResponseEntity.ok().body(BaseResponseBody.of(200, "회원탈퇴 성공"));

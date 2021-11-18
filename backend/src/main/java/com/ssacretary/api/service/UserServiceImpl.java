@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -60,7 +58,15 @@ public class UserServiceImpl implements UserService{
     public UserLoginPostRes editUser(String jwt, EditUserReq editUserReq){
         try{
             String email = jwtTokenProvider.getUserInfo(jwt);
-            if(!email.equals(editUserReq.getEmail())) throw new Exception();
+            if(email==null) {
+                UserLoginPostRes resbody = new UserLoginPostRes();
+                resbody.setEmail(email);
+                return resbody;
+            }else if(email.equals("wrong jwt")){
+                UserLoginPostRes resbody = new UserLoginPostRes();
+                resbody.setEmail(email);
+                return resbody;
+            }
             User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
             user.updateUserProfile(editUserReq);
             userRepository.save(user);
@@ -81,11 +87,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean deleteUser(String jwt){
+    public boolean deleteUser(String email){
         try{
-            String email = jwtTokenProvider.getUserInfo(jwt);
-            System.out.println(email);
-            if(email==null) return false;
             userRepository.deleteByEmail(email);
             return true;
         }catch (Exception e){
@@ -102,16 +105,4 @@ public class UserServiceImpl implements UserService{
 //        return BaseResponseBody.of(200, "Success Logout");
 //    }
 
-//    @Override
-//    public UserLoginPostRes getProfile(String token) {
-//        String email = jwtTokenProvider.getUserInfo(token);
-//
-//        User member = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
-//        UserLoginPostRes userLoginPostRes = new UserLoginPostRes();
-//
-//        userLoginPostRes.setEmail(email);
-//        userLoginPostRes.setNickname(member.getNickname());
-//        userLoginPostRes.setPhoneNum(member.getPhone());
-//        return userLoginPostRes;
-//    }
 }
