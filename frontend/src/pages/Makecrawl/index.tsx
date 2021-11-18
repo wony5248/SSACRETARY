@@ -68,23 +68,15 @@ const MakeCrawl = () => {
     keyword3,
     keyword4,
     keyword5,
-    // keyword6,
-    // keyword7,
-    // keyword8,
   } = inputs;
   const radioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value);
-    // console.log(event.target.value);
   };
   const tagChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTag(event.target.value);
-    // console.log(event.target.value);
   };
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
-    // console.log(value);
-    // console.log(name)
-    // console.log(inputs);
     setInputs({
       ...inputs,
       [name]: value,
@@ -99,29 +91,22 @@ const MakeCrawl = () => {
     keywords.push(keyword3);
     keywords.push(keyword4);
     keywords.push(keyword5);
-    // console.log(keywords)
-    // console.log(jwt, email, type, url, time, checked, checked2, name)
     await crawlAPI.addSetting(jwt, email, type, keywords, url, time, checked, checked2, name).then(() => {window.location.href="/settingprofile"});
   };
   const handleExit = () => {
     setIsopen(false);
-    // console.log(isopen);
   };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
-    // console.log(event.target.checked);
   };
   const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked2(event.target.checked);
-    // console.log(event.target.checked);
   };
   const timeChange = (event: any) => {
     setTime(event.target.value);
-    // console.log(event.target.value);
   };
   const tagAdd = () => {
-    // data.push({keyword:tag})
-    // console.log(data);
+
   };
   return (
     <div>

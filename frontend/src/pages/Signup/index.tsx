@@ -138,7 +138,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             setEmailValidNum(tmpValidationNumber);
             sendEmail(email, tmpValidationNumber);
           } else {
-            // console.log(res);
+
           }
         })
         .catch((error: any) => {
@@ -148,7 +148,6 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               emailCheck: "not available",
             });
           } else {
-            // console.log(error.response);
           }
         });
     } else {

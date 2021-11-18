@@ -41,20 +41,25 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
   const [sentence, setSentence] = useState([]);
   const [date, setDate] = useState([]);
   const [total, setTotal] = useState([]);
-  const [latestdata, setLatestData] : any = useState({});
+  const [latestdata, setLatestData]: any = useState({});
   useEffect(() => {
     const getData = async () => {
       await crawlAPI
         .getSettingDetail(jwt, id)
         .then(({ data }: any) => {
-          console.log(data.logs[data.logs.length-1]);
-          setLatestData(data.logs[data.logs.length-1])
+          setLatestData(data.logs[data.logs.length - 1]);
           let arr: any = [];
           let arr2: any = [];
           let arr3: any = [];
           let arr4: any = [];
-          for (let i = 0; i < data.logs[data.logs.length-1].keywordCount.length; i++) {
-            arr.push(Object.values(data.logs[data.logs.length-1].keywordCount[i])[0]);
+          for (
+            let i = 0;
+            i < data.logs[data.logs.length - 1].keywordCount.length;
+            i++
+          ) {
+            arr.push(
+              Object.values(data.logs[data.logs.length - 1].keywordCount[i])[0]
+            );
           }
           for (let j = 0; j < data.logs.length; j++) {
             let cnt = 0;
@@ -66,13 +71,20 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
               arr4.push(cnt);
             }
           }
-          data.logs.map((item: any) => {
-            if (arr2.length < 5) {
-              arr2.push(item.matchSentences.length);
-              arr3.push(moment(item.date).format("YYYYMMDD HH:mm"));
+          if (data.logs.length >= 5) {
+            for (let i = data.logs.length - 1; i > data.logs.length - 6; i--) {
+              arr2.push(data.logs[i].matchSentences.length);
+              arr3.push(moment(data.logs[i].date).format("YYYYMMDD HH:mm"));
             }
-          });
-          // console.log(arr);
+            arr2.reverse();
+            arr3.reverse();
+          } else {
+            for (let i = 0; i < data.logs.length; i++) {
+              arr2.push(data.logs[i].matchSentences.length);
+              arr3.push(moment(data.logs[i].date).format("YYYYMMDD HH:mm"));
+            }
+          }
+
           setCount(arr);
           setSentence(arr2);
           setDate(arr3);
@@ -192,7 +204,6 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
   const { id } = match.params;
   const jwt: any = localStorage.getItem("jwt");
 
-  // console.log(id);
   const Click = () => {
     window.location.href = `/changecrawl/${id}`;
   };
@@ -261,7 +272,9 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
               </Grid>
             </Grid>
           </Carddiv>
-          <Urldiv style={{ fontSize: "24px", marginTop:"0px" }}>최근 크롤링 매칭된 문장</Urldiv>
+          <Urldiv style={{ fontSize: "24px", marginTop: "0px" }}>
+            최근 크롤링 매칭된 문장
+          </Urldiv>
           <Card
             title="최근 크롤링 매칭된 문장"
             style={{
@@ -271,7 +284,7 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
               boxShadow: "5px 5px 5px 5px grey",
               flexDirection: "column",
               margin: "0 12px",
-              overflow:"auto",
+              overflow: "auto",
             }}
             variant="outlined"
           >

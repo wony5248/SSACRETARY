@@ -6,36 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="bf50da54-66c6-444b-91c2-d5e4fd4d8a3f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018170726624.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/와이어프레임/모바일 로그인 및 회원가입.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018170741303.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018170748731.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/와이어프레임/모바일 세팅조회 및 세팅 디테일.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018170801095.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/와이어프레임/모바일 로그 조회.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018171624897.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018171631108.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018171636169.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018171820317.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/와이어프레임/모바일 세팅 생성 및 세팅 변경.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018172010929.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/와이어프레임/웹 로그인.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018172019311.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/와이어프레임/웹 회원가입.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018172027447.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/와이어프레임/웹 세팅 조회.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018172035733.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/와이어프레임/웹 세팅 변경.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018172041941.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.assets/image-20211018172048831.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/와이어프레임/웹 로그 조회.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/ScheduledTasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/ScheduledTasks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/controller/CrawlingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/controller/CrawlingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/response/crawling/AllLogsData.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/response/crawling/AllLogsData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/response/crawling/AllSettingData.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/response/crawling/AllSettingData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/service/CrawlingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/service/CrawlingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/service/CrawlingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/service/CrawlingServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/api/service/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/config/JwtTokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/ssacretary/config/JwtTokenProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Settingprofile/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Settingprofile/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Settingprofile/style.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Settingprofile/style.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Changecrawl/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Changecrawl/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Makecrawl/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Makecrawl/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Signup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Signup/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/Specificcrawling/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Specificcrawling/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Userprofile/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Userprofile/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/utils/statics.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/statics.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/views/AppAppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/views/AppAppBar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
