@@ -52,7 +52,11 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
           }
         })
         .catch((error: any) => {
-          setMessage(error.response);
+          if (error.response.data.statusCode === 400) {
+            setMessage(error.response.data.message);
+          } else {
+            // console.log(error.response);
+          }
         });
     } else {
       alert("이메일과 비밀번호 모두 필요합니다.");
