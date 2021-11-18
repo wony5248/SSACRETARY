@@ -299,7 +299,7 @@ const MakeCrawl = () => {
                 <Alarmdiv>메일 알람</Alarmdiv>
 
                 <Switch
-                  color="default"
+                  color="success"
                   checked={checked}
                   onChange={handleChange}
                 />
@@ -494,7 +494,7 @@ const MakeCrawl = () => {
                 <Alarmdiv>메일 알람</Alarmdiv>
 
                 <Switch
-                  color="default"
+                  color="success"
                   checked={checked}
                   onChange={handleChange}
                 />
