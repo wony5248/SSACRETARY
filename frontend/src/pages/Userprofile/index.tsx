@@ -79,7 +79,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
         });
         setMessages({
           ...messages,
-          phoneMessage: "Phone format is wrong",
+          phoneMessage: "전화번호 형식에 맞지 않습니다",
         });
       }
     }
@@ -110,7 +110,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
           }
         });
     } else {
-      alert("nickname isn't allowed to be empty");
+      alert("닉네임은 필수값입니다.");
     }
   };
 
@@ -137,14 +137,12 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             });
             setMessages({
               ...messages,
-              phoneMessage: "Phone number isn't available",
+              phoneMessage: "이미 등록된 전화번호입니다.",
             });
           }
         });
     } else {
-      alert(
-        "Phone isn't required. But if you want to use, then please fill with something in phone"
-      );
+      alert("전화번호는 필수는 아니나, 빈 값을 사용하실 수 없습니다.");
     }
   };
 
@@ -152,7 +150,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
     if (nicknameCheck !== "available") {
       setMessages({
         ...messages,
-        message: "Nickname check failed",
+        message: "닉네임이 사용가능하지 않거나 확인되지 않았습니다.",
       });
       return;
     }
@@ -160,7 +158,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
       if (phoneCheck !== "available" || phoneRegexCheck !== "available") {
         setMessages({
           ...messages,
-          message: "Phone number check failed",
+          message: "전화번호가 사용가능하지 않거나 확인되지 않았습니다.",
         });
         return;
       }
@@ -227,10 +225,9 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
         }
       });
   };
-  //   const isMobile = useMediaQuery({ maxWidth: 612 });
+
   return (
     <div>
-      {/* {isMobile ? <AppAppBar /> : undefined} */}
       <AppAppBar />
       <Desktop>
         <div
@@ -307,7 +304,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 }
                 onClick={onNicknameCheck}
               >
-                중복 확인
+                중복확인
               </Button>
             </div>
             <div
@@ -355,7 +352,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 color={phoneCheck === "available" ? "success" : "primary"}
                 onClick={onPhoneCheck}
               >
-                중복 확인
+                중복확인
               </Button>
             </div>
           </Formdiv>
@@ -440,7 +437,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 }
                 onClick={onNicknameCheck}
               >
-                중복 확인
+                중복확인
               </Button>
             </div>
             <div
@@ -486,7 +483,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
                 }
                 onClick={onPhoneCheck}
               >
-                중복 확인
+                중복확인
               </Button>
             </div>
           </Formdiv>
