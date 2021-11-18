@@ -187,12 +187,14 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
         }
       })
       .catch((error: any) => {
-        console.log(error);
         if (error.response.data.statusCode === 400) {
           setMessages({
             ...messages,
             message: error.response.data.message,
           });
+        } else if (error.response.data.statusCode === 401) {
+          localStorage.clear();
+          props.history.push("/");
         } else {
           console.log(error.response);
         }
@@ -217,6 +219,9 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             ...messages,
             message: error.response.data.message,
           });
+        } else if (error.response.data.statusCode === 401) {
+          localStorage.clear();
+          props.history.push("/");
         } else {
           console.log(error.response);
         }
@@ -363,7 +368,11 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             onClick={onChangeProfile}
           ></Btn>
           <Btn
-            style={{ width: "500px", backgroundColor: "#D62B4B", marginBottom:"24px" }}
+            style={{
+              width: "500px",
+              backgroundColor: "#D62B4B",
+              marginBottom: "24px",
+            }}
             name="회원 탈퇴"
             onClick={onWithdrawl}
           ></Btn>
@@ -490,7 +499,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
             onClick={onChangeProfile}
           ></Btn>
           <Btn
-            style={{ backgroundColor: "#D62B4B", }}
+            style={{ backgroundColor: "#D62B4B" }}
             name="회원 탈퇴"
             onClick={onWithdrawl}
           ></Btn>
