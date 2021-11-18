@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CrawlingServiceImpl implements CrawlingService{
@@ -32,26 +33,28 @@ public class CrawlingServiceImpl implements CrawlingService{
     @Override
     public boolean addSetting(String email, AddSettingReq addSettingReq){
         try {
+            List<String> setKeyList = addSettingReq.getKeywords().stream().distinct().collect(Collectors.toList());
             //키워드가 있는지를 검사
-            for(int i=0;i<addSettingReq.getKeywords().size();i++){
-                Keyword keyId = keywordRepository.findByKeyword(addSettingReq.getKeywords().get(i));
+            for(int i=0;i<setKeyList.size();i++){
+                Keyword keyId = keywordRepository.findByKeyword(setKeyList.get(i));
                 //키워드가 존재하지 않으면
                 if(keyId==null){
                     //db에 저장
-                    keywordRepository.save(Keyword.builder().keyword(addSettingReq.getKeywords().get(i)).build());
+                    keywordRepository.save(Keyword.builder().keyword(setKeyList.get(i)).build());
                 }
             }
 
             User user = userRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 이메일입니다."));
             LocalDateTime dateTime = LocalDateTime.now();
             Setting sets = settingRepository.save(Setting.builder()
-                    .user(user).period(addSettingReq.getPeriod()).url(addSettingReq.getUrl()).type(addSettingReq.getType()).alarm(addSettingReq.isMailAlarm()).sms(addSettingReq.isSmsAlarm())
+                    .user(user).period(addSettingReq.getPeriod()).url(addSettingReq.getUrl()).type(addSettingReq.getType())
+                    .alarm(addSettingReq.isMailAlarm()).sms(addSettingReq.isSmsAlarm())
                     .name(addSettingReq.getName()).createdAt(dateTime).updatedAt(dateTime).build());
 
             //세팅키워드 테이블에 저장
             Setting setting = settingRepository.findBySettingId(sets.getSettingId());
-            for(int i=0;i<addSettingReq.getKeywords().size();i++){
-                Keyword keyword = keywordRepository.findByKeyword(addSettingReq.getKeywords().get(i));
+            for(int i=0;i<setKeyList.size();i++){
+                Keyword keyword = keywordRepository.findByKeyword(setKeyList.get(i));
                 settingKeywordRepository.save(SettingKeyword.builder().keyword(keyword).setting(setting).build());
             }
 
@@ -173,13 +176,15 @@ public class CrawlingServiceImpl implements CrawlingService{
                 settingKeywordRepository.deleteBySkId(i.getSkId());
             }
 
+            List<String> setKeyList = editSettingReq.getKeywords().stream().distinct().collect(Collectors.toList());
+
             //키워드가 있는지를 검사
-            for(int i=0;i<editSettingReq.getKeywords().size();i++){
-                Keyword key = keywordRepository.findByKeyword(editSettingReq.getKeywords().get(i));
+            for(int i=0;i<setKeyList.size();i++){
+                Keyword key = keywordRepository.findByKeyword(setKeyList.get(i));
                 //키워드가 존재하지 않으면
                 if(key==null){
                     //키워드 db에 저장
-                    Keyword k = keywordRepository.save(Keyword.builder().keyword(editSettingReq.getKeywords().get(i)).build());
+                    Keyword k = keywordRepository.save(Keyword.builder().keyword(setKeyList.get(i)).build());
                     settingKeywordRepository.save(SettingKeyword.builder().keyword(k).setting(setting).build());
                 }else {
                     settingKeywordRepository.save(SettingKeyword.builder().keyword(key).setting(setting).build());
