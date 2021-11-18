@@ -93,7 +93,6 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
     if (nickname.trim() !== "") {
       axiosOnNicknameCheck(nickname)
         .then((res: any) => {
-          // console.log(res.status);
           if (res.status === 200) {
             setChecks({
               ...checks,
@@ -171,7 +170,6 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
     )
       .then((res: any) => {
         if (res.data.statusCode === 200) {
-          // console.log(res.data);
           localStorage.setItem("jwt", res.data.jwt);
           localStorage.setItem("email", res.data.email);
           localStorage.setItem("nickname", res.data.nickname);
@@ -194,7 +192,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
           localStorage.clear();
           props.history.push("/");
         } else {
-          // console.log(error.response);
+          console.log(error.response);
         }
       });
   };
@@ -207,12 +205,11 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
           localStorage.clear();
           props.history.push("/");
         } else {
-          // console.log(res.data);
+          console.log(res.data);
         }
       })
       .catch((error: any) => {
         if (error.response.data.statusCode === 400) {
-          // console.log(error.response.data);
           setMessages({
             ...messages,
             message: error.response.data.message,
@@ -221,7 +218,7 @@ const UserProfile: React.FunctionComponent<RouteComponentProps> = (props) => {
           localStorage.clear();
           props.history.push("/");
         } else {
-          // console.log(error.response);
+          console.log(error.response);
         }
       });
   };
