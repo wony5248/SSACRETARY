@@ -24,6 +24,7 @@ export const Settingdiv = styled.div`
     border-radius: 8px;
     box-shadow: 1px 5px 5px 2px grey;
     background-color:#404040;
+    padding: 12px;
     margin-top:12px;
     margin-bottom: 12px;
     min-height: 88px;

@@ -41,40 +41,42 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
   const [sentence, setSentence] = useState([]);
   const [date, setDate] = useState([]);
   const [total, setTotal] = useState([]);
+  const [latestdata, setLatestData] : any = useState({});
   useEffect(() => {
     const getData = async () => {
       await crawlAPI
         .getSettingDetail(jwt, id)
         .then(({ data }: any) => {
-          console.log(data.logs);
+          console.log(data.logs[data.logs.length-1]);
+          setLatestData(data.logs[data.logs.length-1])
           let arr: any = [];
           let arr2: any = [];
           let arr3: any = [];
           let arr4: any = [];
-          for (let i = 0; i < data.logs[0].keywordCount.length; i++) {
-            arr.push(Object.values(data.logs[0].keywordCount[i])[0]);
+          for (let i = 0; i < data.logs[data.logs.length-1].keywordCount.length; i++) {
+            arr.push(Object.values(data.logs[data.logs.length-1].keywordCount[i])[0]);
           }
           for (let j = 0; j < data.logs.length; j++) {
-            let cnt = 0
+            let cnt = 0;
             if (j < 6) {
               for (let i = 0; i < data.logs[j].keywordCount.length; i++) {
                 // arr.push(Object.values(data.logs[j].keywordCount[i])[0]);
-                cnt += Number(Object.values(data.logs[j].keywordCount[i])[0])
+                cnt += Number(Object.values(data.logs[j].keywordCount[i])[0]);
               }
-            arr4.push(cnt)
+              arr4.push(cnt);
             }
           }
           data.logs.map((item: any) => {
-            if (arr2.length < 6) {
+            if (arr2.length < 5) {
               arr2.push(item.matchSentences.length);
               arr3.push(moment(item.date).format("YYYYMMDD HH:mm"));
             }
           });
-          console.log(arr);
+          // console.log(arr);
           setCount(arr);
           setSentence(arr2);
           setDate(arr3);
-          setTotal(arr4)
+          setTotal(arr4);
           setKeywords(data.keywords);
           // });
         })
@@ -135,7 +137,7 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
     <React.Fragment>
       <CardContent>
         <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-          최근 크롤링의 키워드 포함 문장 갯수
+          최근 5개 크롤링의 키워드 포함 문장 갯수
           {/* 최근 몇일간 크롤링 실행 횟수-> 알람 횟수? */}
         </Typography>
         <div>
@@ -175,7 +177,7 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
     <React.Fragment>
       <CardContent>
         <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-          최근 6개의 크롤링 키워드 검색 수
+          최근 5개 크롤링의 키워드 검색 수
         </Typography>
         <div>
           <Line
@@ -190,7 +192,7 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
   const { id } = match.params;
   const jwt: any = localStorage.getItem("jwt");
 
-  console.log(id);
+  // console.log(id);
   const Click = () => {
     window.location.href = `/changecrawl/${id}`;
   };
@@ -205,12 +207,13 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
             alignItems: "center",
           }}
         >
-          <Urldiv style={{ fontSize: "24px" }}>URL</Urldiv>
+          <Urldiv style={{ fontSize: "24px" }}>{latestdata.name}</Urldiv>
+          <Urldiv style={{ fontSize: "24px" }}>{latestdata.url}</Urldiv>
           <Carddiv style={{ height: "900px", maxWidth: "1200px" }}>
             <Grid style={{ height: "100%" }} container spacing={2}>
               <Grid style={{ height: "45%" }} item xs={6}>
                 <Card
-                  title="최근 크롤링의 키워드 포함 문장 갯수"
+                  title="최근 5개 크롤링의 키워드 포함 문장 갯수"
                   style={{
                     height: "100%",
                     display: "flex",
@@ -242,7 +245,7 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
               </Grid>
               <Grid style={{ height: "45%" }} item xs={12}>
                 <Card
-                  title="최근 6개의 크롤링 키워드 검색 수"
+                  title="최근 5개의 크롤링 키워드 검색 수"
                   style={{
                     height: "100%",
                     display: "flex",
@@ -258,6 +261,22 @@ const SettingProfile: React.FunctionComponent = ({ match }: any) => {
               </Grid>
             </Grid>
           </Carddiv>
+          <Urldiv style={{ fontSize: "24px", marginTop:"0px" }}>최근 크롤링 매칭된 문장</Urldiv>
+          <Card
+            title="최근 크롤링 매칭된 문장"
+            style={{
+              height: "500px",
+              width: "80%",
+              padding: "0 1%",
+              boxShadow: "5px 5px 5px 5px grey",
+              flexDirection: "column",
+              margin: "0 12px",
+              overflow:"auto",
+            }}
+            variant="outlined"
+          >
+            {latestdata.matchSentences}
+          </Card>
           <Btn
             style={{ width: "90%", maxWidth: "1200px" }}
             onClick={Click}

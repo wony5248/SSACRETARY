@@ -22,7 +22,7 @@ const sendEmail = function (to_email: String, message: String) {
       message: message,
     })
     .then((res: any) => {
-      console.log(res);
+      // console.log(res);
     })
     .catch((error: any) => {
       alert("There is network error, please try again");

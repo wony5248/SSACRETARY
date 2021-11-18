@@ -79,8 +79,41 @@ const Logprofile = () => {
                           fontWeight: 600,
                         }}
                       >
-                        {item.settingId}
+                        URL
                       </div>
+                      <div>{item.url}</div>
+                      <div
+                        style={{
+                          fontSize: "18px",
+                          fontFamily: "Black Han Sans",
+
+                          fontWeight: 600,
+                        }}
+                      >
+                        세팅 이름
+                      </div>
+                      <div>{item.name}</div>
+                      <div
+                        style={{
+                          fontSize: "18px",
+                          fontFamily: "Black Han Sans",
+
+                          fontWeight: 600,
+                        }}
+                      >
+                        {item.name}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "18px",
+                          fontFamily: "Black Han Sans",
+
+                          fontWeight: 600,
+                        }}
+                      >
+                        매칭 키워드
+                      </div>
+                      <div>{Object.keys(item.keywordCount)}</div>
                       <div
                         style={{
                           fontSize: "18px",

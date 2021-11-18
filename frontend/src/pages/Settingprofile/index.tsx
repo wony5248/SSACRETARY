@@ -26,7 +26,7 @@ const Mobile = ({ children }: any) => {
 };
 
 const SettingProfile: React.FunctionComponent = () => {
-  const [data, setData] = useState([]);
+  const [data, setData]:any = useState([]);
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
 
@@ -34,7 +34,11 @@ const SettingProfile: React.FunctionComponent = () => {
       await crawlAPI
         .getAllSettings(jwt)
         .then(({ data }: any) => {
-          console.log(data);
+          if (data.statusCode == 401)
+          {
+            localStorage.clear()
+            window.location.href="/"
+          };
           setData(data.allSettingData);
         })
         .catch((e) => console.log(e));
@@ -67,14 +71,15 @@ const SettingProfile: React.FunctionComponent = () => {
                 boxShadow: "5px 5px 5px 5px grey",
               }}
             >
-              {data.map((item: any, index) => (
+              {data.map((item: any, index:any) => (
                 <Settingdiv
                   onClick={() =>
                     (window.location.href = `/specificcrawling/${item.settingId}`)
                   }
-                  style={{ width: "60%" }}
+                  style={{ width: "60%", height:"102px" }}
                   key={index}
                 >
+                  <Settingtitlediv>{item.name}</Settingtitlediv>
                   <Settingtitlediv>{item.url}</Settingtitlediv>
                   <Settingtagdiv>
                     {item.keywords.map((items: any) => (
@@ -119,13 +124,15 @@ const SettingProfile: React.FunctionComponent = () => {
           <Headerdiv>나의 크롤링</Headerdiv>
           {data.length ? (
             <Bodydiv>
-              {data.map((item: any, index) => (
+              {data.map((item: any, index:any) => (
                 <Settingdiv
+                  style={{width:"80%"}}
                   onClick={() =>
                     (window.location.href = `/specificcrawling/${item.settingId}`)
                   }
                   key={index}
                 >
+                  <Settingtitlediv>{item.name}</Settingtitlediv>
                   <Settingtitlediv>{item.url}</Settingtitlediv>
                   <Settingtagdiv>
                     {item.keywords.map((items: any) => (

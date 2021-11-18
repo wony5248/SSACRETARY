@@ -138,7 +138,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             setEmailValidNum(tmpValidationNumber);
             sendEmail(email, tmpValidationNumber);
           } else {
-            console.log(res);
+            // console.log(res);
           }
         })
         .catch((error: any) => {
@@ -148,7 +148,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               emailCheck: "not available",
             });
           } else {
-            console.log(error.response);
+            // console.log(error.response);
           }
         });
     } else {
@@ -182,7 +182,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               nicknameCheck: "available",
             });
           } else {
-            console.log(res);
+            // console.log(res);
           }
         })
         .catch((error: any) => {
@@ -192,7 +192,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               nicknameCheck: "not available",
             });
           } else {
-            console.log(error.response);
+            // console.log(error.response);
           }
         });
     } else {
@@ -214,7 +214,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               phoneMessage: "",
             });
           } else {
-            console.log(res);
+            // console.log(res);
           }
         })
         .catch((error: any) => {
@@ -228,7 +228,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
               phoneMessage: "이미 등록된 전화번호입니다.",
             });
           } else {
-            console.log(error.response);
+            // console.log(error.response);
           }
         });
     } else {
@@ -272,7 +272,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
           alert("회원가입에 성공하셨습니다.");
           props.history.push("/");
         } else {
-          console.log(res);
+          // console.log(res);
         }
       })
       .catch((error: any) => {
@@ -282,7 +282,7 @@ const SignUp: React.FunctionComponent<RouteComponentProps> = (props) => {
             message: error.response.data.message,
           });
         } else {
-          console.log(error.response);
+          // console.log(error.response);
         }
       });
   };
