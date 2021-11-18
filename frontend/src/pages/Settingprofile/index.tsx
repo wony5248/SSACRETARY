@@ -61,7 +61,7 @@ const SettingProfile: React.FunctionComponent = () => {
           }}
         >
           <Headerdiv style={{ fontSize: "24px" }}>나의 크롤링</Headerdiv>
-          {data.length ? (
+          {data ? (
             <Bodydiv
               style={{
                 height: "1000px",
@@ -122,7 +122,7 @@ const SettingProfile: React.FunctionComponent = () => {
           }}
         >
           <Headerdiv>나의 크롤링</Headerdiv>
-          {data.length ? (
+          {data ? (
             <Bodydiv>
               {data.map((item: any, index:any) => (
                 <Settingdiv

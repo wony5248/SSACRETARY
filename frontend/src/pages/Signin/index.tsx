@@ -52,7 +52,11 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
           }
         })
         .catch((error: any) => {
-          setMessage(error.response);
+          if (error.response.data.statusCode === 400) {
+            setMessage(error.response.data.message);
+          } else {
+            // console.log(error.response);
+          }
         });
     } else {
       alert("이메일과 비밀번호 모두 필요합니다.");
@@ -96,7 +100,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
         }
       >
         <img src={Logo} width="200px" height="200px"></img>
-        <HeadlineH1>로그인</HeadlineH1>
+        <HeadlineH1 style={{ marginTop: "10px" }}>로그인</HeadlineH1>
         <CommonDiv>
           <TextField
             label="Email"
@@ -121,7 +125,7 @@ const SignIn: React.FunctionComponent<RouteComponentProps> = (props) => {
           {message !== "" ? <Alert severity="error">{message}</Alert> : null}
         </CommonDiv>
         <CommonDiv>
-          <div>
+          <div style={{ marginBottom: "10px" }}>
             <Button
               sx={{ width: "200px", backgroundColor: "#404040" }}
               variant="contained"

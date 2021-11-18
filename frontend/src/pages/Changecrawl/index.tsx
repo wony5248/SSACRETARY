@@ -331,7 +331,7 @@ const ChangeCrawl = ({ match }: any) => {
                 </Select>
               </FormControl>
             </Box>
-            <Keworddiv style={{ border: "none" }}>
+            <Keworddiv style={{ border: "none", height:"60px" }}>
               <div
                 style={{
                   width: "100%",
@@ -346,21 +346,6 @@ const ChangeCrawl = ({ match }: any) => {
                   color="default"
                   checked={checked}
                   onChange={handleChange}
-                />
-              </div>
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Alarmdiv>SMS 알람</Alarmdiv>
-                <Switch
-                  color="default"
-                  checked={checked2}
-                  onChange={handleChange2}
                 />
               </div>
             </Keworddiv>
@@ -537,7 +522,7 @@ const ChangeCrawl = ({ match }: any) => {
                 </Select>
               </FormControl>
             </Box>
-            <Keworddiv style={{ border: "none" }}>
+            <Keworddiv style={{ border: "none", height:"60px" }}>
               <div
                 style={{
                   width: "100%",
@@ -554,21 +539,7 @@ const ChangeCrawl = ({ match }: any) => {
                   onChange={handleChange}
                 />
               </div>
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Alarmdiv>SMS 알람</Alarmdiv>
-                <Switch
-                  color="default"
-                  checked={checked2}
-                  onChange={handleChange2}
-                />
-              </div>
+
             </Keworddiv>
           </Formdiv1>
           <Btn name="크롤링 변경" onClick={updateCrawl}></Btn>
