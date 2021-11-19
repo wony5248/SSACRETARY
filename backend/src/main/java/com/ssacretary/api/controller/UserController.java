@@ -52,9 +52,9 @@ public class UserController {
         if(resbody.getEmail()!=null)
             return ResponseEntity.ok(UserLoginPostRes.of(200, "로그인 성공",resbody.getJwt(), resbody.getEmail(), resbody.getPhoneNum(), resbody.getNickname()));
         else if(resbody.getNickname().equals("wrong email"))
-            return ResponseEntity.status(402).body(UserLoginPostRes.of(402, "가입되지 않은 E-MAIL 입니다.","","","",""));
+            return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "가입되지 않은 E-MAIL 입니다.","","","",""));
         else if(resbody.getNickname().equals("wrong password"))
-            return ResponseEntity.status(402).body(UserLoginPostRes.of(402, "잘못된 비밀번호입니다.","","","",""));
+            return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "잘못된 비밀번호입니다.","","","",""));
         return ResponseEntity.status(400).body(UserLoginPostRes.of(400, "로그인 실패","","","",""));
     }
 
