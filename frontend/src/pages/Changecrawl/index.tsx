@@ -343,7 +343,8 @@ const ChangeCrawl = ({ match }: any) => {
                 <Alarmdiv>메일 알람</Alarmdiv>
 
                 <Switch
-                  color="default"
+                  color="success"
+                  
                   checked={checked}
                   onChange={handleChange}
                 />
@@ -534,7 +535,7 @@ const ChangeCrawl = ({ match }: any) => {
                 <Alarmdiv>메일 알람</Alarmdiv>
 
                 <Switch
-                  color="default"
+                  color="success"
                   checked={checked}
                   onChange={handleChange}
                 />
